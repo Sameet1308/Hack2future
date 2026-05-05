@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Glass Box AI — End-to-End Claim Flow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --bg: #0b1020;
+    --panel: #11172b;
+    --ink: #e7ecf5;
+    --muted: #8a93a6;
+    --line: #2a3350;
+    --accent: #f5b73a;          /* Glass Box gold */
+    --azure: #0078d4;           /* Azure blue */
+    --power: #742774;           /* Power Platform purple */
+    --teal: #18a999;            /* channels */
+    --green: #2ea44f;           /* auto-approve */
+    --amber: #d97706;           /* teams review */
+    --red: #c2362e;             /* escalate */
+  }
+  html, body { background: var(--bg); color: var(--ink); margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { padding: 28px 36px 8px; }
+  h1 { margin: 0 0 6px; font-size: 22px; letter-spacing: 0.2px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+  main { padding: 0 24px 40px; display: flex; justify-content: center; }
+  .frame { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; max-width: 1480px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.35); }
+  svg { width: 100%; height: auto; display: block; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; padding: 12px 14px; background: #0e1426; border: 1px solid var(--line); border-radius: 10px; font-size: 12px; color: var(--muted); }
+  .legend .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+  .legend .item { white-space: nowrap; }
+  footer { color: var(--muted); font-size: 11px; padding: 0 36px 28px; text-align: right; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Glass Box AI — End-to-End Claim Flow</h1>
+  <div class="sub">Five intake channels → Intake Agent → parallel agentic processing → adjudication → 3-tier routing. Every step writes to the Glass Box audit trail.</div>
+</header>
+<main>
+  <div class="frame">
+    <svg viewBox="0 0 1440 980" role="img" aria-label="Glass Box AI architecture">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#9aa6c7" />
+        </marker>
+        <marker id="arrowGold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#f5b73a" />
+        </marker>
+        <style><![CDATA[
+          .node { stroke: #2a3350; stroke-width: 1.2; }
+          .label { fill: #e7ecf5; font: 600 13px ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; }
+          .sublabel { fill: #b5bfd6; font: 500 11px ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; }
+          .tag { fill: #8a93a6; font: 500 10px ui-monospace, SFMono-Regular, Menlo, monospace; }
+          .zone-label { fill: #8a93a6; font: 700 11px ui-sans-serif; letter-spacing: 1.4px; }
+          .flow { stroke: #9aa6c7; stroke-width: 1.6; fill: none; }
+          .flow-thick { stroke: #c8d2ec; stroke-width: 2.2; fill: none; }
+          .glass-flow { stroke: #f5b73a; stroke-width: 1.2; stroke-dasharray: 4 3; fill: none; opacity: 0.85; }
+          .zone { fill: rgba(255,255,255,0.025); stroke: #2a3350; stroke-width: 1; stroke-dasharray: 4 4; }
+          .pill { rx: 16; ry: 16; }
+        ]]></style>
+      </defs>
+
+      <!-- ================= ZONE BACKGROUNDS ================= -->
+      <rect class="zone" x="20"   y="20"  width="1080" height="120" rx="10" />
+      <text class="zone-label" x="36" y="42">CHANNELS · POLICYHOLDER TOUCHPOINTS</text>
+
+      <rect class="zone" x="20"   y="170" width="1080" height="100" rx="10" />
+      <text class="zone-label" x="36" y="192">INTAKE · COPILOT STUDIO</text>
+
+      <rect class="zone" x="20"   y="300" width="1080" height="80"  rx="10" />
+      <text class="zone-label" x="36" y="322">DATA · DATAVERSE</text>
+
+      <rect class="zone" x="20"   y="410" width="1080" height="80"  rx="10" />
+      <text class="zone-label" x="36" y="432">ORCHESTRATION · POWER AUTOMATE</text>
+
+      <rect class="zone" x="20"   y="520" width="1080" height="160" rx="10" />
+      <text class="zone-label" x="36" y="542">PARALLEL AGENTS</text>
+
+      <rect class="zone" x="20"   y="710" width="1080" height="100" rx="10" />
+      <text class="zone-label" x="36" y="732">ADJUDICATION · AZURE OPENAI</text>
+
+      <rect class="zone" x="20"   y="840" width="1080" height="120" rx="10" />
+      <text class="zone-label" x="36" y="862">ROUTING · 3 TIERS</text>
+
+      <!-- Glass Box sidebar zone -->
+      <rect class="zone" x="1130" y="20"  width="290"  height="940" rx="10" />
+      <text class="zone-label" x="1146" y="42">GLASS BOX · AUDIT TRAIL</text>
+
+      <!-- ================= CHANNELS ================= -->
+      <g>
+        <rect class="node pill" x="60"  y="68" width="180" height="52" fill="#0d3a4a" />
+        <text class="label"   x="150" y="92"  text-anchor="middle">WhatsApp</text>
+        <text class="sublabel" x="150" y="108" text-anchor="middle">Azure Communication</text>
+
+        <rect class="node pill" x="260" y="68" width="180" height="52" fill="#0d3a4a" />
+        <text class="label"   x="350" y="92"  text-anchor="middle">Web Chat</text>
+        <text class="sublabel" x="350" y="108" text-anchor="middle">Embedded widget</text>
+
+        <rect class="node pill" x="460" y="68" width="180" height="52" fill="#0d3a4a" />
+        <text class="label"   x="550" y="92"  text-anchor="middle">SMS</text>
+        <text class="sublabel" x="550" y="108" text-anchor="middle">Azure Communication</text>
+
+        <rect class="node pill" x="660" y="68" width="180" height="52" fill="#0d3a4a" />
+        <text class="label"   x="750" y="92"  text-anchor="middle">Email</text>
+        <text class="sublabel" x="750" y="108" text-anchor="middle">Power Automate inbox</text>
+
+        <rect class="node pill" x="860" y="68" width="180" height="52" fill="#0d3a4a" />
+        <text class="label"   x="950" y="92"  text-anchor="middle">Microsoft Teams</text>
+        <text class="sublabel" x="950" y="108" text-anchor="middle">Native channel</text>
+      </g>
+
+      <!-- Channels → Intake Agent (5 funneling lines) -->
+      <path class="flow" d="M150,120 V155 L560,155 V200" marker-end="url(#arrow)" />
+      <path class="flow" d="M350,120 V145 L560,145 V200" marker-end="url(#arrow)" />
+      <path class="flow" d="M550,120 V200" marker-end="url(#arrow)" />
+      <path class="flow" d="M750,120 V145 L560,145 V200" marker-end="url(#arrow)" />
+      <path class="flow" d="M950,120 V155 L560,155 V200" marker-end="url(#arrow)" />
+
+      <!-- ================= INTAKE AGENT ================= -->
+      <g>
+        <rect class="node pill" x="380" y="200" width="360" height="60" fill="#3a1d56" />
+        <text class="label"   x="560" y="226" text-anchor="middle">Intake Agent (Copilot Studio)</text>
+        <text class="sublabel" x="560" y="244" text-anchor="middle">FNOL · empathy · captures incident · accepts uploads</text>
+      </g>
+
+      <!-- Intake → Dataverse Claims -->
+      <path class="flow-thick" d="M560,260 V330" marker-end="url(#arrow)" />
+      <text class="tag" x="572" y="296">create row</text>
+
+      <!-- ================= DATAVERSE ================= -->
+      <g>
+        <rect class="node pill" x="380" y="330" width="160" height="40" fill="#3a1d56" />
+        <text class="label" x="460" y="354" text-anchor="middle">Claims</text>
+
+        <rect class="node pill" x="560" y="330" width="160" height="40" fill="#3a1d56" />
+        <text class="label" x="640" y="354" text-anchor="middle">Documents</text>
+
+        <rect class="node pill" x="740" y="330" width="160" height="40" fill="#3a1d56" />
+        <text class="label" x="820" y="354" text-anchor="middle">Communications</text>
+
+        <rect class="node pill" x="920" y="330" width="160" height="40" fill="#3a1d56" />
+        <text class="label" x="1000" y="354" text-anchor="middle">Policies</text>
+      </g>
+
+      <!-- Dataverse Claims → Power Automate trigger -->
+      <path class="flow-thick" d="M460,370 V440" marker-end="url(#arrow)" />
+      <text class="tag" x="472" y="408">on row added</text>
+
+      <!-- ================= ORCHESTRATOR ================= -->
+      <g>
+        <rect class="node pill" x="280" y="440" width="560" height="44" fill="#1d2a52" />
+        <text class="label" x="560" y="467" text-anchor="middle">Power Automate · Master Orchestration Flow (parallel branches)</text>
+      </g>
+
+      <!-- Orchestrator → 3 parallel agents -->
+      <path class="flow-thick" d="M380,484 V520 V550" marker-end="url(#arrow)" />
+      <path class="flow-thick" d="M560,484 V550" marker-end="url(#arrow)" />
+      <path class="flow-thick" d="M740,484 V520 V550" marker-end="url(#arrow)" />
+
+      <!-- ================= PARALLEL AGENTS ================= -->
+      <g>
+        <!-- Extraction -->
+        <rect class="node pill" x="240" y="550" width="280" height="110" fill="#06304a" />
+        <text class="label"   x="380" y="578" text-anchor="middle">Extraction Agent</text>
+        <text class="sublabel" x="380" y="598" text-anchor="middle">Power Automate +</text>
+        <text class="sublabel" x="380" y="613" text-anchor="middle">Azure AI Document Intelligence</text>
+        <text class="tag"      x="380" y="638" text-anchor="middle">photos · invoices · IDs · FIR</text>
+
+        <!-- Policy -->
+        <rect class="node pill" x="540" y="550" width="280" height="110" fill="#06304a" />
+        <text class="label"   x="680" y="578" text-anchor="middle">Policy Agent</text>
+        <text class="sublabel" x="680" y="598" text-anchor="middle">Power Automate +</text>
+        <text class="sublabel" x="680" y="613" text-anchor="middle">Azure AI Search (RAG)</text>
+        <text class="tag"      x="680" y="638" text-anchor="middle">coverage · deductible · exclusions</text>
+
+        <!-- Validation -->
+        <rect class="node pill" x="840" y="550" width="240" height="110" fill="#06304a" />
+        <text class="label"   x="960" y="578" text-anchor="middle">Validation Agent</text>
+        <text class="sublabel" x="960" y="598" text-anchor="middle">Power Automate +</text>
+        <text class="sublabel" x="960" y="613" text-anchor="middle">MCP / mocked APIs</text>
+        <text class="tag"      x="960" y="638" text-anchor="middle">weather · duplicate · estimate</text>
+      </g>
+
+      <!-- 3 agents → adjudication (converging) -->
+      <path class="flow-thick" d="M380,660 V695 L560,695 V750" marker-end="url(#arrow)" />
+      <path class="flow-thick" d="M680,660 V750" marker-end="url(#arrow)" />
+      <path class="flow-thick" d="M960,660 V695 L560,695 V750" marker-end="url(#arrow)" />
+
+      <!-- ================= ADJUDICATION ================= -->
+      <g>
+        <rect class="node pill" x="380" y="750" width="360" height="60" fill="#06304a" />
+        <text class="label"   x="560" y="776" text-anchor="middle">Adjudication Agent</text>
+        <text class="sublabel" x="560" y="794" text-anchor="middle">Azure OpenAI · synthesize · confidence · recommend · explain</text>
+      </g>
+
+      <!-- Adjudication → 3 routing tiers -->
+      <path class="flow-thick" d="M460,810 V860 L200,860 V880" marker-end="url(#arrow)" />
+      <path class="flow-thick" d="M560,810 V880" marker-end="url(#arrow)" />
+      <path class="flow-thick" d="M660,810 V860 L920,860 V880" marker-end="url(#arrow)" />
+
+      <text class="tag" x="220" y="852"  text-anchor="middle">≥ 90%</text>
+      <text class="tag" x="572" y="852">60–90%</text>
+      <text class="tag" x="920" y="852" text-anchor="middle">&lt; 60%</text>
+
+      <!-- ================= ROUTING TIERS ================= -->
+      <g>
+        <rect class="node pill" x="60"  y="880" width="280" height="60" fill="#103e1f" stroke="#2ea44f" />
+        <text class="label"   x="200" y="906" text-anchor="middle">Tier 1 · Auto-Approve</text>
+        <text class="sublabel" x="200" y="924" text-anchor="middle">Settle in minutes · zero human touch</text>
+
+        <rect class="node pill" x="430" y="880" width="280" height="60" fill="#3a2a0c" stroke="#d97706" />
+        <text class="label"   x="570" y="906" text-anchor="middle">Tier 2 · Teams Adaptive Card</text>
+        <text class="sublabel" x="570" y="924" text-anchor="middle">Adjuster: 1-click approve / deny</text>
+
+        <rect class="node pill" x="780" y="880" width="280" height="60" fill="#3b1816" stroke="#c2362e" />
+        <text class="label"   x="920" y="906" text-anchor="middle">Tier 3 · Human Escalation</text>
+        <text class="sublabel" x="920" y="924" text-anchor="middle">Live CSR · full transcript handover</text>
+      </g>
+
+      <!-- ================= GLASS BOX SIDEBAR ================= -->
+      <g>
+        <rect class="node" x="1170" y="80" width="220" height="60" rx="10" fill="#3a2a0c" stroke="#f5b73a" stroke-width="1.5" />
+        <text class="label"   x="1280" y="106" text-anchor="middle" fill="#f5b73a">Decision_Rationale</text>
+        <text class="sublabel" x="1280" y="124" text-anchor="middle">Dataverse table</text>
+
+        <text class="sublabel" x="1280" y="170" text-anchor="middle">Every agent writes a row:</text>
+        <text class="tag"      x="1280" y="190" text-anchor="middle">AgentName · Action · PolicyRef</text>
+        <text class="tag"      x="1280" y="206" text-anchor="middle">DataPoints · APIResult · Score</text>
+        <text class="tag"      x="1280" y="222" text-anchor="middle">HumanReadableExplanation</text>
+
+        <!-- Explanation Agent reads from Glass Box -->
+        <rect class="node pill" x="1170" y="800" width="220" height="60" fill="#3a1d56" stroke="#f5b73a" stroke-width="1.2" />
+        <text class="label"   x="1280" y="826" text-anchor="middle">Explanation Agent</text>
+        <text class="sublabel" x="1280" y="844" text-anchor="middle">Reads Glass Box · replies to user</text>
+
+        <path class="glass-flow" d="M1280,140 V795" marker-end="url(#arrowGold)" />
+        <text class="tag" x="1296" y="470" fill="#f5b73a">read for explanation</text>
+      </g>
+
+      <!-- Dashed gold arrows from each agent → Glass Box -->
+      <path class="glass-flow" d="M520,605 H1170" marker-end="url(#arrowGold)" />
+      <path class="glass-flow" d="M820,605 H1170" marker-end="url(#arrowGold)" />
+      <path class="glass-flow" d="M1080,605 H1170" marker-end="url(#arrowGold)" />
+      <path class="glass-flow" d="M740,780 H1080 V140 H1170" marker-end="url(#arrowGold)" />
+      <path class="glass-flow" d="M740,230 H1100 V100 H1170" marker-end="url(#arrowGold)" />
+
+      <!-- Explanation Agent → channels (notify policyholder) -->
+      <path class="flow" d="M1170,830 H80 V120" marker-end="url(#arrow)" />
+      <text class="tag" x="100" y="836" fill="#9aa6c7">notify on original channel</text>
+    </svg>
+
+    <div class="legend">
+      <span class="item"><span class="swatch" style="background:#0d3a4a"></span>Channel · policyholder touchpoint</span>
+      <span class="item"><span class="swatch" style="background:#3a1d56"></span>Copilot Studio / Dataverse</span>
+      <span class="item"><span class="swatch" style="background:#1d2a52"></span>Power Automate orchestration</span>
+      <span class="item"><span class="swatch" style="background:#06304a"></span>Azure AI service · agent</span>
+      <span class="item"><span class="swatch" style="background:#103e1f;border:1px solid #2ea44f"></span>Tier 1 auto-approve</span>
+      <span class="item"><span class="swatch" style="background:#3a2a0c;border:1px solid #d97706"></span>Tier 2 Teams review</span>
+      <span class="item"><span class="swatch" style="background:#3b1816;border:1px solid #c2362e"></span>Tier 3 human escalation</span>
+      <span class="item"><span class="swatch" style="background:#f5b73a"></span>Glass Box audit trail (dashed gold lines)</span>
+    </div>
+  </div>
+</main>
+<footer>Glass Box AI · Hack2Future Business Challenge 2 · open this file in any browser</footer>
+</body>
+</html>
