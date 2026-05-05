@@ -1,0 +1,40 @@
+# Secrets & env
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+
+# Claude Code local state
+.claude/
+.claude-cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Node / Python (if any tooling lands here later)
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build / temp
+dist/
+build/
+out/
+tmp/
+*.log
+
+# Power Platform / Azure exports (often large or sensitive)
+*.zip
+*.cmproj
+exports/
+solutions-export/
