@@ -9,10 +9,10 @@ Team of 4–5 people, new to Microsoft Power Platform / Azure AI. Claude is the 
 ## Product
 **Glass Box AI** — multi-agent insurance claims system. Five specialized agents (Intake, Policy, Extraction, Validation, Adjudication) + an Explanation Agent. Every AI decision is logged in an explainable "Glass Box" audit trail (Dataverse `Decision_Rationale` table).
 
-**Three differentiators:**
-1. **Empathy** — one Copilot Studio agent across WhatsApp / Web Chat / SMS / Email / Teams
-2. **Speed** — parallel agent orchestration via Power Automate (not sequential)
-3. **Trust** — every AI decision logged in plain English
+**Three differentiators (US market framing):**
+1. **Regulatory trust** — every AI decision logged in plain English. Maps directly to Colorado SB21-169, NAIC AI Model Bulletin (20+ states), NY DFS Circular Letter No. 7. *This is the lead pitch point.*
+2. **Speed** — parallel agent orchestration via Power Automate (auto-approve in minutes, vs ~14 days at incumbents)
+3. **Empathy** — one Copilot Studio agent across Mobile App / Web Chat / SMS / Email / Teams
 
 ## Stack (use only these)
 Copilot Studio · Azure AI Document Intelligence · Azure AI Search · Azure OpenAI · Power Automate · Dataverse · Microsoft Teams · Azure Communication Services · MCP Tools (mocked for demo)
@@ -22,7 +22,9 @@ Copilot Studio · Azure AI Document Intelligence · Azure AI Search · Azure Ope
 - [docs/02_architecture.md](docs/02_architecture.md) — 4-layer system, agent designs, sample data, Adaptive Card JSON
 - [docs/03_implementation_tips.md](docs/03_implementation_tips.md) — gotchas, known limitations, workarounds
 - [docs/04_daily_tasks.md](docs/04_daily_tasks.md) — day-by-day plan with chat-starter prompts per task
+- [docs/us_market_context.md](docs/us_market_context.md) — **US market overlay** (4 tables: components × US context, data points, APIs, ownership)
 - [docs/decisions.md](docs/decisions.md) — running log of architectural choices
+- [docs/diagrams/architecture.html](docs/diagrams/architecture.html) — end-to-end flow diagram (open in browser)
 
 ## How Claude must help
 1. Step-by-step instructions — team is new to MS tools
@@ -41,13 +43,16 @@ Copilot Studio · Azure AI Document Intelligence · Azure AI Search · Azure Ope
 - Sample policyholder names in `docs/02_architecture.md` are fictional — keep them so.
 
 ## Current sprint phase
-**Week 1 — Day 1 (2026-05-04)** — Environment setup, Dataverse tables, Intake Agent, Extraction pipeline
+**Week 1 — Day 2 (2026-05-05)** — Environment setup, Dataverse tables, Intake Agent, Extraction pipeline
 
 ## Decisions already made (see docs/decisions.md for rationale)
+- **US market framing** (2026-05-05). Sample data, validation APIs, agent prompts all US-specific. Pitch leads with regulatory compliance (Colorado SB21-169 / NAIC).
+- **Channel mix**: Mobile App (web chat in phone frame) + Web + Email + Teams + SMS. WhatsApp deferred to roadmap (US adoption ≈ 0%). Voice/IVR architecture-only.
 - **Policy Agent** built as Power Automate flow calling Azure AI Search API directly (not Copilot Studio multi-agent handoff). Reason: agent-to-agent handoff strips citations.
-- **MCP "validation"** mocked via Power Automate HTTP-trigger flows returning hardcoded JSON. Reason: real MCP wiring is overkill for demo.
-- **Voice/IVR channel** dropped from live demo (P3, requires Dynamics 365 Contact Center). Show in architecture only.
+- **External validation APIs**: NOAA Weather + NHTSA Recalls are **real** (free public APIs). ISO ClaimSearch / NICB / CARFAX / DMV / KBB / telematics all **mocked** via Power Automate HTTP-trigger flows.
+- **Telematics**: mocked (Suraj). Fitbit/health sensors **deferred** to roadmap.
 - **Azure OpenAI model** = GPT-4.1 or GPT-5 (GPT-4o retired Oct 2025).
+- **Named owners**: Prasad on Policy data + RAG; Suraj on telematics mock.
 
 ## How to run
 This repo is currently a **knowledge + planning** repo. Actual builds live in Power Platform (Copilot Studio, Power Automate, Dataverse) and Azure Portal — not in this filesystem. This repo holds:

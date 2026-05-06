@@ -5,13 +5,16 @@
 ### Layer 1: Frontend / Interaction Channels
 All channels feed into the same Intake Agent built in Copilot Studio.
 
+> **US market**: WhatsApp is ~0% adoption in US auto claims. Channel mix below reflects the post-pivot decision (see `decisions.md` 2026-05-05).
+
 | Channel | Technology | Priority | Status |
 |---------|-----------|----------|--------|
+| Mobile App (web chat in phone frame) | Copilot Studio embedded widget styled as mobile | P0 (Must have) | |
 | Web Chat | Copilot Studio embedded widget | P0 (Must have) | |
 | Email | Power Automate shared mailbox monitor | P0 (Must have) | |
 | Teams | Copilot Studio Teams channel | P0 (Must have) | |
-| WhatsApp | Copilot Studio + Azure Communication Services | P1 (Should have) | |
-| SMS | Azure Communication Services | P2 (Nice to have) | |
+| SMS | Azure Communication Services | P1 (Should have) | |
+| WhatsApp | Copilot Studio + Azure Communication Services | P3 (International / roadmap) | |
 | Voice/IVR | Copilot Studio Telephony (needs Dynamics 365) | P3 (Stretch) | |
 
 ### Layer 2: Orchestration Hub — Power Automate
@@ -85,11 +88,11 @@ Power Automate flow:
 7. Check photo quality (Azure OpenAI: "Is this photo clear enough to assess damage?")
 8. Log extraction results to Decision_Rationale
 
-Document requirements per claim type:
-- **Auto (Own Damage)**: Damage photos (min 2), Driving license, FIR copy (if accident), Repair estimate
-- **Auto (Third Party)**: Same as above + Third party details
-- **Health**: Hospital bills, Discharge summary, Prescription, ID proof
-- **Property**: Damage photos, Repair/contractor estimate, Proof of ownership
+Document requirements per claim type (US):
+- **Auto (Collision / Comprehensive)**: Damage photos (min 2 angles), State Driver's License, Vehicle Title/Registration, Insurance Card, Police Report (if filed), Repair estimate from DRP or chosen shop
+- **Auto (Third Party / Liability)**: Same as above + other party's carrier, policy #, license, registration; witness contacts
+- **Health (PIP / MedPay)**: Hospital bills (HCFA-1500/UB-04), discharge summary, prescription receipts, State ID
+- **Property**: Damage photos, contractor estimate, proof of ownership (deed/title)
 
 #### Validation Agent (MCP Tools + Power Automate)
 Power Automate flow:
@@ -176,26 +179,35 @@ The card sent to adjusters in Teams should contain:
 
 ## Sample Data for Demo
 
-### Sample Policies (Create 5 in Dataverse)
-1. POL-2024-0847: Rajesh Kumar, Auto Comprehensive, Limit $50,000, Deductible $500, Active
-2. POL-2024-1123: Priya Sharma, Health Individual, Limit $100,000, Deductible $1,000, Active
-3. POL-2024-0592: Amit Patel, Property Homeowner, Limit $200,000, Deductible $2,500, Active
-4. POL-2024-0331: Sarah Chen, Auto Third Party, Limit $25,000, Deductible $250, Active
-5. POL-2024-0998: Michael Johnson, Auto Comprehensive, Limit $75,000, Deductible $750, Expired (for denial demo)
+### Sample Policies (Create 5 in Dataverse — US format)
+US shorthand for liability: `100/300/50` = $100k per-person BI / $300k per-accident BI / $50k PD.
 
-### Demo Scenario 1: Simple Auto-Approve (via WhatsApp/Web Chat)
-- Policyholder: Rajesh Kumar (POL-2024-0847)
-- Incident: Minor fender bender, front bumper damage
-- Uploads: 2 clear damage photos, driving license, repair estimate ($2,800)
-- Expected: All docs present, policy valid, low amount → Auto-approve, confidence 94%, settlement $2,300 ($2,800 - $500 deductible)
+1. POL-2026-0847: **Sarah Chen** · CA · Auto: BI/PD 100/300/50 + Collision $500 ded + Comp $500 ded + UM/UIM 100/300 · Active
+2. POL-2026-1123: **Michael Johnson** · TX · Auto: BI/PD 50/100/25 + Collision $1k ded + Comp $1k ded · Active
+3. POL-2026-0592: **Jennifer Rodriguez** · FL (no-fault state) · Auto: BI/PD 25/50/10 + PIP $10k + Comp $500 ded · Active
+4. POL-2026-0331: **David Park** · NY (no-fault state) · Auto: BI/PD 100/300/50 + PIP $50k + Collision $500 ded · Active
+5. POL-2026-0998: **Amanda Williams** · OH · Auto: BI/PD 25/50/25 only (state minimum) · **Expired** (for denial demo)
+
+### Demo Scenario 1: Simple Auto-Approve (via Mobile App / Web Chat)
+- Policyholder: **Sarah Chen** (POL-2026-0847), CA
+- Incident: Parking-lot fender bender, front bumper damage
+- Uploads: 2 clear damage photos, CA Driver's License, Insurance Card, repair estimate ($2,800) from DRP shop
+- Validation: NOAA confirms clear weather (real API call), NHTSA confirms no recalls (real API call), DMV mock returns clean record, ISO ClaimSearch mock returns no duplicates
+- Expected: All docs present, policy valid, low amount, no flags → Auto-approve, confidence 94%, settlement $2,300 ($2,800 − $500 Collision deductible)
+- **Pitch angle**: *"This would have taken 14 days at State Farm. We did it in 90 seconds."*
 
 ### Demo Scenario 2: Complex Escalation (via Teams)
-- Policyholder: Amit Patel (POL-2024-0592)
-- Incident: Water damage to home from alleged pipe burst
-- Uploads: Water damage photos (one blurry), contractor estimate ($18,500)
-- Missing: No plumber report
-- Fraud signals: Estimate is 2.3x regional average, similar claim from neighbor address 6 months ago
-- Expected: Missing doc flagged, fraud signals detected → Confidence 58%, escalate to senior adjuster with full Glass Box explanation
+- Policyholder: **Jennifer Rodriguez** (POL-2026-0592), FL (no-fault state)
+- Incident: Water damage to vehicle from alleged storm + minor injury (PIP)
+- Uploads: Damage photos (one blurry), contractor estimate ($18,500)
+- Missing: No NOAA-corroborating storm event at location/time
+- Fraud signals (visible in Glass Box):
+  - Estimate is 2.3× regional average for water damage
+  - **ISO ClaimSearch mock** shows neighbor at same address filed similar claim 6 months ago
+  - **NICB mock** flags the named contractor
+- Telematics: **Suraj's mocked sensor stream** shows no g-force event at incident time
+- Expected: Confidence 58% → Tier 2 Teams Adaptive Card → adjuster reviews and approves with adjustment to $8,000
+- **Pitch angle**: *"Every flag and every decision is logged in Glass Box — Colorado SB21-169 compliance artifact generated automatically."*
 
 ## Implementation Priority Order
 Build in this exact order to ensure you always have something demoable:

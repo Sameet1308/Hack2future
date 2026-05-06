@@ -12,10 +12,11 @@ Tasks for the WHOLE TEAM:
 - [ ] Create Azure AI Document Intelligence resource in the resource group
 - [ ] Create Azure AI Search resource in the resource group
 - [ ] Create Azure OpenAI resource (or confirm existing one) — deploy GPT-4.1 or GPT-5 model (GPT-4o retired Oct 2025)
-- [ ] Test WhatsApp channel availability in Copilot Studio (Settings → Channels → look for WhatsApp)
 - [ ] Create a Teams channel: "Glass Box AI - Claims Review"
+- [ ] **(US market)** Hit NOAA Weather API (api.weather.gov) and NHTSA Recalls API (vpic.nhtsa.dot.gov) from a browser to confirm both are reachable from the dev environment — these are the two real public APIs the Validation Agent will call. If blocked by corporate proxy, escalate now (not on Day 10).
+- [ ] **(US market — channels)** Confirm Copilot Studio embedded web chat works in a basic web page. We'll style it as a mobile phone frame for the demo (Mobile App channel). WhatsApp is roadmap-only — do not waste time on it.
 
-If WhatsApp is NOT available: Don't panic. Web Chat + Email + Teams = 3 solid channels. Show WhatsApp in architecture.
+Channels for live demo: Mobile App (web chat in phone frame) · Web Chat · Email · Teams · SMS. WhatsApp deferred to roadmap (US adoption ≈ 0%).
 
 ### Day 2: Dataverse Setup + Sample Data
 **Goal: All 5 tables created with sample data**
@@ -64,10 +65,10 @@ Person 3 (Power Automate Lead). Ask Claude:
 "Help me build the master orchestration flow in Power Automate that triggers when a claim is created, runs Extraction + Policy + Validation in parallel, waits for all to complete, then runs Adjudication and routes to the right tier."
 
 ### Day 13-14: Multi-Channel Deployment
-**Goal: Working on WhatsApp (or SMS) + Email + Web + Teams**
+**Goal: Working on Mobile App + SMS + Email + Web + Teams**
 
 Person 1 (Copilot Studio Lead). Ask Claude:
-"Help me deploy my Copilot Studio Intake Agent to WhatsApp using Azure Communication Services. Give me step-by-step instructions."
+"Help me deploy my Copilot Studio Intake Agent to (a) an embedded web chat styled as a mobile phone frame for the demo, and (b) SMS via Azure Communication Services. Give me step-by-step instructions for both."
 
 Person 4: Set up email monitoring flow.
 
