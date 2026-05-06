@@ -28,3 +28,17 @@ Sprint log for Glass Box AI. Append a section per session.
 - [ ] Identify which 2 of the 5 unnamed Persons (1–5) take on which structural role; record in decisions.md
 - [ ] Prasad: gather 2-3 sample US auto policy PDFs (or generate synthetic with the structure described in `docs/03_implementation_tips.md`) for AI Search indexing
 - [ ] Suraj: draft the JSON shape for the mocked telematics endpoint (g-force, GPS, timestamp)
+
+## 2026-05-05 — Day 2 (continued) — Intake Agent data spec
+- Created `docs/intake_data_spec.md` — full FNOL data spec for the Intake Agent. Covers: loss taxonomy (11 types), 11 universal questions asked for every claim, 3 reusable sub-flows (other-party / witness / injury-triage), per-loss-type Q&A flows for all 11 types (Collision, Comp-Weather/Theft/Vandalism/Fire/Animal/Glass, Liab-PD/BI, PIP/MedPay, UM/UIM), consolidated documents matrix, time-sensitive flags, auto-escalate triggers, Dataverse column strategy (slim schema + LossTypeDetails JSON column), Copilot Studio topic structure (parent + 11 children + 3 sub-flows).
+- Updated `docs/02_architecture.md` Intake Agent section to point at the spec as source of truth and describe the topic structure.
+- Updated `docs/04_daily_tasks.md` Day 3-4 with explicit build order (FNOL_Start → SubFlow_InjuryTriage → FNOL_Collision → FNOL_Comp_Weather → others → FNOL_Confirm) and the slim-schema + JSON-column note.
+
+### Open items going into Day 3 (updated)
+- [ ] Whole team: complete Day 1 env-verification checklist (still outstanding)
+- [ ] Decide on mobile-frame mockup approach
+- [ ] Identify which 2 of the 5 unnamed Persons (1–5) take on which structural role
+- [ ] Prasad: gather 2-3 sample US auto policy PDFs for AI Search indexing
+- [ ] Suraj: draft the JSON shape for the mocked telematics endpoint
+- [ ] Person 3 (Data Lead): build slim Claims table with universal columns + `LossTypeDetails` JSON column per spec §8
+- [ ] Person 1 (Copilot Studio Lead): start FNOL_Start parent topic — universal questions U1–U11 from spec §2

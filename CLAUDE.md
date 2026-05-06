@@ -23,6 +23,7 @@ Copilot Studio · Azure AI Document Intelligence · Azure AI Search · Azure Ope
 - [docs/03_implementation_tips.md](docs/03_implementation_tips.md) — gotchas, known limitations, workarounds
 - [docs/04_daily_tasks.md](docs/04_daily_tasks.md) — day-by-day plan with chat-starter prompts per task
 - [docs/us_market_context.md](docs/us_market_context.md) — **US market overlay** (4 tables: components × US context, data points, APIs, ownership)
+- [docs/intake_data_spec.md](docs/intake_data_spec.md) — **Intake Agent spec** (source of truth for FNOL questions, 11 loss types, sub-flows, docs matrix, escalation rules, Copilot Studio topic structure)
 - [docs/decisions.md](docs/decisions.md) — running log of architectural choices
 - [docs/diagrams/architecture.html](docs/diagrams/architecture.html) — end-to-end flow diagram (open in browser)
 

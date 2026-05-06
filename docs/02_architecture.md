@@ -34,16 +34,18 @@ Power Automate is the central nervous system. When a claim is created in Dataver
 ### Layer 3: The Agentic Swarm
 
 #### Intake Agent (Copilot Studio)
-Topics to build:
-- **FNOL_Start**: Trigger phrases: "file a claim", "report an accident", "I need to make a claim", "my car was damaged", "I had an accident"
-  - Ask: What happened? (free text)
-  - Ask: When did it happen? (date)
-  - Ask: Where did it happen? (location)
-  - Ask: What is your policy number?
-  - Ask: Please upload photos of the damage
-  - Action: Create row in Dataverse Claims table
-  - Action: Create row in Communications table
-  - Response: "Your claim #[ClaimID] has been created. We're processing it now."
+
+> **Source of truth for all questions, branches, and Dataverse columns is [`intake_data_spec.md`](intake_data_spec.md).** That file defines the universal flow, 11 loss-type branches, reusable sub-flows (other-party, witness, injury-triage), documents matrix, escalation triggers, and Copilot Studio topic structure. The summary below is just orientation — when building, follow the spec.
+
+Topics to build (one parent + one per loss type):
+- **FNOL_Start** (parent): runs universal questions U1–U11, sentiment check, requests universal documents, then switches on LossType (U5) to the right child topic.
+- **FNOL_Collision**, **FNOL_Comp_Weather**, **FNOL_Comp_Theft**, **FNOL_Comp_Vandalism**, **FNOL_Comp_Fire**, **FNOL_Comp_Animal**, **FNOL_Comp_Glass**, **FNOL_Liability_PD**, **FNOL_Liability_BI**, **FNOL_PIP_MedPay**, **FNOL_UM_UIM** (children, one per loss type)
+- **SubFlow_OtherParty**, **SubFlow_Witness**, **SubFlow_InjuryTriage** (reusable, called from multiple loss types)
+- **FNOL_Confirm**: assembles all answers, calls "Create Claim" Power Automate flow, returns ClaimID to user.
+
+Trigger phrases for FNOL_Start: "file a claim", "report an accident", "I need to make a claim", "my car was damaged", "I had an accident".
+
+Variable naming: prefix all bot variables with `bot.fnol.` (e.g., `bot.fnol.policyId`, `bot.fnol.lossType`, `bot.fnol.collisionSubType`). Pass full bag to Power Automate as JSON string.
 
 - **Missing_Docs**: Triggered by Power Automate when Extraction Agent finds missing documents
   - Response: "To continue processing your claim, we need: [list of missing documents]. Please upload them here."

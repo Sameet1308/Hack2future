@@ -27,8 +27,20 @@ Person 3 (Data Lead) does this. Ask Claude:
 ### Day 3-4: Intake Agent
 **Goal: A working chatbot that takes claim details and saves to Dataverse**
 
+**Source of truth**: [`docs/intake_data_spec.md`](intake_data_spec.md) — the full Intake Agent spec (universal questions, 11 loss-type branches, sub-flows, docs matrix, escalation triggers, Copilot Studio topic structure). Build directly from that spec.
+
 Person 1 (Copilot Studio Lead) does this. Ask Claude:
-"Help me build the Intake Agent in Copilot Studio. I need the FNOL topic that asks for incident details, accepts photo uploads, and creates a claim record in Dataverse. Give me step-by-step instructions with exact settings."
+"Using `docs/intake_data_spec.md` as the source of truth, help me build FNOL_Start (parent topic) and the FNOL_Collision child topic in Copilot Studio with exact node-by-node instructions. We'll add the other 10 loss-type children after Collision is verified working end-to-end."
+
+Order of build:
+1. FNOL_Start (universal questions U1–U11 from §2 of the spec)
+2. SubFlow_InjuryTriage (§3.3 of the spec — needed by most branches)
+3. FNOL_Collision (Scenario 1 demo type)
+4. FNOL_Comp_Weather (Scenario 2 demo type)
+5. Remaining 9 loss-type children (lower priority, can be Day 5 if needed)
+6. FNOL_Confirm (assembles answers, calls Create Claim flow)
+
+**Dataverse schema note**: instead of adding 70+ columns to the Claims table, use a slim universal schema + a `LossTypeDetails` Multiline JSON column for branch-specific answers (rationale in spec §8).
 
 ### Day 5-6: Extraction Pipeline
 **Goal: Upload a document → get extracted data in Dataverse**
