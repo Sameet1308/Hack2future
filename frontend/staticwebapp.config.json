@@ -1,0 +1,32 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/api/*", "/*.{css,js,svg,png,jpg,jpeg,ico,webp}"]
+  },
+  "responseOverrides": {
+    "404": { "rewrite": "/index.html", "statusCode": 200 }
+  },
+  "_PRODUCTION_SSO_NOTE": "To enable real Entra ID (Azure AD) SSO for handlers, replace the routes block below with the production snippet that follows.",
+  "routes": [
+    { "route": "/api/*", "allowedRoles": ["anonymous"] }
+  ],
+  "_PRODUCTION_SSO_SNIPPET_READY_TO_PASTE": {
+    "auth": {
+      "identityProviders": {
+        "azureActiveDirectory": {
+          "registration": {
+            "openIdIssuer": "https://login.microsoftonline.com/<TENANT_ID>/v2.0",
+            "clientIdSettingName": "AAD_CLIENT_ID",
+            "clientSecretSettingName": "AAD_CLIENT_SECRET"
+          }
+        }
+      }
+    },
+    "routes": [
+      { "route": "/handler/*", "allowedRoles": ["claimsHandler"] },
+      { "route": "/.auth/login/aad", "allowedRoles": ["anonymous"] },
+      { "route": "/api/*", "allowedRoles": ["anonymous"] }
+    ],
+    "_NOTE": "Then assign the 'claimsHandler' role to authorized users via SWA Role Management, or via the invitation API. Frontend reads the role from /.auth/me — already wired in src/handler/SignIn.jsx."
+  }
+}

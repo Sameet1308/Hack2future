@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { min-height: 100vh; }
+  body { font-family: theme(fontFamily.sans); color: #1f2937; }
+  * { -webkit-tap-highlight-color: transparent; }
+}
+
+@layer components {
+  .req::after { content: " *"; color: #e11d48; font-weight: 700; }
+  .pulse-dot { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+  .typing-bubble span {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: #94a3b8; margin: 0 1px; animation: bounce 1.2s infinite;
+  }
+  .typing-bubble span:nth-child(2) { animation-delay: .15s; }
+  .typing-bubble span:nth-child(3) { animation-delay: .3s; }
+  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+}
+
+/* Hide scrollbar inside phone frame for cleaner look */
+.phone-body::-webkit-scrollbar { width: 0; height: 0; }

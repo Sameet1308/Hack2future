@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Glass Box AI — FNOL Mockup (mobile)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --brand: #0078d4; --brand-deep: #0a2540; --warm: #ff6b6b; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
+    /* iPhone-style frame */
+    .phone {
+      width: 390px; height: 844px;
+      background: #fff;
+      border-radius: 48px;
+      border: 14px solid #0a0a0a;
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,.45), 0 8px 24px -8px rgba(0,0,0,.25);
+      overflow: hidden;
+      position: relative;
+    }
+    .phone-notch {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 30px;
+      background: #0a0a0a;
+      border-radius: 0 0 18px 18px;
+      z-index: 30;
+    }
+    .phone-statusbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 28px 6px; font-size: 13px; font-weight: 600; color: #1a2b4f;
+      position: relative; z-index: 20;
+    }
+    .phone-body {
+      height: calc(100% - 38px);
+      overflow-y: auto;
+      background: #f7f8fa;
+    }
+    /* Hide scroll chrome inside phone, keep scrollable */
+    .phone-body::-webkit-scrollbar { width: 0; height: 0; }
+    .pulse-dot { animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+    .typing-bubble span {
+      display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      background: #94a3b8; margin: 0 1px; animation: bounce 1.2s infinite;
+    }
+    .typing-bubble span:nth-child(2) { animation-delay: .15s; }
+    .typing-bubble span:nth-child(3) { animation-delay: .3s; }
+    @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+    /* Marker for required */
+    .req::after { content: " *"; color: #e11d48; font-weight: 700; }
+    /* Custom scrollbar for the page itself */
+    body::-webkit-scrollbar { width: 12px; }
+    body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+<!-- ========== PAGE HEADER ========== -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold text-slate-900">Glass Box AI — FNOL Mockup</h1>
+      <p class="text-sm text-slate-500">Mobile App channel · 8 screens · Tailwind via CDN · static mockup</p>
+    </div>
+    <div class="flex items-center gap-2 text-xs text-slate-500">
+      <span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-md font-semibold">scenario 1 — Sarah Chen, CA collision</span>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+
+  <!-- ========== INTRO NOTE ========== -->
+  <div class="mb-10 bg-white border border-slate-200 rounded-2xl p-6">
+    <h2 class="text-lg font-semibold text-slate-900 mb-2">How to read this</h2>
+    <ol class="text-sm text-slate-600 space-y-1 list-decimal list-inside">
+      <li>Read screens left-to-right, top-to-bottom — they're the linear flow.</li>
+      <li>Sara appears prominently on screen 3 (initiation) and persistently in the header from screen 4 onwards.</li>
+      <li>Required questions are marked with a red asterisk; visible at all times — no surprise gating.</li>
+      <li>Empathy lever = moderate (welcoming copy + supportive microcopy + persistent "Talk to a person" link).</li>
+      <li>Visual style = trust-forward (Microsoft blue + soft cards + white space).</li>
+    </ol>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12 justify-items-center">
+
+  <!-- ============================================ -->
+  <!-- SCREEN 1 — LOGIN                              -->
+  <!-- ============================================ -->
+  <section>
+    <div class="text-center mb-3">
+      <span class="text-xs font-mono text-slate-400">SCREEN 1</span>
+      <h3 class="text-base font-semibold text-slate-900">Login · Policy # + OTP</h3>
+    </div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-statusbar">
+        <span>9:41</span>
+        <span class="flex items-center gap-1">
+          <span class="text-slate-400">●●●●</span>
+          <span class="ml-1 text-xs">100%</span>
+        </span>
+      </div>
+      <div class="phone-body">
+        <div class="px-6 pt-12 pb-8 bg-gradient-to-b from-blue-600 to-blue-700 text-white">
+          <div class="text-center">
+            <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/15 mb-4">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/></svg>
+            </div>
+            <h1 class="text-xl font-semibold">Glass Box Claims</h1>
+            <p class="text-sm text-blue-100 mt-1">File a claim in under 2 minutes</p>
+          </div>
+        </div>
+        <div class="px-6 -mt-6">
+          <div class="bg-white rounded-2xl shadow-sm p-6">
+            <h2 class="text-base font-semibold text-slate-900 mb-1">Sign in to your policy</h2>
+            <p class="text-xs text-slate-500 mb-5">We'll text you a code to confirm it's you.</p>
+
+            <label class="block text-xs font-medium text-slate-600 mb-1">Policy number</label>
+            <input value="POL-2026-0847" class="w-full rounded-xl border border-slate-200 px-3.5 py-3 text-sm font-mono mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+            <label class="block text-xs font-medium text-slate-600 mb-1">Mobile number on file</label>
+            <input value="(415) ••• 4421" class="w-full rounded-xl border border-slate-200 px-3.5 py-3 text-sm mb-5 bg-slate-50" />
+
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl text-sm">
+              Send verification code
+            </button>
+            <button class="w-full mt-3 text-blue-600 font-medium py-2 text-sm">
+              Forgot policy number?
+            </button>
+          </div>
+
+          <div class="text-center text-xs text-slate-400 mt-6">
+            <a href="#" class="underline">Talk to a person</a>
+            <span class="mx-2">·</span>
+            <a href="#" class="underline">English</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 2 — LANDING / DASHBOARD                -->
+  <!-- ============================================ -->
+  <section>
+    <div class="text-center mb-3">
+      <span class="text-xs font-mono text-slate-400">SCREEN 2</span>
+      <h3 class="text-base font-semibold text-slate-900">Landing — recent claims + new</h3>
+    </div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-statusbar">
+        <span>9:42</span>
+        <span class="text-xs">100%</span>
+      </div>
+      <div class="phone-body px-6 pt-6 pb-10">
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <p class="text-xs text-slate-500">Welcome back</p>
+            <h1 class="text-xl font-bold text-slate-900">Sarah Chen</h1>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-semibold text-blue-700">SC</div>
+        </div>
+
+        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl shadow-sm text-sm flex items-center justify-center gap-2 mb-6">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+          File a new claim
+        </button>
+
+        <h2 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Your policy</h2>
+        <div class="bg-white rounded-2xl p-4 shadow-sm mb-6">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-xs text-slate-500">Auto Comprehensive · CA</p>
+              <p class="font-mono text-sm font-semibold text-slate-900 mt-0.5">POL-2026-0847</p>
+            </div>
+            <span class="px-2 py-0.5 bg-green-50 text-green-700 text-xs font-semibold rounded-full">Active</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 mt-4 text-center">
+            <div><p class="text-xs text-slate-400">Liability</p><p class="text-sm font-semibold">100/300/50</p></div>
+            <div><p class="text-xs text-slate-400">Collision</p><p class="text-sm font-semibold">$500</p></div>
+            <div><p class="text-xs text-slate-400">Comp</p><p class="text-sm font-semibold">$500</p></div>
+          </div>
+        </div>
+
+        <h2 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Recent claims</h2>
+        <div class="space-y-3">
+          <div class="bg-white rounded-2xl p-4 shadow-sm">
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="font-mono text-xs text-slate-500">CLM-2025-1412</p>
+                <p class="text-sm font-semibold text-slate-900 mt-0.5">Glass repair · Jan 2025</p>
+              </div>
+              <span class="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full">Closed</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-center text-xs text-slate-400 mt-8">
+          <a href="#" class="underline">Talk to a person</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 3 — INITIATION WITH SARA AVATAR        -->
+  <!-- ============================================ -->
+  <section>
+    <div class="text-center mb-3">
+      <span class="text-xs font-mono text-slate-400">SCREEN 3 · KEY</span>
+      <h3 class="text-base font-semibold text-slate-900">Initiate claim · Sara greeting</h3>
+    </div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-statusbar">
+        <span>9:43</span>
+        <span class="text-xs">100%</span>
+      </div>
+      <div class="phone-body px-6 pt-6 pb-10">
+        <button class="text-blue-600 text-sm mb-4 flex items-center gap-1">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back
+        </button>
+
+        <!-- Avatar + greeting card -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="relative">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sara Bennett" class="w-16 h-16 rounded-full object-cover ring-4 ring-blue-50" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'w-16 h-16 rounded-full bg-blue-200 flex items-center justify-center font-bold text-blue-700 text-xl ring-4 ring-blue-50',innerText:'SB'}))" />
+              <span class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full ring-2 ring-white pulse-dot"></span>
+            </div>
+            <div>
+              <p class="font-semibold text-slate-900 text-sm">Sara Bennett</p>
+              <p class="text-xs text-slate-500">Claims specialist · Online now</p>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 rounded-2xl rounded-tl-md p-4 mb-3">
+            <p class="text-sm text-slate-700 leading-relaxed">
+              Hi Sarah — I'm really sorry you're going through this. I'm Sara and I'll guide you through filing your claim. It usually takes <strong>under 2 minutes</strong>, and most simple claims are <strong>approved the same day</strong>.
+            </p>
+          </div>
+          <div class="bg-blue-50 rounded-2xl rounded-tl-md p-4 typing-bubble inline-block">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="mt-5 text-xs text-slate-500 flex items-start gap-2">
+            <svg class="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            Everything you tell Sara is logged in our Glass Box audit trail — you can see why every decision was made.
+          </div>
+        </div>
+
+        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl mt-6 text-sm shadow-sm">
+          Let's get started →
+        </button>
+
+        <button class="w-full mt-3 border border-slate-200 hover:border-slate-300 bg-white text-slate-700 font-medium py-3.5 rounded-2xl text-sm">
+          Speak to a human instead
+        </button>
+
+        <p class="text-center text-xs text-slate-400 mt-5">If this is an emergency, call <a class="text-blue-600 underline" href="tel:911">911</a> first.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 4 — LOSS TYPE SELECTOR                 -->
+  <!-- ============================================ -->
+  <section>
+    <div class="text-center mb-3">
+      <span class="text-xs font-mono text-slate-400">SCREEN 4</span>
+      <h3 class="text-base font-semibold text-slate-900">What kind of incident?</h3>
+    </div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-statusbar">
+        <span>9:43</span>
+        <span class="text-xs">100%</span>
+      </div>
+      <div class="phone-body">
+        <!-- Persistent header with mini Sara -->
+        <div class="px-6 pt-4 pb-3 bg-white border-b border-slate-100 flex items-center gap-3 sticky top-0 z-20">
+          <button class="text-slate-500"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+          <div class="flex items-center gap-2 flex-1">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-8 h-8 rounded-full object-cover" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center text-xs font-bold text-blue-700',innerText:'SB'}))" />
+            <div class="leading-tight">
+              <p class="text-xs font-semibold text-slate-900">Sara is with you</p>
+              <p class="text-[10px] text-green-600">● Online</p>
+            </div>
+          </div>
+          <button class="text-xs text-blue-600 font-medium">Talk to person</button>
+        </div>
+
+        <!-- progress -->
+        <div class="px-6 pt-4">
+          <div class="flex items-center justify-between mb-2 text-xs">
+            <span class="text-slate-500">Step 1 of 5</span>
+            <span class="text-slate-400">~90 seconds left</span>
+          </div>
+          <div class="h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-blue-600 rounded-full" style="width:20%"></div></div>
+        </div>
+
+        <div class="px-6 pt-6">
+          <h2 class="text-lg font-semibold text-slate-900 mb-1">What kind of incident?</h2>
+          <p class="text-sm text-slate-500 mb-5">Pick the closest match. We can adjust later.</p>
+
+          <div class="space-y-2.5">
+            <button class="w-full text-left bg-white border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l1.5-4.5A2 2 0 016.5 5h11a2 2 0 012 1.5L21 11M5 11h14M5 11v6M19 11v6M7 17h2M15 17h2"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="font-semibold text-sm text-slate-900">Collision</p>
+                <p class="text-xs text-slate-500">I hit something or got hit</p>
+              </div>
+              <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>
+            </button>
+
+            <button class="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-500">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16c2-3 6-3 8 0M14 16c2-3 6-3 8 0M2 10c2-3 6-3 8 0M14 10c2-3 6-3 8 0"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="font-semibold text-sm text-slate-900">Weather damage</p>
+                <p class="text-xs text-slate-500">Hail, flood, wind, lightning</p>
+              </div>
+            </button>
+
+            <button class="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-500">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="font-semibold text-sm text-slate-900">Theft</p>
+                <p class="text-xs text-slate-500">Vehicle or contents stolen</p>
+              </div>
+            </button>
+
+            <button class="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-500">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h2l3-9 4 18 3-9h6"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="font-semibold text-sm text-slate-900">Glass only</p>
+                <p class="text-xs text-slate-500">Windshield chip / crack</p>
+              </div>
+            </button>
+
+            <button class="w-full text-left text-xs text-blue-600 font-medium py-3">
+              See all 11 options →
+            </button>
+          </div>
+
+          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-2xl mt-5 text-sm">Continue</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 5 — MANDATORY QUESTIONS FORM           -->
+  <!-- ============================================ -->
+  <section>
+    <div class="text-center mb-3">
+      <span class="text-xs font-mono text-slate-400">SCREEN 5 · KEY</span>
+      <h3 class="text-base font-semibold text-slate-900">Mandatory questions</h3>
+    </div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-statusbar"><span>9:44</span><span class="text-xs">100%</span></div>
+      <div class="phone-body">
+        <!-- Persistent Sara header -->
+        <div class="px-6 pt-4 pb-3 bg-white border-b border-slate-100 flex items-center gap-3 sticky top-0 z-20">
+          <button class="text-slate-500"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+          <div class="flex items-center gap-2 flex-1">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-8 h-8 rounded-full object-cover" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center text-xs font-bold text-blue-700',innerText:'SB'}))" />
+            <div class="leading-tight">
+              <p class="text-xs font-semibold text-slate-900">Sara is with you</p>
+              <p class="text-[10px] text-green-600">● Online</p>
+            </div>
+          </div>
+          <button class="text-xs text-blue-600 font-medium">Talk to person</button>
+        </div>
+
+        <!-- progress -->
+        <div class="px-6 pt-4">
+          <div class="flex items-center justify-between mb-2 text-xs">
+            <span class="text-slate-500">Step 2 of 5</span>
+            <span class="text-slate-400">~70 seconds left</span>
+          </div>
+          <div class="h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-blue-600 rounded-full" style="width:40%"></div></div>
+        </div>
+
+        <div class="px-6 pt-5 pb-6">
+          <h2 class="text-lg font-semibold text-slate-900 mb-1">A few quick details</h2>
+          <p class="text-sm text-slate-500 mb-5">Fields marked <span class="text-rose-500 font-bold">*</span> are required.</p>
+
+          <!-- Section: Universal -->
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-2">About the incident</div>
+
+          <label class="block req text-xs font-medium text-slate-700 mb-1">When did it happen?</label>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <input value="May 4, 2026" class="rounded-xl border border-slate-200 px-3 py-3 text-sm focus:ring-2 focus:ring-blue-500" />
+            <input value="2:30 PM" class="rounded-xl border border-slate-200 px-3 py-3 text-sm focus:ring-2 focus:ring-blue-500" />
+          </div>
+
+          <label class="block req text-xs font-medium text-slate-700 mb-1">Where did it happen?</label>
+          <input value="850 Market St, San Francisco, CA" class="w-full rounded-xl border border-slate-200 px-3 py-3 text-sm mb-4 focus:ring-2 focus:ring-blue-500" />
+          <p class="text-[11px] text-slate-400 -mt-3 mb-4">📍 Detected: California (no-fault: no)</p>
+
+          <label class="block req text-xs font-medium text-slate-700 mb-1">Briefly, what happened?</label>
+          <textarea rows="3" class="w-full rounded-xl border border-slate-200 px-3 py-3 text-sm mb-4 focus:ring-2 focus:ring-blue-500" placeholder="Tell us in your own words…">Was leaving a parking spot and another car backed into my front bumper. No injuries.</textarea>
+
+          <label class="block req text-xs font-medium text-slate-700 mb-2">Was anyone hurt?</label>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <button class="border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl py-2.5 text-sm font-semibold">No</button>
+            <button class="border border-slate-200 bg-white text-slate-700 rounded-xl py-2.5 text-sm">Yes</button>
+          </div>
+
+          <label class="block req text-xs font-medium text-slate-700 mb-2">Did you call the police?</label>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <button class="border border-slate-200 bg-white text-slate-700 rounded-xl py-2.5 text-sm">Yes</button>
+            <button class="border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl py-2.5 text-sm font-semibold">No</button>
+          </div>
+
+          <!-- Section: Collision-specific -->
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-2 mt-2">About the collision</div>
+
+          <label class="block req text-xs font-medium text-slate-700 mb-2">How did it happen?</label>
+          <select class="w-full rounded-xl border border-slate-200 px-3 py-3 text-sm mb-4 bg-white focus:ring-2 focus:ring-blue-500">
+            <option>Parked-and-struck (my car was parked)</option>
+            <option>Rear-ended me</option>
+            <option>I rear-ended someone</option>
+            <option>Side-swipe</option>
+            <option>T-bone (intersection)</option>
+            <option>Hit-and-run</option>
+          </select>
+
+          <label class="block req text-xs font-medium text-slate-700 mb-2">Was the airbag deployed?</label>
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <button class="border border-slate-200 bg-white text-slate-700 rounded-xl py-2.5 text-sm">Yes</button>
+            <button class="border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl py-2.5 text-sm font-semibold">No</button>
+          </div>
+
+          <label class="block req text-xs font-medium text-slate-700 mb-2">Where on your vehicle is the damage?</label>
+          <div class="grid grid-cols-3 gap-2 mb-5">
+            <button class="border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl py-2 text-xs font-semibold">Front</button>
+            <button class="border border-slate-200 bg-white text-slate-700 rounded-xl py-2 text-xs">Rear</button>
+            <button class="border border-slate-200 bg-white text-slate-700 rounded-xl py-2 text-xs">Side</button>
+          </div>
+
+          <details class="mb-5">
+            <summary class="text-xs text-blue-600 font-medium cursor-pointer">+ Add optional details (other driver, witnesses)</summary>
+            <p class="text-xs text-slate-400 mt-2">Optional fields shown here when expanded.</p>
+          </details>
+
+          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-2xl text-sm">Continue</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 6 — DOCUMENT UPLOAD                    -->
+  <!-- ============================================ -->
+  <section>
+    <div class="text-center mb-3">
+      <span class="text-xs font-mono text-slate-400">SCREEN 6</span>
+      <h3 class="text-base font-semibold text-slate-900">Upload evidence</h3>
+    </div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-statusbar"><span>9:45</span><span class="text-xs">100%</span></div>
+      <div class="phone-body">
+        <div class="px-6 pt-4 pb-3 bg-white border-b border-slate-100 flex items-center gap-3 sticky top-0 z-20">
+          <button class="text-slate-500"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+          <div class="flex items-center gap-2 flex-1">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-8 h-8 rounded-full object-cover" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center text-xs font-bold text-blue-700',innerText:'SB'}))" />
+            <div class="leading-tight">
+              <p class="text-xs font-semibold text-slate-900">Sara is with you</p>
+              <p class="text-[10px] text-green-600">● Online</p>
+            </div>
+          </div>
+          <button class="text-xs text-blue-600 font-medium">Talk to person</button>
+        </div>
+
+        <div class="px-6 pt-4">
+          <div class="flex items-center justify-between mb-2 text-xs"><span class="text-slate-500">Step 3 of 5</span><span class="text-slate-400">~50 seconds left</span></div>
+          <div class="h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-blue-600 rounded-full" style="width:60%"></div></div>
+        </div>
+
+        <div class="px-6 pt-5 pb-6">
+          <h2 class="text-lg font-semibold text-slate-900 mb-1">Upload some evidence</h2>
+          <p class="text-sm text-slate-500 mb-5">A clear set of photos speeds things up. We'll guide you on what's missing.</p>
+
+          <!-- Required uploads with status -->
+          <div class="space-y-2.5 mb-5">
+            <div class="bg-white rounded-2xl p-3 flex items-center gap-3 shadow-sm border border-green-200">
+              <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12l5 5L20 7"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-slate-900 req inline">Damage photos</p>
+                <p class="text-xs text-slate-500">4 photos uploaded · all clear</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-3 flex items-center gap-3 shadow-sm border border-green-200">
+              <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12l5 5L20 7"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-slate-900 req inline">Driver's license</p>
+                <p class="text-xs text-slate-500">CA · expires 2029</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-3 flex items-center gap-3 shadow-sm border border-green-200">
+              <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center text-green-600">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12l5 5L20 7"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-slate-900 req inline">Insurance card</p>
+                <p class="text-xs text-slate-500">Verified</p>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-3 flex items-center gap-3 shadow-sm border-2 border-dashed border-blue-300 bg-blue-50/40">
+              <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-slate-900">Repair estimate <span class="text-slate-400 font-normal">(optional now)</span></p>
+                <p class="text-xs text-slate-500">Tap to upload — or send later</p>
+              </div>
+            </div>
+          </div>
+
+          <button class="w-full bg-white border border-slate-200 text-slate-700 font-semibold py-3 rounded-2xl mb-3 text-sm flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Add another photo
+          </button>
+
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-5 text-xs text-amber-800 flex gap-2">
+            <span>💡</span>
+            <span>If you don't have the repair estimate yet, no problem — Sara will text you a secure link to upload it later.</span>
+          </div>
+
+          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-2xl text-sm">Continue</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 7 — REVIEW                             -->
+  <!-- ============================================ -->
+  <section>
+    <div class="text-center mb-3">
+      <span class="text-xs font-mono text-slate-400">SCREEN 7</span>
+      <h3 class="text-base font-semibold text-slate-900">Review &amp; submit</h3>
+    </div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-statusbar"><span>9:46</span><span class="text-xs">100%</span></div>
+      <div class="phone-body">
+        <div class="px-6 pt-4 pb-3 bg-white border-b border-slate-100 flex items-center gap-3 sticky top-0 z-20">
+          <button class="text-slate-500"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+          <div class="flex items-center gap-2 flex-1">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-8 h-8 rounded-full object-cover" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center text-xs font-bold text-blue-700',innerText:'SB'}))" />
+            <div class="leading-tight">
+              <p class="text-xs font-semibold text-slate-900">Sara is with you</p>
+              <p class="text-[10px] text-green-600">● Online</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-6 pt-4">
+          <div class="flex items-center justify-between mb-2 text-xs"><span class="text-slate-500">Step 4 of 5</span><span class="text-slate-400">~10 seconds left</span></div>
+          <div class="h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-blue-600 rounded-full" style="width:80%"></div></div>
+        </div>
+
+        <div class="px-6 pt-5 pb-6">
+          <h2 class="text-lg font-semibold text-slate-900 mb-1">Quick review</h2>
+          <p class="text-sm text-slate-500 mb-5">Make sure this looks right before we submit.</p>
+
+          <div class="bg-white rounded-2xl shadow-sm divide-y divide-slate-100">
+            <div class="p-4">
+              <p class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Policy</p>
+              <p class="text-sm font-semibold text-slate-900 mt-0.5">POL-2026-0847 · Auto Comprehensive</p>
+            </div>
+            <div class="p-4">
+              <p class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Incident</p>
+              <p class="text-sm font-medium text-slate-900 mt-0.5">Collision · Parked-and-struck</p>
+              <p class="text-xs text-slate-500 mt-1">May 4, 2026 · 2:30 PM · 850 Market St, San Francisco, CA</p>
+            </div>
+            <div class="p-4">
+              <p class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Damage</p>
+              <p class="text-sm font-medium text-slate-900 mt-0.5">Front · airbag not deployed</p>
+              <p class="text-xs text-slate-500 mt-1">No injuries · no police report</p>
+            </div>
+            <div class="p-4">
+              <p class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Documents</p>
+              <p class="text-sm font-medium text-slate-900 mt-0.5">3 of 4 uploaded</p>
+              <p class="text-xs text-slate-500 mt-1">Repair estimate pending</p>
+            </div>
+          </div>
+
+          <button class="w-full mt-4 text-blue-600 font-medium text-sm py-2">Edit any of this →</button>
+
+          <div class="bg-blue-50 rounded-2xl p-4 mt-5">
+            <p class="text-xs text-slate-700">By submitting, you agree we may pull external data (DMV, weather, vehicle history) to validate your claim. Every check is logged in your <a href="#" class="text-blue-600 underline font-medium">Glass Box audit trail</a>.</p>
+          </div>
+
+          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl mt-5 text-sm shadow-sm">Submit claim</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 8 — SUCCESS                            -->
+  <!-- ============================================ -->
+  <section>
+    <div class="text-center mb-3">
+      <span class="text-xs font-mono text-slate-400">SCREEN 8</span>
+      <h3 class="text-base font-semibold text-slate-900">Submitted · Sara's on it</h3>
+    </div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-statusbar"><span>9:46</span><span class="text-xs">100%</span></div>
+      <div class="phone-body">
+        <div class="px-6 pt-12 pb-8 bg-gradient-to-b from-emerald-500 to-emerald-600 text-white text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 mb-4">
+            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
+          </div>
+          <h1 class="text-xl font-bold">Your claim is in</h1>
+          <p class="text-sm text-emerald-50 mt-1">Sara is reviewing it right now.</p>
+          <p class="font-mono text-sm bg-white/15 inline-block px-3 py-1 rounded-md mt-4">CLM-2026-4521</p>
+        </div>
+
+        <div class="px-6 -mt-6 pb-8">
+          <div class="bg-white rounded-2xl shadow-sm p-5">
+            <div class="flex items-center gap-3 mb-4">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-12 h-12 rounded-full object-cover ring-4 ring-blue-50" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'w-12 h-12 rounded-full bg-blue-200 flex items-center justify-center font-bold text-blue-700 ring-4 ring-blue-50',innerText:'SB'}))" />
+              <div>
+                <p class="font-semibold text-slate-900 text-sm">Sara is on it</p>
+                <p class="text-xs text-slate-500">Most simple claims approved within minutes</p>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold">✓</div>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-slate-900">Claim received</p>
+                  <p class="text-xs text-slate-500">9:46 AM</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center pulse-dot">
+                  <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-slate-900">Documents being processed</p>
+                  <p class="text-xs text-slate-500">In progress…</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 opacity-50">
+                <div class="w-6 h-6 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs">3</div>
+                <div class="flex-1">
+                  <p class="text-sm text-slate-700">Coverage check</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 opacity-50">
+                <div class="w-6 h-6 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs">4</div>
+                <div class="flex-1">
+                  <p class="text-sm text-slate-700">Decision</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-slate-100 mt-5 pt-4">
+              <p class="text-xs text-slate-500">We'll notify you on this number, by text and email, the moment your claim is decided.</p>
+            </div>
+          </div>
+
+          <button class="w-full bg-white border border-slate-200 text-slate-700 font-semibold py-3 rounded-2xl mt-4 text-sm">Track my claim</button>
+          <button class="w-full text-blue-600 font-medium py-3 mt-1 text-sm">View Glass Box audit trail</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+  <!-- ========== DESIGN RATIONALE ========== -->
+  <section class="mt-16 bg-white border border-slate-200 rounded-2xl p-8">
+    <h2 class="text-lg font-bold text-slate-900 mb-4">Design rationale</h2>
+    <div class="grid md:grid-cols-2 gap-6 text-sm">
+      <div>
+        <h3 class="font-semibold text-slate-900 mb-2">Sara — the human touch</h3>
+        <p class="text-slate-600">Real photo + named persona on the initiation screen + persistent header presence reduces the "I'm talking to a faceless system" anxiety. Pulsing green dot signals real-time. For demo: stock photo from randomuser.me. For prod: replace with a real claims-team photo or AI-generated avatar (HeyGen / D-ID can produce a 30-sec personalised greeting video as a Day-19 stretch).</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-slate-900 mb-2">Mandatory questions surfaced upfront</h3>
+        <p class="text-slate-600">All required fields visible on screen 5 with red asterisks — no progressive disclosure that hides what's needed. Optional fields (other-driver info, witnesses) collapsed under a "+" toggle to keep the cognitive load low. Trust + speed.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-slate-900 mb-2">Progress is honest</h3>
+        <p class="text-slate-600">Step counter + time-remaining estimate ("~70 seconds left") set expectations. Anchors the "under 2 minutes" promise from the avatar greeting. Lets the user feel control.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-slate-900 mb-2">Glass Box visible to the customer</h3>
+        <p class="text-slate-600">Footer of the avatar card and the consent text on the review screen reference the audit trail. Customer-facing transparency is a real differentiator vs incumbents. Tappable link on the success screen would open a "why we asked X / what we checked" view (not in this mockup).</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-slate-900 mb-2">Empathy = moderate</h3>
+        <p class="text-slate-600">"I'm really sorry you're going through this" once at the top, supportive microcopy at edges, "Talk to a person" persistent in header. Not over-cooked. State Farm-style trust + Lemonade-style warmth split.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-slate-900 mb-2">Visual = trust-forward</h3>
+        <p class="text-slate-600">Microsoft-blue primary (ties to the underlying stack), generous white space, soft shadows, rounded-2xl cards. Mobile-first 390×844 frame (iPhone 13/14 standard). Single accent — no rainbow gradients.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-slate-900 mb-2">What's deliberately NOT in this mockup</h3>
+        <ul class="text-slate-600 list-disc list-inside space-y-0.5">
+          <li>Loss-type-specific branches beyond Collision (would clutter the spec preview)</li>
+          <li>Tier-3 escalation path (when the user is in distress)</li>
+          <li>Live-chat escape into Sara's actual chat window (placeholder button only)</li>
+          <li>Claim status/tracking deep-dive screens</li>
+          <li>Adjuster-side (that's Teams Adaptive Cards, not this surface)</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-slate-900 mb-2">React conversion notes</h3>
+        <p class="text-slate-600">Each "screen" maps to one component (e.g. <code>FNOLLogin.tsx</code>, <code>FNOLInitiate.tsx</code>, <code>FNOLQuestions.tsx</code>). Shared header/avatar = <code>SaraHeader.tsx</code>. Form state = <code>useReducer</code> or <code>react-hook-form</code>. Submit = POST to a Power Automate HTTP-trigger flow URL → it creates Claim row → triggers orchestration. Total: ~6 components, ~400 lines for the working flow.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mt-10 text-center text-xs text-slate-400 pb-10">
+    Glass Box AI · UX mockup v0.1 · feedback &amp; iterate before React conversion
+  </footer>
+</main>
+
+</body>
+</html>
