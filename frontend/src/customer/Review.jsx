@@ -30,7 +30,7 @@ export default function Review() {
         </div>
 
         <button
-          onClick={() => navigate('/customer/success')}
+          onClick={() => navigate('/customer/processing/CLM-2026-4521')}
           className="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-4 rounded-2xl mt-5 text-sm shadow-sm transition-colors"
         >
           Submit claim

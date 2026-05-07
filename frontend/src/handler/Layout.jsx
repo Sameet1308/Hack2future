@@ -38,6 +38,13 @@ export default function HandlerLayout() {
             >
               Queue
             </NavLink>
+            <NavLink
+              to="/handler/theater/CLM-2026-4520"
+              className="px-3 py-1.5 rounded-md text-elite-accent hover:bg-white/5 inline-flex items-center gap-1.5"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-elite-accent pulse-dot" />
+              Theater
+            </NavLink>
             <a href="#" className="px-3 py-1.5 rounded-md text-slate-300 hover:bg-white/5">Reports</a>
             <a href="#" className="px-3 py-1.5 rounded-md text-slate-300 hover:bg-white/5">Glass Box</a>
           </nav>

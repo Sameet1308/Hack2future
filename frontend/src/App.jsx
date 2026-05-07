@@ -9,6 +9,7 @@ import LossType from './customer/LossType.jsx';
 import Questions from './customer/Questions.jsx';
 import Documents from './customer/Documents.jsx';
 import Review from './customer/Review.jsx';
+import Processing from './customer/Processing.jsx';
 import Success from './customer/Success.jsx';
 
 // Handler flow
@@ -16,6 +17,7 @@ import HandlerSignIn from './handler/SignIn.jsx';
 import HandlerLayout from './handler/Layout.jsx';
 import Queue from './handler/Queue.jsx';
 import ClaimDetail from './handler/ClaimDetail.jsx';
+import Theater from './handler/Theater.jsx';
 
 export default function App() {
   return (
@@ -31,6 +33,8 @@ export default function App() {
       <Route path="/customer/questions" element={<Questions />} />
       <Route path="/customer/documents" element={<Documents />} />
       <Route path="/customer/review" element={<Review />} />
+      <Route path="/customer/processing" element={<Processing />} />
+      <Route path="/customer/processing/:id" element={<Processing />} />
       <Route path="/customer/success" element={<Success />} />
 
       {/* Handler routes */}
@@ -40,6 +44,8 @@ export default function App() {
         <Route path="/handler/queue" element={<Queue />} />
         <Route path="/handler/claim/:id" element={<ClaimDetail />} />
       </Route>
+      {/* Theater renders its own full-screen chrome (no HandlerLayout) */}
+      <Route path="/handler/theater/:id" element={<Theater />} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

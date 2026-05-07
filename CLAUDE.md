@@ -44,7 +44,7 @@ Copilot Studio · Azure AI Document Intelligence · Azure AI Search · Azure Ope
 - Sample policyholder names in `docs/02_architecture.md` are fictional — keep them so.
 
 ## Current sprint phase
-**Week 1 — Day 2 (2026-05-05)** — Environment setup, Dataverse tables, Intake Agent, Extraction pipeline
+**Week 1 — Day 4 (2026-05-07, ready to start)** — Frontend done. Backend kickoff: Dataverse schema + Copilot Studio FNOL_Start topic. Then wire the mocked frontend to real Power Automate flows one by one.
 
 ## Decisions already made (see docs/decisions.md for rationale)
 - **US market framing** (2026-05-05). Sample data, validation APIs, agent prompts all US-specific. Pitch leads with regulatory compliance (Colorado SB21-169 / NAIC).
@@ -54,11 +54,18 @@ Copilot Studio · Azure AI Document Intelligence · Azure AI Search · Azure Ope
 - **Telematics**: mocked (Suraj). Fitbit/health sensors **deferred** to roadmap.
 - **Azure OpenAI model** = GPT-4.1 or GPT-5 (GPT-4o retired Oct 2025).
 - **Named owners**: Prasad on Policy data + RAG; Suraj on telematics mock.
+- **Frontend stack** (2026-05-06): Vite + React 18 + Tailwind in `frontend/`. Single SPA serves both customer (`/customer/*`) and handler (`/handler/*`) surfaces. Hosted on Azure Static Web Apps. Mock SSO today, Microsoft Entra ID via SWA built-in auth in production (config in `frontend/staticwebapp.config.json`).
+- **Carrier name in demo** = AI Elites. Glass Box AI stays as the underlying product credit.
+- **Theater Mode** (2026-05-06): full-screen handler view + customer Processing screen, both animate the agent pipeline. Mock-driven via `frontend/src/data/agentTimelines.js` today, swap to real polling against Power Automate Decision_Rationale rows when backend exists.
 
 ## How to run
-This repo is currently a **knowledge + planning** repo. Actual builds live in Power Platform (Copilot Studio, Power Automate, Dataverse) and Azure Portal — not in this filesystem. This repo holds:
+- **Frontend** (now exists): `cd frontend && npm install && npm run dev` → http://localhost:5173. Full customer + handler demo playable with mock data. See `frontend/README.md`.
+- **Backend** (Power Platform / Azure) lives outside this repo — Copilot Studio, Power Automate, Dataverse, Azure AI services. This repo holds the configs, schemas, JSON snippets, and decision logs that document those builds.
+
+This repo holds:
 - Sprint plan & daily tasks
 - Architecture docs
+- Frontend (Vite + React + Tailwind, customer + handler + Theater Mode)
 - Configuration snippets, JSON schemas, Adaptive Card templates
 - Sample data definitions
 - Demo scripts

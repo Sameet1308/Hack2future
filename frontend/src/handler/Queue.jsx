@@ -71,7 +71,15 @@ export default function Queue() {
                 <td className="px-5 py-4">
                   <TierBadge tier={c.tier} />
                 </td>
-                <td className="px-5 py-4 text-right">
+                <td className="px-5 py-4 text-right whitespace-nowrap">
+                  <Link
+                    to={`/handler/theater/${c.id}`}
+                    className="inline-flex items-center gap-1 text-elite-accent font-semibold hover:underline text-sm mr-3"
+                    title="Watch the AI agents work in real time"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-elite-accent pulse-dot" />
+                    Watch live
+                  </Link>
                   <Link
                     to={`/handler/claim/${c.id}`}
                     className="text-brand-600 font-medium hover:underline text-sm"

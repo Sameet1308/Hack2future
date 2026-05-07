@@ -42,3 +42,45 @@ Sprint log for Glass Box AI. Append a section per session.
 - [ ] Suraj: draft the JSON shape for the mocked telematics endpoint
 - [ ] Person 3 (Data Lead): build slim Claims table with universal columns + `LossTypeDetails` JSON column per spec §8
 - [ ] Person 1 (Copilot Studio Lead): start FNOL_Start parent topic — universal questions U1–U11 from spec §2
+
+## 2026-05-06 — Day 3 — Frontend (customer + handler) + Theater Mode
+Big day. Stack got finalized and a working frontend shipped end-to-end.
+
+**Stack lock-in**:
+- Confirmed Microsoft Power Platform + Azure AI is the backend (no FastAPI, no Postgres pivot — brief mandates this stack and we'd lose the regulatory pitch by leaving it).
+- Frontend hosted on **Azure Static Web Apps** (free tier, GitHub auto-deploy). Tiny token-broker Azure Function lives next to it for Direct Line.
+- For the handler SSO question: **mocked today, production-ready Microsoft Entra ID config already in `frontend/staticwebapp.config.json`** under `_PRODUCTION_SSO_SNIPPET_READY_TO_PASTE` — flip a config block to enable Entra ID auth for `/handler/*` with zero React change.
+- **Carrier name** in the demo = **"AI Elites"**. Glass Box AI stays as the underlying product/tech credit.
+
+**Frontend shipped (Vite + React 18 + Tailwind, 36 files, ~3,000 LOC)**:
+- Single SPA at `frontend/` serving both surfaces from one Static Web App
+- **Customer** (`/customer/*`): 8 phone-frame screens — login → dashboard → Sara avatar greeting → loss type → mandatory questions form → docs → review → **processing (Theater Mode)** → success
+- **Handler** (`/handler/*`): mock SSO → queue with 3 demo claims → claim detail with Glass Box panel → **Theater Mode** full-screen agent visualization
+- **Sara persona**: real photo (randomuser.me) with initials fallback, persistent in customer header, prominent on greeting + success
+- **AI Elites branding**: landing splash, handler header, sign-in
+- Mock data covers all 3 routing tiers: Sarah (auto-approve, 94% confidence), Jennifer (Tier-2 with 3 fraud flags), David (Tier-3 BI auto-escalate)
+
+**Theater Mode (the headline demo lever)**:
+- Full-screen animated visualization of agent execution (handler) + customer-friendly mirror (customer Processing screen)
+- 5-agent flow: Intake → parallel(Extraction, Policy, Validation) → Adjudication
+- Validation expands into 7 sub-checks (NOAA, NHTSA, ISO, NICB, DMV, Telematics, EstimateRule)
+- Live Glass Box feed with auto-scroll, flag highlighting, policy citations
+- Speed control (0.5× / 1× / 2×), pause/play, replay
+- Customer Processing screen plays at 1.5× and auto-routes to Success when done
+- 100% mock-driven via `agentTimelines.js` — works offline, will swap to real polling against Power Automate later
+- New files: `data/agentTimelines.js`, `hooks/useAgentTimeline.js`, `components/AgentFlow.jsx`, `components/GlassBoxLiveFeed.jsx`, `handler/Theater.jsx`, `customer/Processing.jsx`
+
+**Verified locally**: `npm install` + `npm run dev` runs at http://localhost:5173. Full demo arc playable end-to-end. Server stopped at session end.
+
+### Open items going into Day 4
+- [ ] **Backend kickoff** — finally start on Power Platform side. Person 3 builds slim Claims table + `LossTypeDetails` JSON column in Dataverse (per intake_data_spec §8). Person 1 starts FNOL_Start parent topic in Copilot Studio (per spec §2).
+- [ ] **Connect frontend Submit → real backend** — replace `navigate('/customer/processing/CLM-2026-4521')` in `frontend/src/customer/Review.jsx` with a `fetch()` to the Power Automate "Create Claim" flow URL. Returns the new ClaimID, pass it to `/customer/processing/:id`.
+- [ ] **Connect handler Queue → Dataverse** — replace `mockClaims` import in `frontend/src/handler/Queue.jsx` with a `fetch()` to a Power Automate flow returning live claims.
+- [ ] **Connect Theater → live Glass Box polling** — when ready, swap `useAgentTimeline` in `Theater.jsx` for a hook that polls `Decision_Rationale` rows for the claim and renders them as they appear.
+- [ ] **Deploy frontend to Azure Static Web Apps** — connect this GitHub repo, set `app_location: "frontend"`, `output_location: "dist"`. Get a real public URL for the demo.
+- [ ] **Day 1 env-verification checklist** still outstanding (NOAA + NHTSA reachability test, Copilot Studio access confirmed, Azure resources provisioned).
+- [ ] **Names for Persons 1-5** — still 2 unassigned beyond Prasad and Suraj.
+- [ ] **Sample policy PDFs** — Prasad's deliverable, blocks Day 8-9 RAG work.
+
+### Where we left off (for tomorrow)
+Frontend demo is **fully functional locally** with mocked agent execution. Both customer and handler views work. Theater Mode is the showpiece. Tomorrow's pivot is **starting the actual Microsoft backend build** — Dataverse schema and the FNOL_Start Copilot Studio topic. Once those exist, swap the mocks one by one for real Power Automate flow calls.

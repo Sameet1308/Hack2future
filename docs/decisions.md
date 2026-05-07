@@ -51,3 +51,28 @@ Consequence: Suraj owns telematics mock + roadmap deck. No real OAuth or InfluxD
 Context: Five generic Person 1–5 placeholders + two named SMEs.
 Decision: **Prasad** owns Policy data and RAG (components 9, 10 in `us_market_context.md` Table 1). **Suraj** owns telematics mock + Fitbit roadmap. Person 1–5 still TBD by name; structural roles unchanged.
 Consequence: Two domain owners locked in. Daily-task file references map cleanly to people.
+
+## 2026-05-06 — Stack frozen: no FastAPI, no full SPA framework swap
+Context: Mid-build, the team raised whether to swap to React + FastAPI + Postgres. This was the right moment to interrogate the impulse, not later.
+Decision: Stay on the brief-mandated Microsoft stack (Copilot Studio + Power Automate + Dataverse + Azure AI). Add **one minimal piece of code**: a static React frontend hosted on Azure Static Web Apps, talking to the existing Microsoft backend via Direct Line (chat) and Power Automate HTTP-trigger flows (data). No FastAPI, no Postgres, no second backend service.
+Consequence: Brief intact, regulatory pitch intact (Glass Box compliance artifact lives in Dataverse, not a homegrown table). Frontend gives us the consumer-app polish without doubling the systems to operate.
+
+## 2026-05-06 — Frontend on Azure Static Web Apps, Direct Line for chat
+Context: Need to host the React app and bridge it to the Copilot Studio Intake Agent.
+Decision: **Azure Static Web Apps** (free tier) for hosting + GitHub auto-deploy from this repo. **Bot Framework Direct Line** + Web Chat for the Copilot Studio embed when we wire it. Tiny **Azure Function inside SWA** acts as token broker so the Direct Line secret never reaches the browser.
+Consequence: One Azure resource, GitHub-driven deploys, free-tier sufficient for hackathon. Custom UX without abandoning the Microsoft stack. The token-broker pattern is production-correct, not just demo glue.
+
+## 2026-05-06 — Mock SSO today, Microsoft Entra ID config ready for production
+Context: Handler routes need protection. Real Entra ID setup involves AAD app registration, secrets, and tenant configuration — out of scope for hackathon Day 3.
+Decision: Mock the handler sign-in (button → localStorage session) for the demo. Ship the production Entra ID configuration **already written and commented out** in `frontend/staticwebapp.config.json` under `_PRODUCTION_SSO_SNIPPET_READY_TO_PASTE`. To go live in production, move that block to top-level `auth` and `routes`, set `AAD_CLIENT_ID` and `AAD_CLIENT_SECRET` in SWA Configuration. Zero React code change required.
+Consequence: Demo isn't blocked on AAD work. The "production-ready SSO" claim is honest — the config exists, just needs activation.
+
+## 2026-05-06 — Theater Mode (live agent execution visualization)
+Context: The "agentic swarm" pitch is abstract on a slide. Glass Box was rendered as a static log in the handler view, missing the parallel-execution story entirely.
+Decision: Build **Theater Mode** — full-screen animated visualization of the 5 agents executing, with Validation expanding into 7 sub-checks, a live Glass Box feed streaming on the right. Same component drives a customer-side **Processing screen** (friendlier labels, no jargon, plays between Submit and Success). Mock-driven today via `frontend/src/data/agentTimelines.js`; will swap to real polling against Power Automate `Decision_Rationale` rows when backend exists.
+Consequence: Best demo lever per LOC in the entire build. Live and replay modes both work from the same component. Customer-side Processing screen materializes the "radical transparency" Glass Box pitch — no other insurer shows the customer their own audit trail being written in real time.
+
+## 2026-05-06 — Carrier name = AI Elites (fictional)
+Context: Demo needs an insurance-company name on the customer-facing UI. Hackathon confidentiality rule prevents using the host org name. Generic "Insurance Inc" is forgettable.
+Decision: Use **"AI Elites"** as the fictional insurance carrier across all UI surfaces. Glass Box AI remains the product/tech credit ("Powered by Glass Box AI").
+Consequence: Distinct, AI-forward branding that signals modernity. Easy to swap to a real carrier name later (single token across the codebase).
