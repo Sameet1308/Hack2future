@@ -106,3 +106,37 @@ Frontend demo is **fully functional locally** with mocked agent execution. Both 
 - [ ] Suraj: draft the JSON shape for the mocked telematics endpoint
 - [ ] Names for Persons 1–5 — still 2 unassigned beyond Prasad and Suraj
 - [ ] Day 1 env-verification checklist — STILL outstanding (NOAA + NHTSA reachability test, Copilot Studio access, Azure resources)
+
+## 2026-05-12 — Day 9 — Hackathon timeline secured + replan
+**This was the missing piece.** User shared the hard hackathon dates:
+
+| Phase | Dates |
+|---|---|
+| Blueprint submission | by **2026-05-18** (6 days from today) |
+| Blueprint evaluation | **2026-05-25 → 2026-05-29** |
+| Solution build | **2026-06-01 → 2026-06-12** (12 days, not 30) |
+| Solution judging | **2026-06-16 → 2026-06-24** |
+| Closure + winners | **2026-06-30 → 2026-07-07** |
+
+**Major replan**: previously assumed continuous 30-day build to June 10. **Wrong.** The actual structure is phased — blueprint design phase NOW, then 12-day build in June, then judging.
+
+**Implications**:
+- We are in **blueprint phase**, not implementation phase. **Do NOT start Dataverse / Copilot Studio / Power Automate build yet** — wait for June 1-12 window.
+- Confluence pages (PRD + Architecture + Schema + Decisions Log + Intake Spec) ARE the blueprint package. They were published Day 8 — perfect timing.
+- Build window is brutal: **12 days for a 5-person team to build the entire backend** (Dataverse schema, Copilot Studio with 11 child topics, all Power Automate flows, Azure AI integration, Glass Box logging, Teams Adaptive Card, frontend wiring). 28 stories / 120 story points / 12 days = aggressive but achievable.
+- Procurement stories (R23–R28 in `docs/jira_backlog.csv`) explicitly run in parallel during May/June so contracts are nearer-ready by judging.
+
+**Saved as project memory**: `~/.claude/projects/<this-project>/memory/hackathon_timeline.md` so every future session loads this timeline automatically.
+
+**Updated**:
+- `CLAUDE.md` — added prominent "Hackathon timeline (HARD DATES)" section near top + updated sprint phase
+- Confluence PRD page — target date corrected from "2026-06-10" to "Blueprint due 2026-05-18, build June 1-12, judging June 16-24"
+
+### Open items going into Day 10 (May 13)
+- [ ] **PRIORITY**: Confirm blueprint submission **format** (PDF, Confluence link, slide deck, GitHub link?). Where to submit?
+- [ ] **PRIORITY**: Is there a hackathon-provided **blueprint template** we must follow?
+- [ ] Polish all 5 Confluence pages for blueprint submission (final pass for grammar, clarity, completeness)
+- [ ] Generate a **Blueprint Submission Index** page on Confluence linking to all 5 pages + GitHub repo, designed to be the single submission link
+- [ ] Update `frontend/mockup.html` and `docs/diagrams/architecture.html` to ensure they're presentation-ready (these are part of the blueprint package)
+- [ ] Sameet: create Jira project `GBX` and bulk-import the CSV (still pending, low priority since build doesn't start until June 1)
+- [ ] Confirm: live judging June 16-24 — remote, in-person, or hybrid?

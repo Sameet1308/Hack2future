@@ -43,8 +43,20 @@ Copilot Studio · Azure AI Document Intelligence · Azure AI Search · Azure Ope
 - Never write the host org name into any committed file. Use `<HOST_ORG>` as placeholder.
 - Sample policyholder names in `docs/02_architecture.md` are fictional — keep them so.
 
+## ⚠️ Hackathon timeline (HARD DATES — never lose sight of these)
+
+| Phase | Dates | Days | What we do |
+|---|---|---|---|
+| **Blueprint submission** | by **2026-05-18** | hard deadline | Submit blueprint package (PRD, Architecture, Schema, Intake Spec, Decisions) |
+| **Blueprint evaluation** | **2026-05-25 → 2026-05-29** | judges evaluate | Wait. Maybe revise on feedback. |
+| **Solution build** | **2026-06-01 → 2026-06-12** | **12 days** | Actual implementation: Dataverse + Copilot Studio + Power Automate + Azure AI |
+| **Solution judging** | **2026-06-16 → 2026-06-24** | live judging | Demo. Be ready Day 1. |
+| **Closure + winners** | **2026-06-30 → 2026-07-07** | results | |
+
+**Right now (May 12)**: 6 days to blueprint deadline. Focus = blueprint polish, NOT backend build. Backend implementation waits for June 1-12 window.
+
 ## Current sprint phase
-**Week 2 — Day 8 (2026-05-11)** — Frontend done. Confluence (PRD + Schema) published. Jira backlog CSV ready for import. Backend kickoff: Dataverse schema + Copilot Studio FNOL_Start topic. Sprint extended to **30 days, target 2026-06-10**.
+**Blueprint phase, Day 9 (2026-05-12)** — 6 days to submission deadline (May 18). Confluence pages (PRD + Schema + Architecture + Decisions Log + Intake Spec) ready as blueprint package. Frontend done. **Do NOT start Dataverse/Copilot Studio/Power Automate build yet — wait for the June 1-12 build window.**
 
 ## Confluence pages (PM space at aieliteltm.atlassian.net)
 - [Glass Box AI — Product Requirements](https://aieliteltm.atlassian.net/wiki/spaces/PM/pages/1802274) — verbatim brief + scope + 22 requirements + open questions
