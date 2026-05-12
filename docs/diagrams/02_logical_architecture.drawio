@@ -1,0 +1,382 @@
+<mxfile host="app.diagrams.net" modified="2026-05-12T05:00:00.000Z" agent="Claude/Hack2Future" version="22.1.16" type="device">
+  <diagram name="Logical Architecture (C4 L2)" id="logical-architecture">
+    <mxGraphModel dx="1422" dy="838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== TITLE ===== -->
+        <mxCell id="title" value="Glass Box AI — Logical Architecture (C4 Level 2)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="900" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Microsoft service map · 7 layers · numbered flows show the request journey for an end-to-end Tier-1 claim" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#5a6680" vertex="1" parent="1">
+          <mxGeometry x="40" y="52" width="1100" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="lg_label" value="Service vendor colors" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;fontStyle=1;fontColor=#5a6680" vertex="1" parent="1">
+          <mxGeometry x="1320" y="20" width="200" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_azure" value="Azure" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1320" y="36" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_pp" value="Power Platform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1385" y="36" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_m365" value="Microsoft 365" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#107c10;strokeColor=#0e6b0e;fontColor=#ffffff;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1490" y="36" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_audit" value="Glass Box (audit)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5b73a;strokeColor=#d99416;fontColor=#0a2540;fontSize=9;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1320" y="60" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lg_react" value="Custom (React)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f54e6;strokeColor=#0a2540;fontColor=#ffffff;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1445" y="60" width="135" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ============ LAYER 1: CHANNELS ============ -->
+        <mxCell id="L1" value="① Channels" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f4f7fb;strokeColor=#0a2540;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=8;fontSize=12;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="1100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ch_mobile" value="📱 Mobile App&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Web Chat in phone frame&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="135" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ch_web" value="🌐 Web Chat&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Embedded widget&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="260" y="135" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ch_teams" value="🟪 Microsoft Teams&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Native channel&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#107c10;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="460" y="135" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ch_sms" value="💬 SMS&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Azure Communication Services&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="660" y="135" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ch_email" value="✉ Email&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Office 365 shared mailbox&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#107c10;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="860" y="135" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ch_wa" value="🟢 WhatsApp&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Roadmap (international)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#aaaaaa;fontSize=10;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="1060" y="135" width="60" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ============ LAYER 2: PRESENTATION (Static Web Apps + React + Token Broker) ============ -->
+        <mxCell id="L2" value="② Presentation · Azure Static Web Apps (React + Tailwind, single SPA)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f4f7fb;strokeColor=#0a2540;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=8;fontSize=12;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="40" y="220" width="1100" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="swa_customer" value="React Customer App&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;/customer/* — 8 phone-frame screens&lt;br/&gt;Sara avatar persona&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f54e6;strokeColor=#0a2540;fontColor=#ffffff;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="255" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="swa_handler" value="React Adjuster Console&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;/handler/* — Queue, Claim Detail, Theater Mode&lt;br/&gt;SSO via Entra ID&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f54e6;strokeColor=#0a2540;fontColor=#ffffff;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="290" y="255" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="swa_function" value="Token Broker&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;/api/getToken — Azure Function&lt;br/&gt;Direct Line secret stays server-side&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="520" y="255" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="directline" value="Direct Line&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Bot Framework Web Chat bridge&lt;br/&gt;WebSocket to Copilot Studio agent&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="750" y="255" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="swa_note" value="🔐 Mock SSO today · Production-ready Entra ID config in staticwebapp.config.json (zero React change to flip)" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#94a3b8;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="60" y="340" width="900" height="14" as="geometry" />
+        </mxCell>
+
+        <!-- ============ LAYER 3: CONVERSATION (Copilot Studio) ============ -->
+        <mxCell id="L3" value="③ Conversation · Microsoft Copilot Studio" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#faf5ff;strokeColor=#742774;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=8;fontSize=12;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="1100" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="cs_intake" value="Intake Agent (FNOL_Start)&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Parent topic + 11 child topics (one per loss type)&lt;br/&gt;+ 3 sub-flows: OtherParty, Witness, InjuryTriage&lt;br/&gt;Sentiment check on narrative · vars: bot.fnol.*&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="415" width="500" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="cs_explanation" value="Explanation Agent (post-resolution)&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Reads Glass Box for resolved claim&lt;br/&gt;Generates plain-English summary via AOAI&lt;br/&gt;Sends on customer's original channel&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="580" y="415" width="540" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ============ LAYER 4: ORCHESTRATION (Power Automate) ============ -->
+        <mxCell id="L4" value="④ Orchestration · Microsoft Power Automate (cloud flows)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#faf5ff;strokeColor=#742774;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=8;fontSize=12;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
+          <mxGeometry x="40" y="520" width="1100" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_create" value="Create_Claim flow&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Called by FNOL_Confirm topic&lt;br/&gt;Creates Claim + Document + Communication rows&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="60" y="555" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_master" value="🎯 Master_Orchestration flow&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Trigger: When Claim row added&lt;br/&gt;Parallel branches → Adjudication → Tier routing&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="320" y="555" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_notify" value="Notify_Customer flow&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;SMS / Email / Mobile push&lt;br/&gt;Missing-doc reminders + status updates&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="660" y="555" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_glassbox" value="⭐ Log_To_GlassBox child flow&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Reusable · called by every agent&lt;br/&gt;Writes one row per AI decision&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5b73a;strokeColor=#d99416;fontColor=#0a2540;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="920" y="555" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_subs" value="&lt;b&gt;Sub-flows (one per agent)&lt;/b&gt; · Extraction · Policy · Validation (× 7 sub-checks) · Adjudication · Send_TeamsCard · Process_TeamsResponse" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#5a6680" vertex="1" parent="1">
+          <mxGeometry x="60" y="630" width="1060" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ============ LAYER 5: SERVICE TIER (Parallel agents calling Azure AI + Adapters + Teams) ============ -->
+        <mxCell id="L5" value="⑤ Service tier · agent computations" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f4f7fb;strokeColor=#0a2540;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=8;fontSize=12;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="40" y="700" width="1100" height="240" as="geometry" />
+        </mxCell>
+
+        <!-- 5a Azure AI -->
+        <mxCell id="L5a" value="Azure AI services" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#eaf3fb;strokeColor=#0078d4;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=10;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
+          <mxGeometry x="60" y="735" width="340" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="ai_docintel" value="Document Intelligence&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;prebuilt-invoice / receipt / idDocument / layout&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="80" y="760" width="300" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ai_vision" value="Azure OpenAI · GPT-4o Vision&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Damage photo assessment + quality check&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="80" y="800" width="300" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ai_search" value="Azure AI Search&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Index over policy PDFs · vector RAG&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="80" y="840" width="300" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ai_aoai" value="Azure OpenAI · GPT-4.1 (or GPT-5)&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Adjudication · Sentiment · Explanation · Coverage extraction&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="880" width="300" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- 5b External Adapters -->
+        <mxCell id="L5b" value="External validation adapters · 2 live + 6 sandbox (interface-final)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fffbeb;strokeColor=#d97706;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=10;fontStyle=1;fontColor=#92400e" vertex="1" parent="1">
+          <mxGeometry x="410" y="735" width="380" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_noaa" value="NOAA · LIVE&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;api.weather.gov&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontColor=#14532d;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="430" y="760" width="170" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_nhtsa" value="NHTSA · LIVE&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;vpic.nhtsa.dot.gov&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontColor=#14532d;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="610" y="760" width="170" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_iso" value="ISO ClaimSearch&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;sandbox · cross-carrier dup&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="430" y="800" width="170" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_nicb" value="NICB&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;sandbox · fraud watchlist&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="610" y="800" width="170" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_dmv" value="DMV (per state)&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;sandbox · driver record&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="430" y="840" width="170" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_carfax" value="CARFAX&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;sandbox · vehicle history&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="610" y="840" width="170" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_telematics" value="Telematics (UBI)&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;sandbox · g-force + GPS&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="430" y="880" width="170" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ad_kbb" value="KBB / NADA&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;sandbox · ACV total-loss&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="610" y="880" width="170" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- 5c Microsoft 365 / Teams -->
+        <mxCell id="L5c" value="Microsoft 365 — adjuster surface" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f0fdf4;strokeColor=#107c10;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=10;fontStyle=1;fontColor=#107c10" vertex="1" parent="1">
+          <mxGeometry x="800" y="735" width="320" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="m_teamscard" value="Teams Adaptive Card&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Tier 2 · adjuster review&lt;br/&gt;Approve / Adjust / Deny / More info&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#107c10;strokeColor=#0e6b0e;fontColor=#ffffff;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="820" y="760" width="280" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="m_teamschat" value="Teams Chat handoff&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Tier 3 · live CSR + transcript&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#107c10;strokeColor=#0e6b0e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="820" y="815" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="m_outlook" value="Office 365 Outlook&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Email channel monitor + outbound notifications&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#107c10;strokeColor=#0e6b0e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="820" y="860" width="280" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ============ LAYER 6: DATA (Dataverse + Blob + AI Search index) ============ -->
+        <mxCell id="L6" value="⑥ Data &amp; audit · Microsoft Dataverse + Azure Storage" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#faf5ff;strokeColor=#742774;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=8;fontSize=12;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
+          <mxGeometry x="40" y="960" width="1100" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="dv_label" value="Dataverse tables (publisher prefix gbx_)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
+          <mxGeometry x="60" y="995" width="400" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="dv_policy" value="Policy&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;13 columns&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="1015" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dv_claim" value="Claim&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;28 cols + LossTypeDetails JSON + parent-claim self-ref (Reopen)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="250" y="1015" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dv_doc" value="Document&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;13 cols · ExtractedData JSON&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="480" y="1015" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dv_comm" value="Communication&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;10 cols · per-channel msg log&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="690" y="1015" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dv_glassbox" value="⭐ Decision_Rationale&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;15 cols · THE compliance artifact&lt;br/&gt;Colorado SB21-169 · NAIC · NY DFS&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5b73a;strokeColor=#d99416;fontColor=#0a2540;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="900" y="1015" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="store_label" value="Azure Storage" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
+          <mxGeometry x="60" y="1078" width="400" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="store_blob" value="Blob Storage&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Policy PDFs (RAG source) · uploaded photos / IDs / estimates&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="60" y="1098" width="430" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="store_aisearch_idx" value="AI Search Index&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Vector embeddings of policy PDF sections · indexer reads from Blob&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="500" y="1098" width="430" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="store_keyvault" value="Key Vault&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Service keys, Direct Line secret, ACS connection string&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="940" y="1098" width="180" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- ============ LAYER 7: ANALYTICS ============ -->
+        <mxCell id="L7" value="⑦ Analytics" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#faf5ff;strokeColor=#742774;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=8;fontSize=12;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
+          <mxGeometry x="40" y="1160" width="1100" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_dashboard" value="Power BI · Operations dashboard&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Volume by loss type · tier mix · fraud-flag rate · avg time-to-decision · compliance audit views&lt;br/&gt;Native Dataverse connector — direct query, no ETL&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="1195" width="540" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="bi_embed" value="Power BI embedded&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Tile embedded in Microsoft Teams Adjuster channel&lt;br/&gt;Real-time view for Manager + Senior Adjuster&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="620" y="1195" width="500" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ============ SIDEBAR: IDENTITY + SECURITY ============ -->
+        <mxCell id="sidebar" value="Identity, Security &amp; Governance" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff7ed;strokeColor=#9a3412;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=8;fontSize=12;fontStyle=1;fontColor=#9a3412" vertex="1" parent="1">
+          <mxGeometry x="1180" y="100" width="430" height="1180" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_entra_label" value="Identity (Microsoft Entra ID)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#9a3412" vertex="1" parent="1">
+          <mxGeometry x="1200" y="135" width="300" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_entra_sso" value="Entra ID — SSO for handlers&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Protects /handler/* via SWA built-in auth&lt;br/&gt;Roles: claimsHandler / supervisor / admin&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="1200" y="155" width="390" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_entra_apps" value="Entra ID app registrations&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;1 for SWA · 1 for Power Platform service principal · 1 per AAD-secured Azure resource&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="1200" y="220" width="390" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sec_secrets_label" value="Secrets &amp; Keys (Azure Key Vault)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#9a3412" vertex="1" parent="1">
+          <mxGeometry x="1200" y="295" width="300" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_kv_swa" value="SWA configuration secrets&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;DIRECT_LINE_SECRET, AAD_CLIENT_ID/SECRET&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="1200" y="315" width="390" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_kv_pa" value="Power Automate connection refs&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Per-service OAuth/key connections, env-scoped&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="1200" y="370" width="390" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sec_dlp_label" value="Governance" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#9a3412" vertex="1" parent="1">
+          <mxGeometry x="1200" y="435" width="300" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_dlp" value="Power Platform DLP policies&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Business / Non-business / Blocked connector classification&lt;br/&gt;HTTP connector explicitly allowed for sandbox adapter calls&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="1200" y="455" width="390" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_alm" value="ALM via Power Platform Pipelines + GitHub Actions&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Dev → Test → Prod environments · Solution export/import&lt;br/&gt;SWA auto-deploy on git push to main&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="1200" y="520" width="390" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sec_mon_label" value="Observability" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#9a3412" vertex="1" parent="1">
+          <mxGeometry x="1200" y="595" width="300" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_appins" value="Application Insights&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;SWA + Functions telemetry · custom events · failure tracking&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#005a9e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="1200" y="615" width="390" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_ppanalytics" value="Power Platform Analytics&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Flow run history · Copilot Studio analytics · Dataverse audit log&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="1200" y="670" width="390" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sec_compliance_label" value="Compliance mapping (drives Glass Box requirement)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#9a3412" vertex="1" parent="1">
+          <mxGeometry x="1200" y="740" width="380" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_co" value="Colorado SB21-169&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Algorithmic non-discrimination + governance + explainability&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;fontColor=#5b21b6;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1200" y="760" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_naic" value="NAIC AI Model Bulletin&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Adopted by 20+ states · governance, vendor controls, monitoring&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;fontColor=#5b21b6;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1200" y="805" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_ny" value="NY DFS Circular Letter No. 7&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;AI/ML use documentation + consumer challenge ability&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;fontColor=#5b21b6;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1200" y="850" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_ca" value="CA AB 2930 (pending)&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Algorithmic decision-making transparency&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;fontColor=#5b21b6;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1200" y="895" width="390" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sec_callout" value="✅ The Glass Box Decision_Rationale table answers ALL of the above. Single architectural artifact = single compliance artifact." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1200" y="945" width="390" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sec_envs_label" value="Environments" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#9a3412" vertex="1" parent="1">
+          <mxGeometry x="1200" y="1010" width="380" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_env_dev" value="DEV · GlassBoxAI-Dev&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Power Platform env + Azure RG · sandbox adapter URLs&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9a3412;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1200" y="1030" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_env_test" value="TEST · GlassBoxAI-Test&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Synthetic claims · pilot users&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9a3412;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1400" y="1030" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_env_prod" value="PROD · GlassBoxAI-Prod&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;Live customers · production adapters as procurement closes · DR pair&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9a3412;fontSize=9;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1200" y="1078" width="390" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sec_finops_label" value="FinOps" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#9a3412" vertex="1" parent="1">
+          <mxGeometry x="1200" y="1145" width="380" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_finops" value="Cost projection (per env, per month)&lt;br/&gt;&lt;font style=&quot;font-size:9px&quot;&gt;DEV ≈ $50 · TEST ≈ $200 · PROD scales with claim volume&lt;br/&gt;Largest line items: AOAI tokens, Doc Intelligence pages, Power Platform per-user&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#9a3412;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="1200" y="1165" width="390" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ============ NUMBERED FLOW (red dashed) — Tier 1 happy path ============ -->
+        <!-- 1: customer enters via channel -->
+        <mxCell id="flow1" style="endArrow=classic;html=1;startArrow=oval;startFill=1;strokeColor=#dc2626;strokeWidth=2;dashed=1;fontColor=#dc2626;fontSize=11;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="ch_mobile" target="swa_customer">
+          <mxGeometry relative="1" as="geometry" />
+          <mxCell id="flow1_lbl" value="(1) Customer files via Mobile App" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#dc2626;fontSize=11;fontStyle=1" vertex="1" connectable="0" parent="flow1">
+            <mxGeometry x="-0.5" y="0" relative="1" as="geometry">
+              <mxPoint as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </mxCell>
+
+        <!-- 2: SWA Customer → Direct Line -->
+        <mxCell id="flow2" value="(2) Direct Line WebSocket" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;dashed=1;fontColor=#dc2626;fontSize=11;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="swa_customer" target="directline">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 3: Direct Line → Copilot Studio Intake -->
+        <mxCell id="flow3" value="(3) → Intake Agent" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;dashed=1;fontColor=#dc2626;fontSize=11;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="directline" target="cs_intake">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 4: Intake → Create Claim flow -->
+        <mxCell id="flow4" value="(4) Call Create_Claim flow" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;dashed=1;fontColor=#dc2626;fontSize=11;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="cs_intake" target="pa_create">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 5: Create Claim → Dataverse Claim -->
+        <mxCell id="flow5" value="(5) Insert Claim row" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;dashed=1;fontColor=#dc2626;fontSize=11;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_create" target="dv_claim">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 6: Dataverse trigger → Master Orchestration -->
+        <mxCell id="flow6" value="(6) Trigger" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;dashed=1;fontColor=#dc2626;fontSize=11;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="dv_claim" target="pa_master">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 7: Master → parallel agents -->
+        <mxCell id="flow7" value="(7) Parallel · Extraction + Policy + Validation" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;dashed=1;fontColor=#dc2626;fontSize=11;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_master" target="L5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 8: Adapters write to Glass Box (this happens THROUGHOUT - represented once) -->
+        <mxCell id="flow8" value="(8) Every step → Glass Box" style="endArrow=classic;html=1;strokeColor=#f5b73a;strokeWidth=2;dashed=1;fontColor=#a16207;fontSize=10;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="L5" target="dv_glassbox">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 9: Adjudication output → Tier 2 Teams Card OR Tier 1 settlement -->
+        <mxCell id="flow9" value="(9) Tier 2 → Adaptive Card" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;dashed=1;fontColor=#dc2626;fontSize=10;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="ai_aoai" target="m_teamscard">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 10: notification back to customer -->
+        <mxCell id="flow10" value="(10) Notify customer · Explanation Agent on original channel" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;dashed=1;fontColor=#dc2626;fontSize=10;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="dv_glassbox" target="cs_explanation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- AI Search reads from Blob (relationship arrow) -->
+        <mxCell id="ai_search_indexer" value="indexer reads from Blob" style="endArrow=classic;html=1;strokeColor=#94a3b8;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="store_blob" target="ai_search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Power BI reads from Dataverse -->
+        <mxCell id="bi_dv_link" value="reads from Dataverse" style="endArrow=classic;html=1;strokeColor=#94a3b8;dashed=1;fontSize=9;edgeStyle=orthogonalEdgeStyle" edge="1" parent="1" source="dv_glassbox" target="bi_dashboard">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Footer -->
+        <mxCell id="footer" value="Diagram source: docs/diagrams/02_logical_architecture.drawio · Confluence Architecture page: PM/1769476 · GitHub: github.com/Sameet1308/Hack2future" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#94a3b8;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="40" y="1290" width="1100" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="footer2" value="Numbered red flow: Tier 1 auto-approve happy path, customer-initiated FNOL via Mobile App. Other tier flows in dedicated Data Flow diagrams (03, 04)." style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#94a3b8;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="40" y="1308" width="1100" height="16" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
