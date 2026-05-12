@@ -44,7 +44,12 @@ Copilot Studio · Azure AI Document Intelligence · Azure AI Search · Azure Ope
 - Sample policyholder names in `docs/02_architecture.md` are fictional — keep them so.
 
 ## Current sprint phase
-**Week 1 — Day 4 (2026-05-07, ready to start)** — Frontend done. Backend kickoff: Dataverse schema + Copilot Studio FNOL_Start topic. Then wire the mocked frontend to real Power Automate flows one by one.
+**Week 2 — Day 8 (2026-05-11)** — Frontend done. Confluence (PRD + Schema) published. Jira backlog CSV ready for import. Backend kickoff: Dataverse schema + Copilot Studio FNOL_Start topic. Sprint extended to **30 days, target 2026-06-10**.
+
+## Confluence pages (PM space at aieliteltm.atlassian.net)
+- [Glass Box AI — Product Requirements](https://aieliteltm.atlassian.net/wiki/spaces/PM/pages/1802274) — verbatim brief + scope + 22 requirements + open questions
+- [Glass Box AI — Dataverse Schema](https://aieliteltm.atlassian.net/wiki/spaces/PM/pages/1802251) — 5 tables, slim+JSON pattern, sample data
+- More child pages may be added (Architecture, Decisions Log, Implementation Tips)
 
 ## Decisions already made (see docs/decisions.md for rationale)
 - **US market framing** (2026-05-05). Sample data, validation APIs, agent prompts all US-specific. Pitch leads with regulatory compliance (Colorado SB21-169 / NAIC).
@@ -57,6 +62,10 @@ Copilot Studio · Azure AI Document Intelligence · Azure AI Search · Azure Ope
 - **Frontend stack** (2026-05-06): Vite + React 18 + Tailwind in `frontend/`. Single SPA serves both customer (`/customer/*`) and handler (`/handler/*`) surfaces. Hosted on Azure Static Web Apps. Mock SSO today, Microsoft Entra ID via SWA built-in auth in production (config in `frontend/staticwebapp.config.json`).
 - **Carrier name in demo** = AI Elites. Glass Box AI stays as the underlying product credit.
 - **Theater Mode** (2026-05-06): full-screen handler view + customer Processing screen, both animate the agent pipeline. Mock-driven via `frontend/src/data/agentTimelines.js` today, swap to real polling against Power Automate Decision_Rationale rows when backend exists.
+- **Scope clarified** (2026-05-11): Personal Auto product line only (per brief), but **all 11 Auto loss types + all 5 lifecycle phases (incl Reopen) are in the build**. Demo stage-manages 2 Auto scenarios. "Property/Specialty out of scope" in the brief refers to separate product lines (homeowners, boat, etc.), NOT to Auto sub-types — Auto Liab-PD IS in scope.
+- **Production scope locked — Option A** (2026-05-07): All system components production-grade. Industry-controlled data feeds use **sandbox adapters** with production-final interfaces. Procurement cycles (60–90+ days for ISO, NICB, CARFAX, DMV, KBB, telematics) run in parallel during demo build. No "mock" language — call them sandbox adapters.
+- **30-day timeline** (2026-05-07): target 2026-06-10. Internal pilot scope (synthetic claims through full pipeline; no real money settles).
+- **Verbatim hackathon brief** secured 2026-05-11 from Prasad's PM-space template. Stack mandate confirmed.
 
 ## How to run
 - **Frontend** (now exists): `cd frontend && npm install && npm run dev` → http://localhost:5173. Full customer + handler demo playable with mock data. See `frontend/README.md`.

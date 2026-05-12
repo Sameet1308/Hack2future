@@ -76,3 +76,33 @@ Consequence: Best demo lever per LOC in the entire build. Live and replay modes 
 Context: Demo needs an insurance-company name on the customer-facing UI. Hackathon confidentiality rule prevents using the host org name. Generic "Insurance Inc" is forgettable.
 Decision: Use **"AI Elites"** as the fictional insurance carrier across all UI surfaces. Glass Box AI remains the product/tech credit ("Powered by Glass Box AI").
 Consequence: Distinct, AI-forward branding that signals modernity. Easy to swap to a real carrier name later (single token across the codebase).
+
+## 2026-05-07 — Production scope locked (Option A)
+Context: User pushed "30 days, no mocks, full working product". Honest analysis: a fully-real production system needs 60-90+ day procurement cycles for industry-controlled data feeds (ISO ClaimSearch, NICB, CARFAX, state DMVs, KBB, carrier telematics). Not achievable in 30 days regardless of effort.
+Decision: **Option A** — every system component is real and production-grade. Industry-controlled data feeds use **sandbox adapters** with production-final interfaces. Renamed "mock" language to "sandbox adapter" / "stub adapter (production endpoint pending procurement)" everywhere. Procurement workstream runs in parallel during demo build. Pitch line: *"Production-ready. Industry-data adapters are sandbox today; production endpoints configured during carrier procurement — same as how every real insurance integration works at launch."*
+Consequence: Honest framing, no engineering debt, no judge surprised when asking "is this real?" Sprint extended to 30 days.
+
+## 2026-05-11 — Verbatim hackathon brief secured
+Context: Until now we'd been building from a derivative brief in `docs/01_project_brief.md` — the team's interpretation, not the original. Found the actual brief in Prasad's PM-space Confluence template page (id 229562).
+Decision: Embedded verbatim brief in the new Confluence PRD page. **Stack mandate confirmed** (Copilot Studio + Azure AI + Power Automate + Dataverse + Teams + MCP tools). **Brief excludes**: Commercial / Personal-Property / Personal-Specialty as separate product lines. **Brief includes**: all of FNOL Intake + Assignment + Management + Closure + **Reopen** in the lifecycle.
+Consequence: Confirms our direction, adds Reopen process to scope (was missing from our schema and intake spec), reaffirms Personal Auto as the product line.
+
+## 2026-05-11 — Scope clarification: Personal Auto product line + ALL 11 loss types + ALL 5 lifecycle phases
+Context: Earlier scope language could be misread as restricting the system to Collision + Comp-Weather only. User explicitly clarified: demo focuses on Auto, but the BUILD must include all auto loss types and the entire claim lifecycle.
+Decision: **Build supports all 11 Personal Auto loss types** (Collision, Comp-Weather, Comp-Theft, Comp-Vandalism, Comp-Fire, Comp-Animal, Comp-Glass, Liab-PD, Liab-BI, PIP-MedPay, UM-UIM) **and all 5 claim lifecycle phases** (FNOL Intake, Assignment, Management, Closure, Reopen). Demo stage-manages 2 polished Auto scenarios (Sarah Collision Tier-1, Jennifer Comp-Weather Tier-2) but if a judge files a different test claim, the system handles it. **Auto Liab-PD is explicitly IN scope** — it's an Auto coverage, not standalone Property insurance.
+Consequence: Confluence PRD updated to v2 with explicit "In Scope" section. Schema page updated to include Reopen status + parent-claim lookup. Build estimate unchanged because all 11 loss types were already specified in `intake_data_spec.md`.
+
+## 2026-05-11 — Reopen process added to Claim lifecycle + schema
+Context: 5-phase claim lifecycle in the brief includes Reopen. Our schema and agent design didn't model it.
+Decision: Add `Reopen` value to `gbx_status_claim_choice`. Add new column `gbx_parent_claim` (Lookup → Claim) on the Claim table to link a reopened claim to its original. Reopened claims flow through the same 5 agents but the Adjudication Agent prompt includes the parent claim's outcome + new evidence as additional context.
+Consequence: Schema delta is small (1 status value + 1 lookup column). Build effort: ~Day 19. UI work for customer-initiated reopen: stretch.
+
+## 2026-05-11 — Confluence as additional surface; GitHub repo remains source of truth
+Context: Confluence pages started getting created (PRD + Schema). Risk of drift between Confluence and GitHub.
+Decision: **GitHub repo `Sameet1308/Hack2future` is the canonical source of truth.** Confluence pages mirror selected docs for stakeholders who live in Atlassian. Whenever a Confluence page is updated, the corresponding GitHub doc must also be updated in the same session. Each Confluence page links to the GitHub source.
+Consequence: Single source of truth maintained. Team that prefers Confluence has read-friendly views. CHANGELOG entries note when both have been updated.
+
+## 2026-05-11 — Jira project setup deferred to manual creation
+Context: Atlassian OAuth token has Confluence scopes only — no Jira scopes. Cannot create Jira project or issues programmatically.
+Decision: Generate `docs/jira_backlog.csv` as Jira-importable CSV (6 epics + 22 stories per Confluence PRD R1–R22). Provide step-by-step manual setup instructions in `docs/jira_setup.md`. Sameet creates the Jira `GBX` project manually in 5 min and bulk-imports the CSV.
+Consequence: Jira board exists outside Claude's control loop. To enable Claude-driven Jira management later, an Atlassian admin re-authorizes the MCP server with Jira scopes (read:jira-work, write:jira-work).

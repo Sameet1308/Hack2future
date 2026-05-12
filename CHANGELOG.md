@@ -82,5 +82,27 @@ Big day. Stack got finalized and a working frontend shipped end-to-end.
 - [ ] **Names for Persons 1-5** — still 2 unassigned beyond Prasad and Suraj.
 - [ ] **Sample policy PDFs** — Prasad's deliverable, blocks Day 8-9 RAG work.
 
-### Where we left off (for tomorrow)
-Frontend demo is **fully functional locally** with mocked agent execution. Both customer and handler views work. Theater Mode is the showpiece. Tomorrow's pivot is **starting the actual Microsoft backend build** — Dataverse schema and the FNOL_Start Copilot Studio topic. Once those exist, swap the mocks one by one for real Power Automate flow calls.
+### Where we left off (for Day 8)
+Frontend demo is **fully functional locally** with mocked agent execution. Both customer and handler views work. Theater Mode is the showpiece. Day 4–7 pivot is **starting the actual Microsoft backend build** — Dataverse schema and the FNOL_Start Copilot Studio topic. Once those exist, swap the mocks one by one for real Power Automate flow calls.
+
+## 2026-05-11 — Day 8 — Confluence published + scope clarified + verbatim brief secured
+- Found the **verbatim hackathon brief** for the first time. It was in Prasad's "Template - Product requirements" Confluence page (PM space, page 229562). Full text now embedded in our PRD. **Stack mandate confirmed**: Copilot Studio + Azure AI + Power Automate + Dataverse + Teams + MCP tools. Our build aligned all along — no course correction needed.
+- **Scope clarified** (per user direction): Personal Auto only as a *product line*, but **all 11 Auto loss types and all 5 lifecycle phases (including Reopen) are in the build**. Demo focuses on 2 stage-managed Auto scenarios (Sarah Collision Tier-1, Jennifer Comp-Weather Tier-2). The brief's "Property/Specialty out of scope" refers to *separate insurance product lines* (homeowners, boat, RV, etc.) — NOT to Auto sub-types like Liab-PD which IS in scope.
+- **30-day timeline confirmed** (extended from initial 21-day estimate). Target: 2026-06-10.
+- **Production scope locked (Option A)**: All system components are real and production-grade. Industry-controlled data feeds (ISO, NICB, CARFAX, DMV, KBB, telematics) use **sandbox adapters** with production-final interfaces — production endpoints get configured during the carrier's standard procurement cycle (60–90+ days, not in the team's hand). Renamed all "mock" language to "sandbox adapter" / "stub adapter".
+
+**Confluence published (PM space, `aieliteltm.atlassian.net`)**:
+- [Glass Box AI — Dataverse Schema](https://aieliteltm.atlassian.net/wiki/spaces/PM/pages/1802251/Glass+Box+AI+Dataverse+Schema) — full 5-table schema with the slim+JSON design pattern
+- [Glass Box AI — Product Requirements](https://aieliteltm.atlassian.net/wiki/spaces/PM/pages/1802274/Glass+Box+AI+Product+Requirements) — v2 with explicit "In Scope" section, all 11 loss types, all 5 lifecycle phases, all 6 open questions answered
+
+**Jira can't be auto-created**: the team's Atlassian OAuth token only has Confluence scopes — Jira project-creation requires admin re-authorization. Workaround shipped: `docs/jira_backlog.csv` is a Jira-importable CSV with 6 epics + 22 stories. Manual import instructions in `docs/jira_setup.md`.
+
+### Open items going into Day 9
+- [ ] Person 3 (Data Lead): build the 5 Dataverse tables per Schema page (~3 hours)
+- [ ] Person 1 (Copilot Studio Lead): start FNOL_Start parent topic — universal questions U1–U11
+- [ ] Sameet: create Jira project `GBX` manually + bulk-import `docs/jira_backlog.csv`
+- [ ] Re-authorize Atlassian OAuth with Jira scopes if you want Claude to manage Jira directly
+- [ ] Prasad: gather 2-3 sample US Personal Auto policy PDFs for AI Search indexing
+- [ ] Suraj: draft the JSON shape for the mocked telematics endpoint
+- [ ] Names for Persons 1–5 — still 2 unassigned beyond Prasad and Suraj
+- [ ] Day 1 env-verification checklist — STILL outstanding (NOAA + NHTSA reachability test, Copilot Studio access, Azure resources)
