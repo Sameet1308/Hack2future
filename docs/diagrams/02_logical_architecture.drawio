@@ -86,8 +86,8 @@
         <mxCell id="pa_icon_audit" value="Log_To_Audit child flow&#10;Reusable · called by every agent&#10;Writes 1 row per AI decision" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5b73a;strokeColor=#d99416;fontColor=#0a2540;fontSize=10;fontStyle=1;verticalAlign=top;spacingTop=4" vertex="1" parent="1">
           <mxGeometry x="930" y="660" width="220" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="pa_subs" value="Sub-flows: Extraction · Policy · Validation (× 7 sub-checks) · Adjudication · Send_TeamsCard · Process_TeamsResponse" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#742774;fontStyle=2" vertex="1" parent="1">
-          <mxGeometry x="60" y="755" width="1100" height="20" as="geometry" />
+        <mxCell id="pa_subs" value="Sub-flows: Extraction · Policy · Validation (× 7 sub-checks) · Adjudication · Assign_Claim_To_Handler · Assign_Vendors_To_Claim · Send_TeamsCard · Process_TeamsResponse&#10;Assignment engines — full process in docs/diagrams/04_assignment_flows.drawio" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#742774;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="60" y="745" width="1100" height="40" as="geometry" />
         </mxCell>
 
         <!-- ===== LAYER 5: SERVICE TIER ===== -->

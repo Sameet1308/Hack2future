@@ -1,0 +1,159 @@
+<mxfile host="app.diagrams.net" modified="2026-05-15T05:00:00.000Z" agent="Claude/Hack2Future" version="22.1.16" type="device">
+  <diagram name="Assignment Flows" id="assignment-flows">
+    <mxGraphModel dx="1422" dy="838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1500" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="Assignment Flows — Handler + Vendor (side-by-side)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1500" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Two distinct assignment processes triggered after Adjudication. Both write to Decision_Rationale (audit). Both have SLA timers." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#5a6680" vertex="1" parent="1">
+          <mxGeometry x="40" y="52" width="1500" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Adjudication trigger (top, spans both columns) ===== -->
+        <mxCell id="adj_box" value="Adjudication Agent output&#10;{tier, lossType, state, severity, fraudFlags, customerHistory, settlementType}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0a2540;strokeColor=#0a2540;fontColor=#ffffff;fontSize=12;fontStyle=1;align=center" vertex="1" parent="1">
+          <mxGeometry x="540" y="100" width="720" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="adj_router" value="Router (decision)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="800" y="190" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ===== LEFT COLUMN: Handler Assignment Engine ===== -->
+        <mxCell id="L_zone" value="① HANDLER ASSIGNMENT ENGINE — picks which AI Elites adjuster reviews the claim" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#faf5ff;strokeColor=#742774;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontSize=12;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="850" height="1140" as="geometry" />
+        </mxCell>
+        <mxCell id="L_when" value="WHEN: Tier 2 (review) or Tier 3 (live CSR) — never on Tier 1 auto-approve&#10;OWNS: Power Automate flow `Assign_Claim_To_Handler` (sub-flow of Master_Orchestration)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontSize=10;align=left;spacingLeft=10;fontStyle=2;fontColor=#5a1d5e" vertex="1" parent="1">
+          <mxGeometry x="60" y="335" width="810" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_s1" value="Step 1 — Build candidate pool from Adjuster table&#10;WHERE is_available = Y AND state_licenses INCLUDES claim.incident_state AND skills INCLUDES claim.loss_type_category AND seniority &gt;= required AND current_workload &lt; max_workload" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="60" y="395" width="810" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="L_s2_dec" value="Pool size &gt; 0?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="380" y="475" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="L_s2_no" value="No → ESCALATE to supervisor channel · queue claim in 'Unassigned' pool · SLA still ticking" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#991b1b;fontSize=10;align=left;spacingLeft=10" vertex="1" parent="1">
+          <mxGeometry x="60" y="475" width="290" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_s3" value="Step 2 — Score each candidate (0-100)&#10;score = (workload_inverted × 40) + (skill_match × 25) + (continuity_bonus × 15) + (seniority_match × 10) + (timezone_alignment × 10)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="60" y="555" width="810" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_s4" value="Step 3 — Pick top score (tie-break: random within top 3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;fontSize=10;align=left;spacingLeft=12;spacingTop=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="635" width="810" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_s5" value="Step 4 — UPDATE Claim row in Dataverse&#10;assigned_adjuster_id = winner.id&#10;assignment_reason = 'Selected from N eligible…'&#10;assigned_at = NOW()&#10;sla_due_at = NOW() + tier_sla &nbsp;(Tier 2 = 4h · Tier 3 = 30 min)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="60" y="695" width="810" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_s6" value="Step 5 — UPDATE Adjuster row · current_workload += 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;fontSize=10;align=left;spacingLeft=12;spacingTop=10" vertex="1" parent="1">
+          <mxGeometry x="60" y="795" width="810" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_s7" value="Step 6 — Send Teams Adaptive Card directly to winner.aad_email (1:1 chat)&#10;NOT to a channel — SLA + accountability stick to one person" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5b41a1;strokeColor=#3d2c70;fontColor=#ffffff;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="60" y="855" width="810" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_s8" value="Step 7 — Write Decision_Rationale row (audit)&#10;'Tier-2 Comp-Weather claim in FL assigned to mike.patel@aielites.com.&#10;Selected from 3 eligible (FL-licensed, Comp-Weather skill, available).&#10;Score 78/100, lowest current workload (4 vs 6 vs 8).'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d99416;fontColor=#92400e;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="935" width="810" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_s9" value="Step 8 — Start SLA monitor (separate scheduled flow polls every 15 min)&#10;If breached → re-assign to supervisor + alert + log breach to Decision_Rationale" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="60" y="1035" width="810" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_edges" value="Edge cases handled&#10;• Adjuster declines → re-score excluding them · re-route&#10;• Adjuster goes off-shift mid-claim → reassigned at end-of-shift (5-min grace)&#10;• Reopen claim → first try original adjuster (continuity); else re-score&#10;• VIP customer → override scoring, route to dedicated VIP pool&#10;• Conflict of interest → excluded_policy_ids filter applies" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#92400e;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="60" y="1115" width="810" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_sla" value="SLA targets&#10;• Tier 2 → 4 hours first response · breach = supervisor alert&#10;• Tier 3 → 30 minutes to first contact · breach = senior CSR page + SMS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="1255" width="810" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="L_audit_cols" value="Schema columns set: Claim.assigned_adjuster_id (FK → Adjuster) · assignment_reason · assigned_at · sla_due_at" style="text;html=1;align=left;fontSize=10;fontStyle=2;fontColor=#5a1d5e" vertex="1" parent="1">
+          <mxGeometry x="60" y="1355" width="810" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ===== RIGHT COLUMN: Vendor Assignment Engine ===== -->
+        <mxCell id="R_zone" value="② VENDOR ASSIGNMENT ENGINE — picks which 3rd-party services the claim (geography matters!)" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff7ed;strokeColor=#d97706;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=14;spacingTop=10;fontSize=12;fontStyle=1;fontColor=#92400e" vertex="1" parent="1">
+          <mxGeometry x="910" y="290" width="850" height="1140" as="geometry" />
+        </mxCell>
+        <mxCell id="R_when" value="WHEN: After settlement decision (BOTH Tier 1 auto-approve AND Tier 2 adjuster-approve)&#10;OWNS: Power Automate flow `Assign_Vendors_To_Claim` (sub-flow of Master_Orchestration)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=10;align=left;spacingLeft=10;fontStyle=2;fontColor=#92400e" vertex="1" parent="1">
+          <mxGeometry x="930" y="335" width="810" height="44" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_s1" value="Step 1 — Determine vendor types needed&#10;• vehicle_drivable = N → TowingCompany (immediate, time-critical)&#10;• Repair estimate &lt; ACV × 70% → DRPShop (not total loss)&#10;• Comp-Glass loss type → GlassShop (mobile, comes to customer)&#10;• Customer needs car while in shop → RentalPartner&#10;• Total loss path → SalvageYard&#10;• PIP/MedPay claim → MedicalProvider" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="930" y="395" width="810" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_s2" value="Step 2 — Geocode addresses&#10;• Incident location → lat/lng&#10;• Customer home address → lat/lng" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="930" y="515" width="810" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_s3" value="Step 3 — For EACH vendor type, query Vendor table&#10;WHERE vendor_type = X AND is_active_in_drp = Y AND states_served INCLUDES claim.incident_state&#10;AND distance(vendor.lat/lng, target_location) &lt;= service_radius_miles&#10;AND services_offered INCLUDES claim_type_specific_service&#10;AND current_capacity &gt; 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="930" y="595" width="810" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_s4" value="Step 4 — Score each candidate (0-100)&#10;score = (distance_inverted × 40) + (customer_rating × 25) + (drp_performance × 20) + (capacity_inverted × 15)&#10;Return top 3 options" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="930" y="695" width="810" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_s5_dec" value="Customer choice path?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1300" y="780" width="190" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R_s5_low" value="Low-touch (carrier policy)&#10;Auto-assign top match" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontSize=10;align=left;spacingLeft=10" vertex="1" parent="1">
+          <mxGeometry x="950" y="780" width="320" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R_s5_high" value="High-touch (Lemonade-style)&#10;Present 3 options to customer in chat → customer picks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontSize=10;align=left;spacingLeft=10" vertex="1" parent="1">
+          <mxGeometry x="1530" y="780" width="200" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_s6" value="Step 5 — INSERT ClaimVendorAssignment row(s) — one per vendor assigned&#10;claim_id, vendor_id, assignment_purpose, distance_miles, score, assignment_reason, assigned_at, sla_due_at, status='Notified'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="930" y="855" width="810" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_s7" value="Step 6 — UPDATE Vendor row · current_capacity -= 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;fontSize=10;align=left;spacingLeft=12;spacingTop=10" vertex="1" parent="1">
+          <mxGeometry x="930" y="935" width="810" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_s8" value="Step 7 — Notify vendor (auto-fax / EDI / API push) AND notify customer (SMS/email/mobile push)&#10;Customer message: 'Mike from SF AutoBody DRP has been assigned. He'll be in touch shortly.'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5b41a1;strokeColor=#3d2c70;fontColor=#ffffff;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="930" y="995" width="810" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_s9" value="Step 8 — Write Decision_Rationale row (audit)&#10;'Selected SF AutoBody DRP for repair from 4 candidates.&#10;1.8 mi from incident · 4.7-star rating · 3-day avg turnaround · 87/100 score.'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d99416;fontColor=#92400e;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="930" y="1075" width="810" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_data" value="Where vendor data comes from&#10;• Carrier's own DRP network database (Dataverse Vendor table) — production: maintained by vendor mgmt team&#10;• CCC ONE / Mitchell estimating systems — sandbox today (procurement)&#10;• Google Places / Bing Maps — geocoding + non-DRP fallback (live free tier)&#10;• Towbook / Agero — towing networks (sandbox)&#10;• Enterprise / Hertz partnership APIs — rentals (sandbox)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#92400e;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="930" y="1155" width="810" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_audit_cols" value="Schema rows created: ClaimVendorAssignment (one per vendor) — joins Claim ↔ Vendor with score + reason for audit" style="text;html=1;align=left;fontSize=10;fontStyle=2;fontColor=#92400e" vertex="1" parent="1">
+          <mxGeometry x="930" y="1275" width="810" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="R_sla" value="SLA targets&#10;• Towing → 30-60 min on-scene · breach = page supervisor + try alternate vendor&#10;• DRP shop estimate ack → 24h · breach = re-route to next-ranked shop&#10;• Glass repair scheduling → 4h · breach = mobile glass alternative" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;align=left;spacingLeft=12;spacingTop=6;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="930" y="1305" width="810" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ===== ARROWS from Adjudication → both engines ===== -->
+        <mxCell id="arrow_left" value="Tier 2 / Tier 3" style="endArrow=classic;html=1;strokeColor=#742774;strokeWidth=2;dashed=1;fontColor=#742774;fontSize=11;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="adj_router" target="L_zone">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_right" value="After settlement (Tier 1 + Tier 2)" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=2;dashed=1;fontColor=#d97706;fontSize=11;fontStyle=1;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="adj_router" target="R_zone">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Footer -->
+        <mxCell id="footer" value="Source: docs/diagrams/04_assignment_flows.drawio · Both engines log every decision to Decision_Rationale (audit-grade for Colorado SB21-169 / NAIC AI Bulletin)" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#94a3b8;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="40" y="1450" width="1700" height="16" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
