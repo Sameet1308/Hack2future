@@ -1,5 +1,5 @@
-<mxfile host="app.diagrams.net" modified="2026-05-18T11:00:00.000Z" agent="Claude/Hack2Future" version="22.1.16" type="device">
-  <diagram name="Agent Architecture &amp; Flow" id="agent-architecture-v1">
+<mxfile host="app.diagrams.net" modified="2026-05-18T12:00:00.000Z" agent="Claude/Hack2Future" version="22.1.16" type="device">
+  <diagram name="Agent Architecture &amp; Flow" id="agent-architecture-v2">
     <mxGraphModel dx="1422" dy="838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -7,61 +7,67 @@
 
         <!-- =====  TITLE  ===== -->
         <mxCell id="title" value="Agent Architecture &amp; Flow" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="30" y="10" width="1860" height="30" as="geometry" />
+          <mxGeometry x="25" y="10" width="1870" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="subtitle" value="6 specialised agents — Intake → 3 parallel workers → Adjudication → Explanation. Every step writes one row to Decision_Rationale (the Glass Box)." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#5a6680" vertex="1" parent="1">
-          <mxGeometry x="30" y="40" width="1860" height="18" as="geometry" />
+        <mxCell id="subtitle" value="6 specialised agents  ·  Intake → 3 parallel workers → Adjudication → Explanation  ·  Every step writes one row to Decision_Rationale (the Glass Box)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#5a6680" vertex="1" parent="1">
+          <mxGeometry x="25" y="38" width="1870" height="18" as="geometry" />
         </mxCell>
 
         <!-- =====================================================================
-             PIPELINE FLOW BAND  (y=65 - 175)
+             PIPELINE OVERVIEW BAND  (y=65 - 165)  - compact, one line
              ===================================================================== -->
-        <mxCell id="pipe_band" value="PIPELINE OVERVIEW — how the 6 agents connect" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f8fafc;strokeColor=#475569;strokeWidth=1.5;verticalAlign=top;align=left;spacingLeft=12;spacingTop=6;fontSize=12;fontStyle=1;fontColor=#0f172a" vertex="1" parent="1">
-          <mxGeometry x="30" y="65" width="1860" height="120" as="geometry" />
+        <mxCell id="pipe_band" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f8fafc;strokeColor=#475569;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="25" y="65" width="1870" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="pipe_lbl" value="PIPELINE — how the 6 agents connect (detailed cards below)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#0f172a" vertex="1" parent="1">
+          <mxGeometry x="40" y="72" width="600" height="16" as="geometry" />
         </mxCell>
 
-        <mxCell id="p_customer" value="Customer&#10;FNOL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ea580c;strokeColor=#9a3412;fontColor=#ffffff;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="50" y="108" width="100" height="56" as="geometry" />
+        <mxCell id="p_cust" value="Customer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ea580c;strokeColor=#9a3412;fontColor=#ffffff;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="40" y="105" width="100" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_intake" value="① Intake&#10;Copilot Studio" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="190" y="108" width="140" height="56" as="geometry" />
+        <mxCell id="p_intake" value="①&#10;Intake" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="180" y="105" width="110" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_master" value="Master Orchestration&#10;Power Automate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="370" y="108" width="190" height="56" as="geometry" />
+        <mxCell id="p_master" value="Master Orch&#10;(Power Automate)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="330" y="105" width="160" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_ext" value="② Extraction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="600" y="80" width="140" height="32" as="geometry" />
+        <mxCell id="p_ext" value="②  Extraction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="530" y="80" width="150" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="p_pol" value="③ Policy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="600" y="124" width="140" height="32" as="geometry" />
+        <mxCell id="p_pol" value="③  Policy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="530" y="118" width="150" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="p_val" value="④ Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="600" y="168" width="140" height="32" as="geometry" />
+        <mxCell id="p_val" value="④  Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="530" y="156" width="150" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="p_adj" value="⑤ Adjudication&#10;Azure OpenAI GPT-4.1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2;fontColor=#0a2540;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="800" y="108" width="190" height="56" as="geometry" />
+        <mxCell id="p_adj" value="⑤  Adjudication&#10;GPT-4.1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="720" y="105" width="150" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_router" value="Tier Router" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#107c10;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#0e3a0e" vertex="1" parent="1">
-          <mxGeometry x="1030" y="108" width="120" height="56" as="geometry" />
+        <mxCell id="p_router" value="Router" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#107c10;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#0e3a0e" vertex="1" parent="1">
+          <mxGeometry x="910" y="105" width="100" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_expl" value="⑥ Explanation&#10;Copilot Studio + AOAI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="1190" y="108" width="170" height="56" as="geometry" />
+        <mxCell id="p_expl" value="⑥  Explanation&#10;(AI — not CSR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1050" y="105" width="170" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_audit" value="🛡  Decision_Rationale&#10;Glass Box audit log" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5b73a;strokeColor=#d99416;strokeWidth=2;fontColor=#0a2540;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="1400" y="108" width="220" height="56" as="geometry" />
+        <mxCell id="p_audit" value="🛡  Decision_Rationale&#10;Glass Box audit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5b73a;strokeColor=#d99416;strokeWidth=2;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1260" y="105" width="220" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_back" value="Notify_Customer&#10;original channel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#107c10;fontColor=#0e3a0e;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="1660" y="108" width="200" height="56" as="geometry" />
+        <mxCell id="p_notify" value="Notify_Customer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#107c10;fontColor=#0e3a0e;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1520" y="105" width="170" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="p_back" value="Customer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ea580c;strokeColor=#9a3412;fontColor=#ffffff;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1730" y="105" width="140" height="48" as="geometry" />
         </mxCell>
 
         <!-- Pipeline arrows -->
-        <mxCell id="pa1" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_customer" target="p_intake">
+        <mxCell id="pa1" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_cust" target="p_intake">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="pa2" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_intake" target="p_master">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="pa3a" value="fan-out" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;fontColor=#dc2626;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_master" target="p_ext">
+        <mxCell id="pa3a" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_master" target="p_ext">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="pa3b" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_master" target="p_pol">
@@ -70,7 +76,7 @@
         <mxCell id="pa3c" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_master" target="p_val">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="pa4a" value="join" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;fontColor=#dc2626;fontSize=9;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_ext" target="p_adj">
+        <mxCell id="pa4a" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_ext" target="p_adj">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="pa4b" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_pol" target="p_adj">
@@ -88,304 +94,220 @@
         <mxCell id="pa7" value="reads" style="endArrow=classic;html=1;strokeColor=#d99416;strokeWidth=1.5;dashed=1;fontColor=#a16207;fontSize=9;fontStyle=2;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_expl" target="p_audit">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="pa8" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_audit" target="p_back">
+        <mxCell id="pa8" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_audit" target="p_notify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pa9" value="" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="p_notify" target="p_back">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
         <!-- =====================================================================
-             6 AGENT DETAIL CARDS  (y=200 - 780)
-             Each card: 295 wide × 580 tall, with 6 stacked sections.
+             AGENT CARDS — 2 x 3 GRID
+             Top row    y = 180 - 590  (410h)
+             Bottom row y = 605 - 1015 (410h)
+             Card width 610  ·  spacing 25
+             x positions: 25, 660, 1295
              ===================================================================== -->
 
-        <!-- ============ AGENT 1: INTAKE ============ -->
+        <!-- =====================  CARD 1: INTAKE  ===================== -->
         <mxCell id="c1_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="30" y="200" width="295" height="580" as="geometry" />
+          <mxGeometry x="25" y="180" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c1_hdr" value="① INTAKE AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=14;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="30" y="200" width="295" height="38" as="geometry" />
+        <mxCell id="c1_hdr" value="①  INTAKE AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="25" y="180" width="610" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="c1_eng" value="🤖  AI  ·  Microsoft Copilot Studio" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="40" y="246" width="275" height="30" as="geometry" />
+        <mxCell id="c1_eng" value="🤖  AI agent  ·  Microsoft Copilot Studio" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#3d2c70" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="580" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="c1_in_h" value="INPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
-          <mxGeometry x="44" y="284" width="100" height="16" as="geometry" />
+
+        <mxCell id="c1_what_h" value="WHAT IT DOES" style="text;html=1;align=left;fontSize=12;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
+          <mxGeometry x="45" y="278" width="200" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="c1_in" value="Customer message via Direct Line (any of 5 channels). Channel + user identity carried as context." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="44" y="302" width="267" height="58" as="geometry" />
+        <mxCell id="c1_what" value="•  Conversational FNOL on any of 5 channels (Mobile · Web · Teams · SMS · Email)&#10;•  Parent topic  FNOL_Start  →  11 loss-type child topics&#10;•  3 reusable sub-flows  ·  Identity, Vehicle, Documents&#10;•  Sentiment check on every customer turn&#10;•  Calls  Create_Claim  when intake is complete" style="text;html=1;align=left;verticalAlign=top;fontSize=13;fontColor=#0a2540;spacingTop=4" vertex="1" parent="1">
+          <mxGeometry x="45" y="298" width="570" height="142" as="geometry" />
         </mxCell>
-        <mxCell id="c1_proc_h" value="PROCESSING" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
-          <mxGeometry x="44" y="366" width="120" height="16" as="geometry" />
+
+        <mxCell id="c1_aud_h" value="AUDIT ROW" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#d97706" vertex="1" parent="1">
+          <mxGeometry x="45" y="448" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c1_proc" value="• Parent topic FNOL_Start routes to one of 11 loss-type child topics&#10;• 3 reusable sub-flows: Identity · Vehicle · Documents&#10;• Sentiment check on every turn" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="44" y="384" width="267" height="78" as="geometry" />
+        <mxCell id="c1_aud" value="{ agent: 'intake', topic_path, sentiment_score, channel, claim_id }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=11;fontFamily=Consolas;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="45" y="466" width="570" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="c1_out_h" value="OUTPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
-          <mxGeometry x="44" y="468" width="100" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="c1_out" value="Structured FNOL JSON → Create_Claim flow. Document URLs in Blob." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="44" y="486" width="267" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="c1_aud_h" value="AUDIT ROW (Decision_Rationale)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#d99416" vertex="1" parent="1">
-          <mxGeometry x="44" y="544" width="260" height="14" as="geometry" />
-        </mxCell>
-        <mxCell id="c1_aud" value="{ agent: 'intake', topic_path, sentiment_score, channel, claim_id }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;fontFamily=Consolas;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4" vertex="1" parent="1">
-          <mxGeometry x="44" y="560" width="267" height="48" as="geometry" />
-        </mxCell>
+
         <mxCell id="c1_esc_h" value="ESCALATION" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#dc2626" vertex="1" parent="1">
-          <mxGeometry x="44" y="616" width="100" height="16" as="geometry" />
+          <mxGeometry x="45" y="514" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c1_esc" value="Sentiment distressed → flag for Tier 3 (live CSR)" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#7f1d1d" vertex="1" parent="1">
-          <mxGeometry x="44" y="634" width="267" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="c1_owner" value="Owner: Prasad" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#94a3b8" vertex="1" parent="1">
-          <mxGeometry x="40" y="752" width="275" height="20" as="geometry" />
+        <mxCell id="c1_esc" value="Distressed sentiment  →  escalate to Tier 3 (live CSR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#7f1d1d;fontSize=12;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="45" y="532" width="570" height="34" as="geometry" />
         </mxCell>
 
-        <!-- ============ AGENT 2: EXTRACTION ============ -->
+        <!-- =====================  CARD 2: EXTRACTION  ===================== -->
         <mxCell id="c2_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="340" y="200" width="295" height="580" as="geometry" />
+          <mxGeometry x="660" y="180" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c2_hdr" value="② EXTRACTION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#0a2540;fontColor=#ffffff;fontSize=14;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="340" y="200" width="295" height="38" as="geometry" />
+        <mxCell id="c2_hdr" value="②  EXTRACTION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#0a2540;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="660" y="180" width="610" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="c2_eng" value="🤖  AI  ·  Doc Intelligence + GPT-4o Vision" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="350" y="246" width="275" height="30" as="geometry" />
+        <mxCell id="c2_eng" value="🤖  AI agent  ·  Azure AI Document Intelligence  +  GPT-4o Vision" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="675" y="240" width="580" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="c2_in_h" value="INPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
-          <mxGeometry x="354" y="284" width="100" height="16" as="geometry" />
+
+        <mxCell id="c2_what_h" value="WHAT IT DOES" style="text;html=1;align=left;fontSize=12;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
+          <mxGeometry x="680" y="278" width="200" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="c2_in" value="Document + photo URLs from Blob Storage (police report, towing receipt, accident photos)." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="354" y="302" width="267" height="58" as="geometry" />
+        <mxCell id="c2_what" value="•  Reads docs &amp; photos from Blob Storage&#10;•  Form Recognizer parses structured forms&#10;     (police report  →  date, location, parties)&#10;•  GPT-4o Vision describes accident photos&#10;     (damage area, severity, vehicle angle)&#10;•  Outputs ExtractedData JSON  +  per-field confidence" style="text;html=1;align=left;verticalAlign=top;fontSize=13;fontColor=#0a2540;spacingTop=4" vertex="1" parent="1">
+          <mxGeometry x="680" y="298" width="570" height="142" as="geometry" />
         </mxCell>
-        <mxCell id="c2_proc_h" value="PROCESSING" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
-          <mxGeometry x="354" y="366" width="120" height="16" as="geometry" />
+
+        <mxCell id="c2_aud_h" value="AUDIT ROW" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#d97706" vertex="1" parent="1">
+          <mxGeometry x="680" y="448" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c2_proc" value="• Form Recognizer parses structured forms (police report → date, location, parties)&#10;• GPT-4o Vision describes accident photos (damage area, severity, vehicle angle)" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="354" y="384" width="267" height="78" as="geometry" />
+        <mxCell id="c2_aud" value="{ agent: 'extraction', model, fields_extracted, confidence_avg, doc_ids }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=11;fontFamily=Consolas;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="680" y="466" width="570" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="c2_out_h" value="OUTPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
-          <mxGeometry x="354" y="468" width="100" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="c2_out" value="ExtractedData JSON merged into Document row. Per-field confidence scores." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="354" y="486" width="267" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="c2_aud_h" value="AUDIT ROW (Decision_Rationale)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#d99416" vertex="1" parent="1">
-          <mxGeometry x="354" y="544" width="260" height="14" as="geometry" />
-        </mxCell>
-        <mxCell id="c2_aud" value="{ agent: 'extraction', model, fields_extracted, confidence_avg, doc_ids }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;fontFamily=Consolas;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4" vertex="1" parent="1">
-          <mxGeometry x="354" y="560" width="267" height="48" as="geometry" />
-        </mxCell>
+
         <mxCell id="c2_esc_h" value="ESCALATION" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#dc2626" vertex="1" parent="1">
-          <mxGeometry x="354" y="616" width="100" height="16" as="geometry" />
+          <mxGeometry x="680" y="514" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c2_esc" value="Any critical field confidence &lt; 0.60 → Tier 2 (adjuster review)" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#7f1d1d" vertex="1" parent="1">
-          <mxGeometry x="354" y="634" width="267" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="c2_owner" value="Owner: Suraj" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#94a3b8" vertex="1" parent="1">
-          <mxGeometry x="350" y="752" width="275" height="20" as="geometry" />
+        <mxCell id="c2_esc" value="Any critical field confidence  &lt; 0.60  →  Tier 2 adjuster review" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#7f1d1d;fontSize=12;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="680" y="532" width="570" height="34" as="geometry" />
         </mxCell>
 
-        <!-- ============ AGENT 3: POLICY ============ -->
+        <!-- =====================  CARD 3: POLICY  ===================== -->
         <mxCell id="c3_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="650" y="200" width="295" height="580" as="geometry" />
+          <mxGeometry x="1295" y="180" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c3_hdr" value="③ POLICY AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#0a2540;fontColor=#ffffff;fontSize=14;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="650" y="200" width="295" height="38" as="geometry" />
+        <mxCell id="c3_hdr" value="③  POLICY AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#0a2540;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1295" y="180" width="610" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="c3_eng" value="🤖  AI  ·  Azure AI Search (vector RAG)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="660" y="246" width="275" height="30" as="geometry" />
+        <mxCell id="c3_eng" value="🤖  AI agent  ·  Azure AI Search (vector RAG over policy PDFs)" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="1310" y="240" width="580" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="c3_in_h" value="INPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
-          <mxGeometry x="664" y="284" width="100" height="16" as="geometry" />
+
+        <mxCell id="c3_what_h" value="WHAT IT DOES" style="text;html=1;align=left;fontSize=12;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
+          <mxGeometry x="1315" y="278" width="200" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="c3_in" value="Policy number from Claim + loss_type + state. Pulls the policy PDF location." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="664" y="302" width="267" height="58" as="geometry" />
+        <mxCell id="c3_what" value="•  Inputs  ·  policy number  +  loss_type  +  state&#10;•  Hybrid vector + keyword search over chunked clauses&#10;•  Returns top-k clauses with page citations&#10;•  Built as Power Automate flow calling Azure AI Search&#10;     (NOT a multi-agent handoff — keeps citations intact)&#10;•  Output  ·  coverage matrix  +  deductible  +  limit" style="text;html=1;align=left;verticalAlign=top;fontSize=13;fontColor=#0a2540;spacingTop=4" vertex="1" parent="1">
+          <mxGeometry x="1315" y="298" width="570" height="142" as="geometry" />
         </mxCell>
-        <mxCell id="c3_proc_h" value="PROCESSING" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
-          <mxGeometry x="664" y="366" width="120" height="16" as="geometry" />
+
+        <mxCell id="c3_aud_h" value="AUDIT ROW" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#d97706" vertex="1" parent="1">
+          <mxGeometry x="1315" y="448" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c3_proc" value="• Vector search over policy PDFs indexed by chunked clauses&#10;• Hybrid: semantic + keyword&#10;• Returns top-k clauses with page citations&#10;• Built as Power Automate flow (NOT multi-agent handoff)" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="664" y="384" width="267" height="78" as="geometry" />
+        <mxCell id="c3_aud" value="{ agent: 'policy', search_query, top_k_chunks, citations[], coverage }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=11;fontFamily=Consolas;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="1315" y="466" width="570" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="c3_out_h" value="OUTPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
-          <mxGeometry x="664" y="468" width="100" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="c3_out" value="Coverage matrix (covered / excluded) · deductible · limit · clause citations." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="664" y="486" width="267" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="c3_aud_h" value="AUDIT ROW (Decision_Rationale)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#d99416" vertex="1" parent="1">
-          <mxGeometry x="664" y="544" width="260" height="14" as="geometry" />
-        </mxCell>
-        <mxCell id="c3_aud" value="{ agent: 'policy', search_query, top_k_chunks, citations[], coverage }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;fontFamily=Consolas;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4" vertex="1" parent="1">
-          <mxGeometry x="664" y="560" width="267" height="48" as="geometry" />
-        </mxCell>
+
         <mxCell id="c3_esc_h" value="ESCALATION" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#dc2626" vertex="1" parent="1">
-          <mxGeometry x="664" y="616" width="100" height="16" as="geometry" />
+          <mxGeometry x="1315" y="514" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c3_esc" value="No matching clause OR ambiguous coverage → Tier 2" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#7f1d1d" vertex="1" parent="1">
-          <mxGeometry x="664" y="634" width="267" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="c3_owner" value="Owner: Prasad" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#94a3b8" vertex="1" parent="1">
-          <mxGeometry x="660" y="752" width="275" height="20" as="geometry" />
+        <mxCell id="c3_esc" value="No matching clause  OR  ambiguous coverage  →  Tier 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#7f1d1d;fontSize=12;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="1315" y="532" width="570" height="34" as="geometry" />
         </mxCell>
 
-        <!-- ============ AGENT 4: VALIDATION ============ -->
+        <!-- =====================  CARD 4: VALIDATION  ===================== -->
         <mxCell id="c4_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="960" y="200" width="295" height="580" as="geometry" />
+          <mxGeometry x="25" y="605" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c4_hdr" value="④ VALIDATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=14;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="960" y="200" width="295" height="38" as="geometry" />
+        <mxCell id="c4_hdr" value="④  VALIDATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="25" y="605" width="610" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="c4_eng" value="⚙  Workflow  ·  Power Automate (7 sub-flows)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="970" y="246" width="275" height="30" as="geometry" />
+        <mxCell id="c4_eng" value="⚙  Workflow  ·  Power Automate parent flow  +  7 sub-flow adapters" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#3d2c70" vertex="1" parent="1">
+          <mxGeometry x="40" y="665" width="580" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="c4_in_h" value="INPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
-          <mxGeometry x="974" y="284" width="100" height="16" as="geometry" />
+
+        <mxCell id="c4_what_h" value="7 SUB-CHECKS  (run in parallel)" style="text;html=1;align=left;fontSize=12;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
+          <mxGeometry x="45" y="703" width="300" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="c4_in" value="Claim metadata (location, time, VIN, driver). Calls 7 external adapters in parallel." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="974" y="302" width="267" height="58" as="geometry" />
+        <mxCell id="c4_what" value="•  NOAA Weather  ·  LIVE  (api.weather.gov)&#10;•  NHTSA Recalls  ·  LIVE  (vpic.nhtsa.dot.gov)&#10;•  ISO ClaimSearch  ·  sandbox  (cross-carrier dup)&#10;•  NICB  ·  sandbox  (fraud watchlist)&#10;•  CARFAX  ·  sandbox  (vehicle history)&#10;•  DMV (per state)  ·  sandbox  (driver record)&#10;•  Telematics  ·  sandbox  (g-force, GPS at loss)" style="text;html=1;align=left;verticalAlign=top;fontSize=13;fontColor=#0a2540;spacingTop=4" vertex="1" parent="1">
+          <mxGeometry x="45" y="723" width="570" height="142" as="geometry" />
         </mxCell>
-        <mxCell id="c4_proc_h" value="PROCESSING (7 sub-checks)" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
-          <mxGeometry x="974" y="366" width="220" height="16" as="geometry" />
+
+        <mxCell id="c4_aud_h" value="AUDIT ROW  (one per sub-check)" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#d97706" vertex="1" parent="1">
+          <mxGeometry x="45" y="873" width="280" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c4_proc" value="• NOAA Weather (LIVE)  ·  NHTSA Recalls (LIVE)&#10;• ISO ClaimSearch  ·  NICB fraud watchlist&#10;• CARFAX history  ·  DMV record  ·  Telematics&#10;(last 5 sandbox today, production-final contracts)" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="974" y="384" width="267" height="78" as="geometry" />
+        <mxCell id="c4_aud" value="{ agent: 'validation', check, result, vendor_status, latency_ms }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=11;fontFamily=Consolas;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="45" y="891" width="570" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="c4_out_h" value="OUTPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
-          <mxGeometry x="974" y="468" width="100" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="c4_out" value="ValidationResults JSON — each check returns green / amber / red + raw vendor payload." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="974" y="486" width="267" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="c4_aud_h" value="AUDIT ROW (one per sub-check)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#d99416" vertex="1" parent="1">
-          <mxGeometry x="974" y="544" width="260" height="14" as="geometry" />
-        </mxCell>
-        <mxCell id="c4_aud" value="{ agent: 'validation', check, result, vendor_status, latency_ms }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;fontFamily=Consolas;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4" vertex="1" parent="1">
-          <mxGeometry x="974" y="560" width="267" height="48" as="geometry" />
-        </mxCell>
+
         <mxCell id="c4_esc_h" value="ESCALATION" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#dc2626" vertex="1" parent="1">
-          <mxGeometry x="974" y="616" width="100" height="16" as="geometry" />
+          <mxGeometry x="45" y="939" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c4_esc" value="NICB fraud hit → Tier 3 (CSR).&#10;≥ 2 amber flags → Tier 2." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#7f1d1d" vertex="1" parent="1">
-          <mxGeometry x="974" y="634" width="267" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="c4_owner" value="Owner: Suraj (telematics + adapters)" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#94a3b8" vertex="1" parent="1">
-          <mxGeometry x="970" y="752" width="275" height="20" as="geometry" />
+        <mxCell id="c4_esc" value="NICB fraud hit  →  Tier 3 CSR  ·  ≥ 2 amber flags  →  Tier 2 adjuster" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#7f1d1d;fontSize=12;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="45" y="957" width="570" height="34" as="geometry" />
         </mxCell>
 
-        <!-- ============ AGENT 5: ADJUDICATION ============ -->
+        <!-- =====================  CARD 5: ADJUDICATION  ===================== -->
         <mxCell id="c5_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=3" vertex="1" parent="1">
-          <mxGeometry x="1270" y="200" width="295" height="580" as="geometry" />
+          <mxGeometry x="660" y="605" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c5_hdr" value="⑤ ADJUDICATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0a2540;strokeColor=#0a2540;fontColor=#ffffff;fontSize=14;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="1270" y="200" width="295" height="38" as="geometry" />
+        <mxCell id="c5_hdr" value="⑤  ADJUDICATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0a2540;strokeColor=#0a2540;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="660" y="605" width="610" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="c5_eng" value="🤖  AI  ·  Azure OpenAI GPT-4.1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="1280" y="246" width="275" height="30" as="geometry" />
+        <mxCell id="c5_eng" value="🤖  AI agent  ·  Azure OpenAI  GPT-4.1  (reasoning model)" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="675" y="665" width="580" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="c5_in_h" value="INPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
-          <mxGeometry x="1284" y="284" width="100" height="16" as="geometry" />
+
+        <mxCell id="c5_what_h" value="WHAT IT DOES" style="text;html=1;align=left;fontSize=12;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
+          <mxGeometry x="680" y="703" width="200" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="c5_in" value="All upstream agent outputs: coverage + extraction + validation. Plus claim-history context." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="1284" y="302" width="267" height="58" as="geometry" />
+        <mxCell id="c5_what" value="•  Joins outputs from Extraction + Policy + Validation&#10;•  Structured prompt  ·  apply coverage to facts&#10;•  Calculates payout  (loss − deductible, capped at limit)&#10;•  Reasons about fraud signals + edge cases&#10;•  Self-rates its confidence on a 0 – 1 scale&#10;•  Recommends tier  (T1 auto · T2 adjuster · T3 CSR)" style="text;html=1;align=left;verticalAlign=top;fontSize=13;fontColor=#0a2540;spacingTop=4" vertex="1" parent="1">
+          <mxGeometry x="680" y="723" width="570" height="142" as="geometry" />
         </mxCell>
-        <mxCell id="c5_proc_h" value="PROCESSING" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
-          <mxGeometry x="1284" y="366" width="120" height="16" as="geometry" />
+
+        <mxCell id="c5_aud_h" value="AUDIT ROW" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#d97706" vertex="1" parent="1">
+          <mxGeometry x="680" y="873" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c5_proc" value="• Structured prompt: apply policy coverage to extracted facts&#10;• Calculate payout (loss − deductible, capped at limit)&#10;• Reason about fraud signals + edge cases&#10;• Self-rate confidence" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="1284" y="384" width="267" height="78" as="geometry" />
+        <mxCell id="c5_aud" value="{ agent: 'adjudication', reasoning, confidence, tier, payout, rationale }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=11;fontFamily=Consolas;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="680" y="891" width="570" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="c5_out_h" value="OUTPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#0078d4" vertex="1" parent="1">
-          <mxGeometry x="1284" y="468" width="100" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="c5_out" value="Decision (approve / partial / deny) · payout amount · recommended tier · rationale text." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="1284" y="486" width="267" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="c5_aud_h" value="AUDIT ROW (Decision_Rationale)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#d99416" vertex="1" parent="1">
-          <mxGeometry x="1284" y="544" width="260" height="14" as="geometry" />
-        </mxCell>
-        <mxCell id="c5_aud" value="{ agent: 'adjudication', reasoning, confidence, tier, payout, rationale }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;fontFamily=Consolas;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4" vertex="1" parent="1">
-          <mxGeometry x="1284" y="560" width="267" height="48" as="geometry" />
-        </mxCell>
+
         <mxCell id="c5_esc_h" value="TIER ASSIGNMENT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#dc2626" vertex="1" parent="1">
-          <mxGeometry x="1284" y="616" width="160" height="16" as="geometry" />
+          <mxGeometry x="680" y="939" width="160" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c5_esc" value="conf ≥ 0.85 → T1 auto-approve.&#10;0.6 ≤ conf &lt; 0.85 → T2 adjuster.&#10;Total loss / fatality / fraud → T3 CSR." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#7f1d1d" vertex="1" parent="1">
-          <mxGeometry x="1284" y="634" width="267" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="c5_owner" value="Owner: Prasad (prompt + tuning)" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#94a3b8" vertex="1" parent="1">
-          <mxGeometry x="1280" y="752" width="275" height="20" as="geometry" />
+        <mxCell id="c5_esc" value="conf ≥ 0.85 → T1 auto  ·  0.60 – 0.85 → T2 adjuster  ·  fraud/fatality/total-loss → T3 CSR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#7f1d1d;fontSize=12;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="680" y="957" width="570" height="34" as="geometry" />
         </mxCell>
 
-        <!-- ============ AGENT 6: EXPLANATION ============ -->
+        <!-- =====================  CARD 6: EXPLANATION  ===================== -->
         <mxCell id="c6_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="1580" y="200" width="295" height="580" as="geometry" />
+          <mxGeometry x="1295" y="605" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c6_hdr" value="⑥ EXPLANATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=14;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="1580" y="200" width="295" height="38" as="geometry" />
+        <mxCell id="c6_hdr" value="⑥  EXPLANATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1295" y="605" width="610" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="c6_eng" value="🤖  AI  ·  Copilot Studio + Azure OpenAI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="1590" y="246" width="275" height="30" as="geometry" />
+        <mxCell id="c6_eng" value="🤖  AI agent  ·  Copilot Studio  +  Azure OpenAI  (summarisation)" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#3d2c70" vertex="1" parent="1">
+          <mxGeometry x="1310" y="665" width="580" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="c6_clarify" value="NOT a human CSR. This is the AI explainer that runs on EVERY claim — T1, T2, T3." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#9a3412;fontSize=10;fontStyle=2;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="1590" y="280" width="275" height="32" as="geometry" />
+
+        <mxCell id="c6_clarify" value="⚠  NOT a human CSR  ·  this is the AI explainer that runs on EVERY claim  (T1 / T2 / T3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#9a3412;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1315" y="700" width="570" height="32" as="geometry" />
         </mxCell>
-        <mxCell id="c6_in_h" value="INPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
-          <mxGeometry x="1594" y="320" width="100" height="16" as="geometry" />
+
+        <mxCell id="c6_what_h" value="WHAT IT DOES" style="text;html=1;align=left;fontSize=12;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
+          <mxGeometry x="1315" y="742" width="200" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="c6_in" value="All Decision_Rationale rows for this claim_id (full audit trail from intake to decision)." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="1594" y="338" width="267" height="44" as="geometry" />
+        <mxCell id="c6_what" value="•  Reads ALL Decision_Rationale rows for the claim&#10;•  Summarisation prompt tone-matched to the channel&#10;•  Produces 3-paragraph explanation:&#10;     what we found  ·  why we decided  ·  what's next&#10;•  Appended to Notify_Customer message on original channel" style="text;html=1;align=left;verticalAlign=top;fontSize=13;fontColor=#0a2540;spacingTop=4" vertex="1" parent="1">
+          <mxGeometry x="1315" y="762" width="570" height="108" as="geometry" />
         </mxCell>
-        <mxCell id="c6_proc_h" value="PROCESSING" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
-          <mxGeometry x="1594" y="388" width="120" height="16" as="geometry" />
+
+        <mxCell id="c6_aud_h" value="AUDIT ROW" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#d97706" vertex="1" parent="1">
+          <mxGeometry x="1315" y="878" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c6_proc" value="• Summarisation prompt over audit rows&#10;• Tone-matches the customer's channel + sentiment&#10;• Produces a 3-paragraph explanation: what we found, why we decided, what's next" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="1594" y="406" width="267" height="80" as="geometry" />
+        <mxCell id="c6_aud" value="{ agent: 'explanation', source_rows[], channel, explanation, sent_at }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=11;fontFamily=Consolas;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="1315" y="896" width="570" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="c6_out_h" value="OUTPUT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#742774" vertex="1" parent="1">
-          <mxGeometry x="1594" y="492" width="100" height="16" as="geometry" />
-        </mxCell>
-        <mxCell id="c6_out" value="Plain-English explanation text → appended to Notify_Customer message on original channel." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="1594" y="510" width="267" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="c6_aud_h" value="AUDIT ROW (Decision_Rationale)" style="text;html=1;align=left;fontSize=10;fontStyle=1;fontColor=#d99416" vertex="1" parent="1">
-          <mxGeometry x="1594" y="556" width="260" height="14" as="geometry" />
-        </mxCell>
-        <mxCell id="c6_aud" value="{ agent: 'explanation', source_rows[], channel, explanation, sent_at }" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;fontFamily=Consolas;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4" vertex="1" parent="1">
-          <mxGeometry x="1594" y="572" width="267" height="48" as="geometry" />
-        </mxCell>
+
         <mxCell id="c6_esc_h" value="ESCALATION" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#dc2626" vertex="1" parent="1">
-          <mxGeometry x="1594" y="628" width="100" height="16" as="geometry" />
+          <mxGeometry x="1315" y="944" width="100" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c6_esc" value="N/A — runs for every claim. If the customer replies, conversation re-enters Intake." style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#7f1d1d" vertex="1" parent="1">
-          <mxGeometry x="1594" y="646" width="267" height="50" as="geometry" />
-        </mxCell>
-        <mxCell id="c6_owner" value="Owner: Prasad" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#94a3b8" vertex="1" parent="1">
-          <mxGeometry x="1590" y="752" width="275" height="20" as="geometry" />
+        <mxCell id="c6_esc" value="N/A  ·  runs for every claim  ·  customer reply re-enters Intake Agent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#7f1d1d;fontSize=12;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="1315" y="962" width="570" height="34" as="geometry" />
         </mxCell>
 
-        <!-- =====================================================================
-             SHARED PATTERNS / GLASS BOX  (y=800 - 1020)
-             ===================================================================== -->
-        <mxCell id="shared_band" value="SHARED PATTERNS — applied to every agent" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f8fafc;strokeColor=#475569;strokeWidth=1.5;verticalAlign=top;align=left;spacingLeft=12;spacingTop=6;fontSize=12;fontStyle=1;fontColor=#0f172a" vertex="1" parent="1">
-          <mxGeometry x="30" y="800" width="1860" height="225" as="geometry" />
-        </mxCell>
-
-        <mxCell id="sp1" value="🛡  Glass Box audit pattern&#10;&#10;Every agent calls the reusable Log_To_Audit child flow&#10;→ writes ONE row to Decision_Rationale per decision.&#10;&#10;Row contents: agent, input_hash, output, confidence, model, latency_ms, claim_id.&#10;&#10;This single table satisfies CO SB21-169, NAIC, NY DFS, CA AB 2930." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=2;fontColor=#92400e;fontSize=11;fontStyle=1;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10" vertex="1" parent="1">
-          <mxGeometry x="50" y="838" width="440" height="170" as="geometry" />
-        </mxCell>
-
-        <mxCell id="sp2" value="⚡  Parallel execution&#10;&#10;Master_Orchestration uses Power Automate parallel branches:&#10;• Extraction · Policy · Validation run concurrently (~30 s wall time vs ~90 s serial)&#10;• Each branch independently writes its audit row&#10;• Join step waits for all 3, then calls Adjudication&#10;&#10;Per-agent timeouts: 45 s with 2 retries (exponential back-off)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2;fontColor=#0a2540;fontSize=11;fontStyle=1;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10" vertex="1" parent="1">
-          <mxGeometry x="510" y="838" width="440" height="170" as="geometry" />
-        </mxCell>
-
-        <mxCell id="sp3" value="🔒  Failure handling + human-in-the-loop&#10;&#10;• Any agent timeout or error → audit row with status='error' → escalate to Tier 2&#10;• Adjudication low-confidence (&lt; 0.85) → Tier 2 Teams Adaptive Card to adjuster&#10;• Fraud / fatality / total-loss / distressed-sentiment → Tier 3 live CSR chat&#10;• Tier 2 + Tier 3 human decisions ALSO logged to Decision_Rationale (agent='human_adjuster' / 'human_csr')" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;strokeWidth=2;fontColor=#7f1d1d;fontSize=11;fontStyle=1;align=left;verticalAlign=top;spacingLeft=12;spacingTop=10" vertex="1" parent="1">
-          <mxGeometry x="970" y="838" width="900" height="170" as="geometry" />
-        </mxCell>
-
-        <!-- =====  FOOTER KEY  ===== -->
-        <mxCell id="footer" value="KEY:  Purple = Microsoft Copilot Studio / Power Automate  ·  Blue = Azure AI  ·  Gold = Glass Box audit  ·  Red dashed lines = audit writes / reads  ·  Orange = customer-facing  ·  Each agent's audit row makes its decision auditable, explainable, and regulator-ready." style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#5a6680" vertex="1" parent="1">
-          <mxGeometry x="30" y="1040" width="1860" height="30" as="geometry" />
+        <!-- =====  FOOTER  ===== -->
+        <mxCell id="footer" value="🛡  GLASS BOX  ·  every agent writes one row to  Decision_Rationale  via the reusable  Log_To_Audit  child flow  →  single artifact satisfies CO SB21-169, NAIC AI Bulletin, NY DFS Circ. 7, CA AB 2930" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d99416;strokeWidth=2;fontColor=#92400e;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="25" y="1030" width="1880" height="40" as="geometry" />
         </mxCell>
 
       </root>
