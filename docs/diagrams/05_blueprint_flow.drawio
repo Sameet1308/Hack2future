@@ -1,36 +1,36 @@
-<mxfile host="app.diagrams.net" modified="2026-05-19T11:00:00.000Z" agent="Claude/Hack2Future" version="22.1.16" type="device">
-  <diagram name="Blueprint Flow (half-slide)" id="blueprint-flow-v2">
+<mxfile host="app.diagrams.net" modified="2026-05-19T13:00:00.000Z" agent="Claude/Hack2Future" version="22.1.16" type="device">
+  <diagram name="Blueprint Flow (half-slide, real icons)" id="blueprint-flow-v3">
     <mxGraphModel dx="1422" dy="838" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1125" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
         <!-- TITLE -->
-        <mxCell id="title" value="High-Level Solution Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
-          <mxGeometry x="20" y="8" width="960" height="28" as="geometry" />
+        <mxCell id="title" value="High-Level Solution Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="20" y="6" width="960" height="32" as="geometry" />
         </mxCell>
 
         <!-- ===== ROW 1: CUSTOMER + 5 CHANNELS  (y=46-104) ===== -->
-        <mxCell id="user" value="Customer" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#0a2540;fillColor=#dbeafe;fontSize=12;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="35" y="46" width="36" height="50" as="geometry" />
+        <mxCell id="user" value="Customer" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#0a2540;fillColor=#dbeafe;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="35" y="46" width="38" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="ch_mobile" value="Mobile App" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="ch_mobile" value="📱  Mobile App" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="120" y="50" width="160" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="ch_web" value="Web Chat" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="ch_web" value="💬  Web Chat" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="290" y="50" width="160" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="ch_teams" value="Microsoft Teams" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#5b41a1;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="ch_teams" value="👥  Microsoft Teams" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#5b41a1;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="460" y="50" width="160" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="ch_sms" value="SMS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="ch_sms" value="📨  SMS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="630" y="50" width="160" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="ch_email" value="Email" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#107c10;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="ch_email" value="✉️  Email" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#107c10;strokeWidth=2;fontSize=13;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="800" y="50" width="160" height="44" as="geometry" />
         </mxCell>
 
-        <!-- ===== ROW 2: FRONTEND  (y=120-200) ===== -->
+        <!-- ===== ROW 2: FRONTEND (real Azure icons) ===== -->
         <mxCell id="swa" value="Azure Static Web Apps" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/web/01007-icon-service-Static-Apps.svg" vertex="1" parent="1">
           <mxGeometry x="170" y="124" width="48" height="48" as="geometry" />
         </mxCell>
@@ -41,151 +41,233 @@
           <mxGeometry x="700" y="124" width="48" height="48" as="geometry" />
         </mxCell>
 
-        <!-- ===== ROW 3: COPILOT STUDIO INTAKE  (y=220-300) ===== -->
+        <!-- ===== ROW 3: COPILOT STUDIO INTAKE (real PP icon) ===== -->
         <mxCell id="copilot" value="Copilot Studio · Intake Agent" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/powerplatform/CopilotStudio_scalable.svg" vertex="1" parent="1">
           <mxGeometry x="460" y="220" width="64" height="64" as="geometry" />
         </mxCell>
 
-        <!-- ===== ROW 4: POWER AUTOMATE MASTER  (y=320-400) ===== -->
+        <!-- ===== ROW 4: POWER AUTOMATE MASTER (real PP icon) ===== -->
         <mxCell id="pa_master" value="Power Automate · Master Orchestration" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/powerplatform/Power%20Platform/PowerAutomate_scalable.svg" vertex="1" parent="1">
           <mxGeometry x="460" y="320" width="64" height="64" as="geometry" />
         </mxCell>
 
-        <!-- ===== ROW 5: 4 AGENTS IN PARALLEL  (y=420-560, 4 cards 200w x 140h) ===== -->
-        <mxCell id="agent_extract" value="Extraction Agent&#10;&#10;Doc Intel + GPT-4o Vision&#10;Photos · IDs · Estimates" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#0a2540;verticalAlign=middle;align=center" vertex="1" parent="1">
-          <mxGeometry x="30" y="420" width="220" height="140" as="geometry" />
+        <!-- ===== ROW 5: 4 AGENTS IN PARALLEL (icons INSIDE each card) ===== -->
+        <!-- Each agent card: background rect + title + 2 real icons + description -->
+
+        <!-- EXTRACTION AGENT -->
+        <mxCell id="agent_extract_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="30" y="420" width="220" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="agent_policy" value="Policy Agent&#10;&#10;Azure AI Search · RAG&#10;Coverage + citations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2;fontSize=12;fontStyle=1;fontColor=#0a2540;verticalAlign=middle;align=center" vertex="1" parent="1">
-          <mxGeometry x="265" y="420" width="220" height="140" as="geometry" />
+        <mxCell id="agent_extract_title" value="Extraction Agent" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="30" y="425" width="220" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="agent_validation" value="Validation Agent&#10;&#10;LIVE: NOAA · NHTSA&#10;Sandbox: ISO, NICB, CARFAX,&#10;DMV, KBB, Telematics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#92400e;verticalAlign=middle;align=center" vertex="1" parent="1">
-          <mxGeometry x="500" y="420" width="220" height="140" as="geometry" />
+        <mxCell id="agent_extract_icon1" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/ai%20%2B%20machine%20learning/00819-icon-service-Form-Recognizers.svg" vertex="1" parent="1">
+          <mxGeometry x="70" y="455" width="40" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="agent_adjud" value="Adjudication Agent&#10;&#10;Azure OpenAI GPT-4.1&#10;Confidence · Tier · Rationale" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=3;fontSize=12;fontStyle=1;fontColor=#0a2540;verticalAlign=middle;align=center" vertex="1" parent="1">
-          <mxGeometry x="735" y="420" width="220" height="140" as="geometry" />
+        <mxCell id="agent_extract_icon2" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/ai%20%2B%20machine%20learning/10162-icon-service-Cognitive-Services.svg" vertex="1" parent="1">
+          <mxGeometry x="170" y="455" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_extract_desc" value="Doc Intel + GPT-4o Vision&#10;Photos · IDs · Estimates" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="35" y="505" width="210" height="68" as="geometry" />
         </mxCell>
 
-        <!-- ===== ROW 6: AUDIT (gold band)  (y=580-625) ===== -->
-        <mxCell id="audit" value="🛡  Decision_Rationale  ·  Glass Box audit (every AI decision logged)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d99416;strokeWidth=3;fontColor=#92400e;fontSize=14;fontStyle=1;verticalAlign=middle;align=center" vertex="1" parent="1">
-          <mxGeometry x="30" y="580" width="925" height="50" as="geometry" />
+        <!-- POLICY AGENT -->
+        <mxCell id="agent_policy_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="265" y="420" width="220" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_policy_title" value="Policy Agent" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="265" y="425" width="220" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_policy_icon1" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/ai%20%2B%20machine%20learning/10044-icon-service-Cognitive-Search.svg" vertex="1" parent="1">
+          <mxGeometry x="305" y="455" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_policy_icon2" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/ai%20%2B%20machine%20learning/03438-icon-service-Azure-OpenAI.svg" vertex="1" parent="1">
+          <mxGeometry x="405" y="455" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_policy_desc" value="AI Search + Azure OpenAI&#10;RAG over policy PDFs&#10;Coverage + clause citations" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="270" y="500" width="210" height="73" as="geometry" />
         </mxCell>
 
-        <!-- ===== ROW 7: DATAVERSE + BLOB + AI SEARCH (y=650-720) ===== -->
+        <!-- VALIDATION AGENT -->
+        <mxCell id="agent_validation_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="500" y="420" width="220" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_validation_title" value="Validation Agent" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#92400e" vertex="1" parent="1">
+          <mxGeometry x="500" y="425" width="220" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_validation_icon1" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/powerplatform/Power%20Platform/PowerAutomate_scalable.svg" vertex="1" parent="1">
+          <mxGeometry x="540" y="455" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_validation_icon2" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/compute/10029-icon-service-Function-Apps.svg" vertex="1" parent="1">
+          <mxGeometry x="640" y="455" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_validation_desc" value="PA parent + 7 sub-flows&#10;LIVE: NOAA · NHTSA&#10;Sandbox: ISO · NICB · CARFAX · DMV · KBB · Telematics" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#92400e" vertex="1" parent="1">
+          <mxGeometry x="505" y="500" width="210" height="73" as="geometry" />
+        </mxCell>
+
+        <!-- ADJUDICATION AGENT -->
+        <mxCell id="agent_adjud_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=3" vertex="1" parent="1">
+          <mxGeometry x="735" y="420" width="220" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_adjud_title" value="Adjudication Agent" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="735" y="425" width="220" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_adjud_icon" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/ai%20%2B%20machine%20learning/03438-icon-service-Azure-OpenAI.svg" vertex="1" parent="1">
+          <mxGeometry x="825" y="455" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="agent_adjud_desc" value="Azure OpenAI · GPT-4.1&#10;Reasoning over coverage,&#10;extraction, validation&#10;Confidence · Tier · Rationale" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#0a2540" vertex="1" parent="1">
+          <mxGeometry x="740" y="500" width="210" height="73" as="geometry" />
+        </mxCell>
+
+        <!-- ===== ROW 6: AUDIT (gold band) ===== -->
+        <mxCell id="audit" value="🛡  Decision_Rationale  ·  Glass Box audit log (every AI decision recorded)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d99416;strokeWidth=3;fontColor=#92400e;fontSize=14;fontStyle=1;verticalAlign=middle;align=center" vertex="1" parent="1">
+          <mxGeometry x="30" y="600" width="925" height="46" as="geometry" />
+        </mxCell>
+
+        <!-- ===== ROW 7: DATA LAYER (real icons) ===== -->
         <mxCell id="dataverse" value="Microsoft Dataverse · 8 tables" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/powerplatform/Power%20Platform/Dataverse_scalable.svg" vertex="1" parent="1">
-          <mxGeometry x="450" y="650" width="64" height="64" as="geometry" />
+          <mxGeometry x="455" y="670" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="blob_icon" value="Blob Storage&#10;PDFs · Photos" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/general/10839-icon-service-Storage-Container.svg" vertex="1" parent="1">
-          <mxGeometry x="190" y="655" width="48" height="48" as="geometry" />
+          <mxGeometry x="195" y="675" width="48" height="48" as="geometry" />
         </mxCell>
         <mxCell id="aisearch_idx" value="AI Search Index&#10;Vector RAG" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/ai%20%2B%20machine%20learning/10044-icon-service-Cognitive-Search.svg" vertex="1" parent="1">
-          <mxGeometry x="750" y="655" width="48" height="48" as="geometry" />
+          <mxGeometry x="755" y="675" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="powerbi" value="Power BI&#10;Ops Dashboard" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/analytics/03332-icon-service-Power-BI-Embedded.svg" vertex="1" parent="1">
+          <mxGeometry x="875" y="675" width="48" height="48" as="geometry" />
         </mxCell>
 
-        <!-- ===== ROW 8: TIER ROUTER + 3 TIERS  (y=740-840) ===== -->
+        <!-- ===== ROW 8: TIER ROUTER + 3 TIERS ===== -->
         <mxCell id="tier_router" value="Tier&#10;Routing" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#107c10;strokeWidth=2;fontSize=13;fontStyle=1;fontColor=#0e3a0e" vertex="1" parent="1">
-          <mxGeometry x="40" y="755" width="120" height="78" as="geometry" />
+          <mxGeometry x="40" y="765" width="115" height="75" as="geometry" />
         </mxCell>
-        <mxCell id="tier1" value="Tier 1 · Auto-approve&#10;(≥ 90% confidence)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontColor=#14532d;fontSize=13;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="195" y="745" width="240" height="44" as="geometry" />
+        <mxCell id="tier1" value="Tier 1 · Auto-approve  (AI only)&#10;Confidence ≥ 90%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontColor=#14532d;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="180" y="755" width="250" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="tier2" value="Tier 2 · Adjuster review&#10;Teams Adaptive Card (60–90%)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="195" y="795" width="240" height="44" as="geometry" />
+        <mxCell id="tier2" value="Tier 2 · Adjuster (human via Teams Card)&#10;60% – 90% confidence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="180" y="800" width="250" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="tier3" value="Tier 3 · Live CSR (Teams)&#10;(&lt; 60%  ·  BI  ·  Distress)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#991b1b;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="470" y="745" width="240" height="44" as="geometry" />
-        </mxCell>
-
-        <!-- ===== ROW 9: EXPLANATION + NOTIFY  (y=860-940) ===== -->
-        <mxCell id="explanation" value="Copilot Studio · Explanation Agent&#10;(AI — NOT a human CSR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;strokeWidth=2;fontColor=#3d2c70;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="470" y="795" width="240" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="pa_notify" value="Power Automate · Notify_Customer&#10;ACS / Outlook / Push / Teams" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#107c10;strokeWidth=2;fontColor=#0e3a0e;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="745" y="745" width="210" height="94" as="geometry" />
+        <mxCell id="tier3" value="Tier 3 · Live CSR (human via Teams chat)&#10;&lt; 60%  ·  BI  ·  Distress" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#991b1b;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="180" y="845" width="250" height="38" as="geometry" />
         </mxCell>
 
-        <!-- ===== ROW 10: SECURITY + COMPLIANCE FOOTER (y=870-1010) ===== -->
+        <!-- ===== ROW 9: EXPLANATION + NOTIFY (with icons) ===== -->
+        <!-- Explanation Agent card with Copilot Studio icon inside -->
+        <mxCell id="explanation_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="450" y="755" width="250" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="explanation_icon" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/powerplatform/CopilotStudio_scalable.svg" vertex="1" parent="1">
+          <mxGeometry x="460" y="775" width="44" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="explanation_lbl" value="Copilot Studio · Explanation Agent&#10;(AI — NOT a human CSR)" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#3d2c70" vertex="1" parent="1">
+          <mxGeometry x="510" y="760" width="185" height="74" as="geometry" />
+        </mxCell>
+
+        <!-- Notify_Customer card with Power Automate icon inside -->
+        <mxCell id="pa_notify_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#107c10;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="720" y="755" width="235" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_notify_icon" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/powerplatform/Power%20Platform/PowerAutomate_scalable.svg" vertex="1" parent="1">
+          <mxGeometry x="730" y="775" width="44" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="pa_notify_lbl" value="Power Automate · Notify_Customer&#10;ACS / Outlook / Push / Teams" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#0e3a0e" vertex="1" parent="1">
+          <mxGeometry x="780" y="760" width="170" height="74" as="geometry" />
+        </mxCell>
+
+        <!-- ===== ROW 10: SECURITY + COMPLIANCE (with icons inside cards) ===== -->
         <mxCell id="sec_band" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff7ed;strokeColor=#9a3412;strokeWidth=1.5" vertex="1" parent="1">
-          <mxGeometry x="30" y="870" width="925" height="140" as="geometry" />
+          <mxGeometry x="30" y="865" width="925" height="145" as="geometry" />
         </mxCell>
         <mxCell id="sec_lbl" value="🔒  SECURITY &amp; COMPLIANCE" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#9a3412" vertex="1" parent="1">
-          <mxGeometry x="42" y="878" width="300" height="18" as="geometry" />
-        </mxCell>
-        <mxCell id="cc_id" value="🔐 Identity&#10;Microsoft Entra ID&#10;SSO + RBAC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9a3412;fontColor=#7c2d12;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="42" y="900" width="215" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="cc_kv" value="🔑 Secrets&#10;Azure Key Vault&#10;Direct Line · AAD · AOAI keys" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9a3412;fontColor=#7c2d12;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="267" y="900" width="215" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="cc_obs" value="📊 Observability&#10;App Insights + Log Analytics&#10;Power Platform DLP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9a3412;fontColor=#7c2d12;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="492" y="900" width="215" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="cc_comp" value="⚖ Compliance&#10;CO SB21-169 · NAIC&#10;NY DFS · CA AB 2930" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;fontColor=#5b21b6;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
-          <mxGeometry x="717" y="900" width="240" height="100" as="geometry" />
+          <mxGeometry x="42" y="873" width="300" height="18" as="geometry" />
         </mxCell>
 
-        <!-- ===== POWER BI (small, bottom right corner) ===== -->
-        <mxCell id="powerbi" value="Power BI · Ops Dashboard" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/analytics/03332-icon-service-Power-BI-Embedded.svg" vertex="1" parent="1">
-          <mxGeometry x="820" y="660" width="40" height="40" as="geometry" />
+        <!-- Identity card with Entra ID icon -->
+        <mxCell id="cc_id_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9a3412;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="42" y="898" width="215" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="cc_id_icon" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/identity/10340-icon-service-Entra-Identity-Roles-and-Administrators.svg" vertex="1" parent="1">
+          <mxGeometry x="60" y="910" width="42" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="cc_id_lbl" value="Identity&#10;Microsoft Entra ID&#10;SSO + RBAC" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#7c2d12" vertex="1" parent="1">
+          <mxGeometry x="110" y="900" width="142" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Secrets card with Key Vault icon -->
+        <mxCell id="cc_kv_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9a3412;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="267" y="898" width="215" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="cc_kv_icon" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/security/10245-icon-service-Key-Vaults.svg" vertex="1" parent="1">
+          <mxGeometry x="285" y="910" width="42" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="cc_kv_lbl" value="Secrets&#10;Azure Key Vault&#10;Direct Line · AAD · AOAI" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#7c2d12" vertex="1" parent="1">
+          <mxGeometry x="335" y="900" width="142" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Observability card with App Insights icon -->
+        <mxCell id="cc_obs_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9a3412;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="492" y="898" width="215" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="cc_obs_icon" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/management%20%2B%20governance/00012-icon-service-Application-Insights.svg" vertex="1" parent="1">
+          <mxGeometry x="510" y="910" width="42" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="cc_obs_lbl" value="Observability&#10;App Insights + Log Analytics&#10;Power Platform DLP" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#7c2d12" vertex="1" parent="1">
+          <mxGeometry x="560" y="900" width="142" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Compliance card (no Microsoft icon - uses scales emoji) -->
+        <mxCell id="cc_comp" value="⚖  Compliance&#10;CO SB21-169 · NAIC&#10;NY DFS · CA AB 2930" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;fontColor=#5b21b6;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="717" y="898" width="240" height="105" as="geometry" />
         </mxCell>
 
         <!-- ===== FOOTER NOTE ===== -->
-        <mxCell id="ftr" value="16:9 half-slide  ·  1000 × 1125  ·  drop into one half of a split PowerPoint slide" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#94a3b8" vertex="1" parent="1">
-          <mxGeometry x="20" y="1025" width="960" height="18" as="geometry" />
+        <mxCell id="ftr" value="16:9 half-slide  ·  1000 × 1125  ·  drop into one half of a split PowerPoint slide  ·  real Microsoft icons (Azure + Power Platform)" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#94a3b8" vertex="1" parent="1">
+          <mxGeometry x="20" y="1085" width="960" height="18" as="geometry" />
         </mxCell>
 
-        <!-- ============ EDGES (plain arrows) ============ -->
-        <!-- User → channels -->
+        <!-- ============ EDGES ============ -->
         <mxCell id="e1" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="user" target="ch_mobile"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e2" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="user" target="ch_web"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e3" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="user" target="ch_teams"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e4" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="user" target="ch_sms"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e5" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="user" target="ch_email"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Channels → presentation -->
         <mxCell id="e6" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="ch_mobile" target="swa"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e7" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="ch_web" target="swa"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e8" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="ch_teams" target="directline"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e9" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="ch_sms" target="directline"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e10" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="ch_email" target="directline"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Presentation → Copilot Studio -->
         <mxCell id="e11" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="swa" target="copilot"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e12" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="func" target="copilot"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e13" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="directline" target="copilot"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Copilot → Master Orch -->
         <mxCell id="e15" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="copilot" target="pa_master"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Master Orch → 4 agents -->
-        <mxCell id="e16" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_master" target="agent_extract"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e17" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_master" target="agent_policy"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e18" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_master" target="agent_validation"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e19" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_master" target="agent_adjud"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e16" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_master" target="agent_extract_box"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e17" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_master" target="agent_policy_box"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e18" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_master" target="agent_validation_box"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e19" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="pa_master" target="agent_adjud_box"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Agents → Audit (gold) -->
-        <mxCell id="e20" style="endArrow=classic;html=1;strokeColor=#d99416;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1" edge="1" parent="1" source="agent_extract" target="audit"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e21" style="endArrow=classic;html=1;strokeColor=#d99416;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1" edge="1" parent="1" source="agent_policy" target="audit"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e22" style="endArrow=classic;html=1;strokeColor=#d99416;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1" edge="1" parent="1" source="agent_validation" target="audit"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e23" style="endArrow=classic;html=1;strokeColor=#d99416;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1" edge="1" parent="1" source="agent_adjud" target="audit"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e20" style="endArrow=classic;html=1;strokeColor=#d99416;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1" edge="1" parent="1" source="agent_extract_box" target="audit"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e21" style="endArrow=classic;html=1;strokeColor=#d99416;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1" edge="1" parent="1" source="agent_policy_box" target="audit"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e22" style="endArrow=classic;html=1;strokeColor=#d99416;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1" edge="1" parent="1" source="agent_validation_box" target="audit"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e23" style="endArrow=classic;html=1;strokeColor=#d99416;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1" edge="1" parent="1" source="agent_adjud_box" target="audit"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Audit → Dataverse -->
         <mxCell id="e24" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="audit" target="dataverse"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Dataverse → Tier router -->
         <mxCell id="e25" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="dataverse" target="tier_router"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Tier router → 3 tiers -->
         <mxCell id="e26" style="endArrow=classic;html=1;strokeColor=#16a34a;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier_router" target="tier1"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e27" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier_router" target="tier2"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="e28" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier_router" target="tier3"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Tiers → Explanation -->
-        <mxCell id="e29" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier1" target="explanation"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e30" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier2" target="explanation"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e30b" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier3" target="explanation"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e29" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier1" target="explanation_box"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e30" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier2" target="explanation_box"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e30b" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.2;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier3" target="explanation_box"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Explanation → Notify -->
-        <mxCell id="e31" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="explanation" target="pa_notify"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e31" style="endArrow=classic;html=1;strokeColor=#5a6680;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="explanation_box" target="pa_notify_box"><mxGeometry relative="1" as="geometry" /></mxCell>
 
       </root>
     </mxGraphModel>
