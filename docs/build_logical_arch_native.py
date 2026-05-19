@@ -1,11 +1,12 @@
-"""Rebuild Logical Architecture (C4 L2) slide as native PowerPoint shapes.
+"""Rebuild Logical Architecture (C4 L2) slide as NATIVE PowerPoint shapes.
 
-Layout (slide 10in x 5.625in):
-* Title                    y = 0.05 - 0.35
-* Left section (swimlanes) x = 0.00 - 6.80      (lane labels + numbered nodes + arrows)
-* Right section (commentary)  x = 6.95 - 9.95   (numbered legend)
-* Footer                   y = 5.45 - 5.60
+Slide 10in x 5.625in (16:9).
+* Title          y = 0.05 - 0.36
+* Swimlanes      x = 0.00 - 7.85   (80%)
+* Commentary     x = 8.00 - 9.95   (~20%)
+* Footer         y = 5.45 - 5.60
 
+Arrows are strictly orthogonal (horizontal + vertical only, 90 deg turns).
 Idempotent - clears slide 5 and rebuilds.
 """
 from pptx import Presentation
@@ -18,7 +19,6 @@ from lxml import etree
 import os
 
 PPTX = r"D:\WorkspaceAI\hack2future\Hack2furure\docs\hackathon_blueprint_filled.pptx"
-SLIDE_TITLE = "Logical Architecture (C4 L2)"
 
 
 def rgb(h):
@@ -42,6 +42,7 @@ def I(v):
     return Inches(v)
 
 
+# ============== SHAPE HELPERS ==============
 def add_rect(slide, x, y, w, h, fill, line=None, line_w=0.75, rounded=True):
     shape_type = MSO_SHAPE.ROUNDED_RECTANGLE if rounded else MSO_SHAPE.RECTANGLE
     s = slide.shapes.add_shape(shape_type, I(x), I(y), I(w), I(h))
@@ -95,23 +96,96 @@ def add_numbered_node(slide, x, y, w, h, fill, line, line_w, number, label,
     r2.font.size = Pt(label_size); r2.font.bold = True; r2.font.color.rgb = label_color
 
 
-def add_arrow(slide, x1, y1, x2, y2, color, weight=1.25, dashed=False):
-    """Draw an arrow with a triangle head from (x1,y1) to (x2,y2). Uses STRAIGHT connector."""
-    conn = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, I(x1), I(y1), I(x2), I(y2))
-    conn.line.color.rgb = color
-    conn.line.width = Pt(weight)
-    # Force arrow head on tail end
+# ============== ORTHOGONAL ARROW HELPERS ==============
+def _set_dashed(conn):
+    ln = conn.line._get_or_add_ln()
+    prstDash = ln.find(qn('a:prstDash'))
+    if prstDash is None:
+        prstDash = etree.SubElement(ln, qn('a:prstDash'))
+    prstDash.set('val', 'dash')
+
+
+def _add_arrow_head(conn):
     ln = conn.line._get_or_add_ln()
     tailEnd = ln.find(qn('a:tailEnd'))
     if tailEnd is None:
         tailEnd = etree.SubElement(ln, qn('a:tailEnd'))
     tailEnd.set('type', 'triangle'); tailEnd.set('w', 'sm'); tailEnd.set('len', 'sm')
+
+
+def _draw_segment(slide, x1, y1, x2, y2, color, weight, dashed, arrow):
+    """One straight line segment from (x1,y1) to (x2,y2)."""
+    conn = slide.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, I(x1), I(y1), I(x2), I(y2))
+    conn.line.color.rgb = color
+    conn.line.width = Pt(weight)
     if dashed:
-        prstDash = ln.find(qn('a:prstDash'))
-        if prstDash is None:
-            prstDash = etree.SubElement(ln, qn('a:prstDash'))
-        prstDash.set('val', 'dash')
+        _set_dashed(conn)
+    if arrow:
+        _add_arrow_head(conn)
     return conn
+
+
+def ortho(slide, x1, y1, x2, y2, color, weight=1.25, dashed=False, route="auto"):
+    """Draw an orthogonal arrow from (x1,y1) to (x2,y2).
+
+    route options:
+      "auto"     - straight line if aligned on one axis, else pick longer axis first
+      "h"        - horizontal first, then vertical
+      "v"        - vertical first, then horizontal
+      "hvh"      - horizontal + vertical + horizontal (3 segments, via mid_x)
+      "vhv"      - vertical + horizontal + vertical (3 segments, via mid_y)
+    """
+    TOL = 0.005   # treat <0.005in as aligned
+    aligned_x = abs(x1 - x2) < TOL
+    aligned_y = abs(y1 - y2) < TOL
+
+    if aligned_x or aligned_y:
+        _draw_segment(slide, x1, y1, x2, y2, color, weight, dashed, arrow=True)
+        return
+
+    if route == "auto":
+        # choose so the arrow ENTERS the target on its short axis
+        route = "v" if abs(y2 - y1) > abs(x2 - x1) else "h"
+
+    if route == "h":
+        # horizontal first to (x2,y1), then vertical to (x2,y2)
+        _draw_segment(slide, x1, y1, x2, y1, color, weight, dashed, arrow=False)
+        _draw_segment(slide, x2, y1, x2, y2, color, weight, dashed, arrow=True)
+    elif route == "v":
+        # vertical first to (x1,y2), then horizontal to (x2,y2)
+        _draw_segment(slide, x1, y1, x1, y2, color, weight, dashed, arrow=False)
+        _draw_segment(slide, x1, y2, x2, y2, color, weight, dashed, arrow=True)
+    elif route == "hvh":
+        mid_x = (x1 + x2) / 2
+        _draw_segment(slide, x1, y1, mid_x, y1, color, weight, dashed, arrow=False)
+        _draw_segment(slide, mid_x, y1, mid_x, y2, color, weight, dashed, arrow=False)
+        _draw_segment(slide, mid_x, y2, x2, y2, color, weight, dashed, arrow=True)
+    elif route == "vhv":
+        mid_y = (y1 + y2) / 2
+        _draw_segment(slide, x1, y1, x1, mid_y, color, weight, dashed, arrow=False)
+        _draw_segment(slide, x1, mid_y, x2, mid_y, color, weight, dashed, arrow=False)
+        _draw_segment(slide, x2, mid_y, x2, y2, color, weight, dashed, arrow=True)
+
+
+# ============== NODE REGISTRY ==============
+NODES = {}
+
+def register(key, x, y, w, h):
+    NODES[key] = dict(x=x, y=y, w=w, h=h,
+                      cx=x + w/2, cy=y + h/2,
+                      top=(x + w/2, y),
+                      bottom=(x + w/2, y + h),
+                      left=(x, y + h/2),
+                      right=(x + w, y + h/2))
+
+def E(key, side, offset=0):
+    """Return (x, y) of an edge point on a registered node, with optional offset."""
+    n = NODES[key]
+    if side == "top":    return (n["x"] + n["w"]/2 + offset, n["y"])
+    if side == "bottom": return (n["x"] + n["w"]/2 + offset, n["y"] + n["h"])
+    if side == "left":   return (n["x"], n["y"] + n["h"]/2 + offset)
+    if side == "right":  return (n["x"] + n["w"], n["y"] + n["h"]/2 + offset)
+    raise ValueError(side)
 
 
 def slide_title_text(slide):
@@ -128,34 +202,9 @@ def clear_slide(slide):
 
 
 # ======================================================================
-# Node coordinate registry  -  (center_x, center_y) and edge anchor points
-# Used to compute arrow endpoints.
-# ======================================================================
-NODES = {}  # key -> dict(x, y, w, h, cx, cy, top, bottom, left, right)
-
-
-def register(key, x, y, w, h):
-    NODES[key] = dict(x=x, y=y, w=w, h=h,
-                      cx=x + w/2, cy=y + h/2,
-                      top=(x + w/2, y),
-                      bottom=(x + w/2, y + h),
-                      left=(x, y + h/2),
-                      right=(x + w, y + h/2))
-
-
-def edge(node_key, side, offset=0):
-    """Return a point on a node's edge. offset shifts along the edge."""
-    n = NODES[node_key]
-    if side == "top":    return (n["x"] + n["w"]/2 + offset, n["y"])
-    if side == "bottom": return (n["x"] + n["w"]/2 + offset, n["y"] + n["h"])
-    if side == "left":   return (n["x"], n["y"] + n["h"]/2 + offset)
-    if side == "right":  return (n["x"] + n["w"], n["y"] + n["h"]/2 + offset)
-    raise ValueError(side)
-
-
-# ======================================================================
 def build(slide):
     clear_slide(slide)
+    NODES.clear()
 
     # ====== TITLE ======
     add_text(slide, 0.08, 0.04, 9.85, 0.20,
@@ -165,12 +214,12 @@ def build(slide):
              "Numbers 1-13 trace runtime flow  ·  read with the commentary panel on the right",
              size=6, italic=True, color=C["grey"], align="left", valign="middle")
 
-    # ====== SWIMLANES (left section, x=0 - 6.80) ======
-    DIAG_RIGHT = 6.80
+    # ====== SWIMLANES (left section, x=0 - 7.85) ======
+    DIAG_RIGHT = 7.85
     LABEL_X = 0.04
     LABEL_W = 0.55
     CONT_X = 0.61
-    CONT_W = DIAG_RIGHT - CONT_X - 0.02   # ~6.17
+    CONT_W = DIAG_RIGHT - CONT_X - 0.02
 
     lane_specs = [
         ("CUSTOMER\n& CHANNELS",  0.40, 0.52, C["orange"], C["white"], C["orange_lt"], C["orange_bd"]),
@@ -186,215 +235,223 @@ def build(slide):
         add_card(slide, LABEL_X, y, LABEL_W, h, lab_fill, lab_fill, 0.4,
                  label, size=6, bold=True, font_color=lab_fc, align="center", valign="middle")
 
-    # ====== NUMBERED NODES ======
-    # Compact width = 6.17 / shared between ~7 columns
-
+    # ====== NUMBERED NODES — positions chosen so most arrows are pure H/V ======
     # Lane 1
-    register("n1", 0.75, 0.44, 1.00, 0.42)
-    add_numbered_node(slide, 0.75, 0.44, 1.00, 0.42, C["orange"], C["orange_d"], 0.5,
+    register("n1", 0.85, 0.44, 1.40, 0.42)
+    add_numbered_node(slide, 0.85, 0.44, 1.40, 0.42, C["orange"], C["orange_d"], 0.5,
                       "1", "Customer + 5 channels",
                       num_color=C["white"], label_color=C["white"])
 
-    # Lane 2
-    register("n2", 1.05, 0.98, 1.10, 0.42)
-    add_numbered_node(slide, 1.05, 0.98, 1.10, 0.42, C["blue_lt"], C["blue"], 0.5,
+    # Lane 2  — n2 centered under n1, n3 to its right
+    register("n2", 0.85, 0.98, 1.40, 0.42)
+    add_numbered_node(slide, 0.85, 0.98, 1.40, 0.42, C["blue_lt"], C["blue"], 0.5,
                       "2", "React SPA + Token Broker",
                       num_color=C["blue_d"], label_color=C["blue_d"])
-    register("n3", 2.35, 0.98, 1.05, 0.42)
-    add_numbered_node(slide, 2.35, 0.98, 1.05, 0.42, C["blue_lt"], C["blue"], 0.5,
+    register("n3", 2.55, 0.98, 1.30, 0.42)
+    add_numbered_node(slide, 2.55, 0.98, 1.30, 0.42, C["blue_lt"], C["blue"], 0.5,
                       "3", "Direct Line / Bot",
                       num_color=C["blue_d"], label_color=C["blue_d"])
 
-    # Lane 3
-    register("n4", 2.35, 1.55, 1.15, 0.48)
-    add_numbered_node(slide, 2.35, 1.55, 1.15, 0.48, C["purple_lt"], C["purple"], 0.75,
+    # Lane 3 — n4 below n3 (same x col), n12 far right
+    register("n4", 2.55, 1.55, 1.30, 0.48)
+    add_numbered_node(slide, 2.55, 1.55, 1.30, 0.48, C["purple_lt"], C["purple"], 0.75,
                       "4", "Intake Agent (AI)",
                       num_color=C["purple_d"], label_color=C["purple_d"])
-    register("n12", 5.50, 1.55, 1.25, 0.48)
-    add_numbered_node(slide, 5.50, 1.55, 1.25, 0.48, C["purple_lt"], C["purple"], 0.75,
+    register("n12", 6.20, 1.55, 1.55, 0.48)
+    add_numbered_node(slide, 6.20, 1.55, 1.55, 0.48, C["purple_lt"], C["purple"], 0.75,
                       "12", "Explanation Agent (AI — NOT CSR)",
                       num_color=C["purple_d"], label_color=C["purple_d"])
 
-    # Lane 4
-    register("n5", 2.60, 2.20, 0.85, 0.48)
-    add_numbered_node(slide, 2.60, 2.20, 0.85, 0.48, C["purple_lt"], C["purple"], 0.5,
+    # Lane 4 — Create_Claim under n4, Master to its right, Router right, Notify under n12
+    register("n5", 2.55, 2.20, 1.05, 0.48)
+    add_numbered_node(slide, 2.55, 2.20, 1.05, 0.48, C["purple_lt"], C["purple"], 0.5,
                       "5", "Create_Claim",
                       num_color=C["purple_d"], label_color=C["purple_d"])
-    register("n6", 3.55, 2.20, 1.05, 0.48)
-    add_numbered_node(slide, 3.55, 2.20, 1.05, 0.48, C["purple_lt"], C["purple"], 0.75,
+    register("n6", 3.75, 2.20, 1.25, 0.48)
+    add_numbered_node(slide, 3.75, 2.20, 1.25, 0.48, C["purple_lt"], C["purple"], 0.75,
                       "6", "Master Orchestration",
                       num_color=C["purple_d"], label_color=C["purple_d"])
     # Tier router diamond
-    diamond = slide.shapes.add_shape(MSO_SHAPE.DIAMOND, I(4.70), I(2.20), I(0.75), I(0.48))
+    diamond = slide.shapes.add_shape(MSO_SHAPE.DIAMOND, I(5.15), I(2.20), I(0.85), I(0.48))
     diamond.fill.solid(); diamond.fill.fore_color.rgb = C["white"]
     diamond.line.color.rgb = C["green"]; diamond.line.width = Pt(1.0)
     diamond.shadow.inherit = False
-    register("n11", 4.70, 2.20, 0.75, 0.48)
-    add_text(slide, 4.70, 2.22, 0.75, 0.44, "11\nRouter",
+    register("n11", 5.15, 2.20, 0.85, 0.48)
+    add_text(slide, 5.15, 2.22, 0.85, 0.44, "11\nRouter",
              size=7, bold=True, color=C["green_d"], align="center", valign="middle")
-    register("n13", 5.55, 2.20, 1.10, 0.48)
-    add_numbered_node(slide, 5.55, 2.20, 1.10, 0.48, C["green_lt"], C["green"], 0.75,
+    register("n13", 6.20, 2.20, 1.55, 0.48)
+    add_numbered_node(slide, 6.20, 2.20, 1.55, 0.48, C["green_lt"], C["green"], 0.75,
                       "13", "Notify_Customer",
                       num_color=C["green_d"], label_color=C["green_d"])
 
-    # Lane 5 (Azure AI Services - 3 stacked + Adjudication)
-    register("n7", 2.60, 2.82, 1.50, 0.24)
-    add_card(slide, 2.60, 2.82, 1.50, 0.24, C["blue_lt"], C["blue"], 0.5,
+    # Lane 5 — 3 agents stacked + Adjudication right
+    register("n7", 2.55, 2.82, 1.75, 0.24)
+    add_card(slide, 2.55, 2.82, 1.75, 0.24, C["blue_lt"], C["blue"], 0.5,
              "7  Extraction", size=7, bold=True, font_color=C["blue_d"], align="center", valign="middle")
-    register("n8", 2.60, 3.08, 1.50, 0.24)
-    add_card(slide, 2.60, 3.08, 1.50, 0.24, C["blue_lt"], C["blue"], 0.5,
+    register("n8", 2.55, 3.08, 1.75, 0.24)
+    add_card(slide, 2.55, 3.08, 1.75, 0.24, C["blue_lt"], C["blue"], 0.5,
              "8  Policy", size=7, bold=True, font_color=C["blue_d"], align="center", valign="middle")
-    register("n9", 2.60, 3.34, 1.50, 0.24)
-    add_card(slide, 2.60, 3.34, 1.50, 0.24, C["blue_lt"], C["blue"], 0.5,
+    register("n9", 2.55, 3.34, 1.75, 0.24)
+    add_card(slide, 2.55, 3.34, 1.75, 0.24, C["blue_lt"], C["blue"], 0.5,
              "9  Validation · 7 ext checks", size=6, bold=True, font_color=C["blue_d"], align="center", valign="middle")
-    register("n10", 4.30, 3.00, 1.50, 0.55)
-    add_numbered_node(slide, 4.30, 3.00, 1.50, 0.55, C["blue_d"], C["blue_d"], 1.0,
+    register("n10", 4.50, 3.00, 1.50, 0.55)
+    add_numbered_node(slide, 4.50, 3.00, 1.50, 0.55, C["blue_d"], C["blue_d"], 1.0,
                       "10", "Adjudication · GPT-4.1",
                       num_color=C["white"], label_color=C["white"])
 
-    # Lane 6 (Teams humans)
-    register("nT2", 4.30, 3.76, 1.20, 0.20)
-    add_card(slide, 4.30, 3.76, 1.20, 0.20, C["gold_bg"], C["amber"], 0.5,
+    # Lane 6 — humans
+    register("nT2", 4.50, 3.76, 1.50, 0.20)
+    add_card(slide, 4.50, 3.76, 1.50, 0.20, C["gold_bg"], C["amber"], 0.5,
              "T2 · Adjuster Teams Card", size=6, bold=True, font_color=C["gold_d"], align="center", valign="middle")
-    register("nT3", 5.55, 3.76, 1.20, 0.20)
-    add_card(slide, 5.55, 3.76, 1.20, 0.20, C["red_lt"], C["red"], 0.5,
+    register("nT3", 6.20, 3.76, 1.55, 0.20)
+    add_card(slide, 6.20, 3.76, 1.55, 0.20, C["red_lt"], C["red"], 0.5,
              "T3 · Live CSR Teams Chat", size=6, bold=True, font_color=C["red_d"], align="center", valign="middle")
-    add_text(slide, 0.75, 3.78, 3.45, 0.16,
-             "Tier 1 = AI auto-approve, no human",
-             size=6, italic=True, color=C["grey"], align="left", valign="middle")
+    add_text(slide, 0.65, 3.78, 3.80, 0.16,
+             "Tier 1 = AI auto-approve, no human", size=6, italic=True, color=C["grey"],
+             align="left", valign="middle")
 
-    # Lane 7 (Dataverse + Audit)
+    # Lane 7 — Dataverse tables + audit
     tables = [
-        ("Policy", 0.70, 0.60),
-        ("Claim", 1.32, 0.60),
-        ("Document", 1.94, 0.70),
-        ("Communication", 2.66, 0.90),
-        ("Adjuster", 3.58, 0.60),
-        ("Vendor", 4.20, 0.60),
-        ("ClaimVendorAssgmt", 4.82, 1.20),
+        ("Policy",            0.70, 0.65),
+        ("Claim",             1.40, 0.65),
+        ("Document",          2.10, 0.80),
+        ("Communication",     2.95, 1.05),
+        ("Adjuster",          4.05, 0.65),
+        ("Vendor",            4.75, 0.65),
+        ("ClaimVendorAssgmt", 5.45, 1.40),
     ]
     for name, x, w in tables:
         add_card(slide, x, 4.32, w, 0.24, C["purple"], C["purple_d"], 0.3,
                  name, size=5, bold=True, font_color=C["white"], align="center", valign="middle")
-    register("audit", 0.70, 4.62, 6.05, 0.40)
-    add_card(slide, 0.70, 4.62, 6.05, 0.40, C["gold_lt"], C["gold"], 1.5,
+    register("audit", 0.65, 4.62, 7.15, 0.40)
+    add_card(slide, 0.65, 4.62, 7.15, 0.40, C["gold_lt"], C["gold"], 1.5,
              "🛡  Decision_Rationale  ·  THE GLASS BOX  ·  every AI step writes 1 row  ·  4 · 7 · 8 · 9 · 10 · 12",
              size=7, bold=True, font_color=C["blue_d"], align="center", valign="middle")
 
-    # ====== ARROWS ======
+    # ====== ARROWS — strictly orthogonal ======
     R = C["red"]; B = C["black"]; G = C["gold"]
-    # (1)→(2)
-    add_arrow(slide, *edge("n1", "bottom"), *edge("n2", "top"), R, 1.4)
-    # (2)→(3)
-    add_arrow(slide, *edge("n2", "right"), *edge("n3", "left"), R, 1.4)
-    # (3)→(4)
-    add_arrow(slide, *edge("n3", "bottom"), *edge("n4", "top"), R, 1.4)
-    # (4)→(5)
-    add_arrow(slide, *edge("n4", "bottom"), *edge("n5", "top"), R, 1.4)
-    # (5)→(6)
-    add_arrow(slide, *edge("n5", "right"), *edge("n6", "left"), R, 1.4)
-    # (6)→(7)(8)(9) fan-out
-    add_arrow(slide, *edge("n6", "bottom"), *edge("n7", "left"), R, 1.0)
-    add_arrow(slide, edge("n6", "bottom")[0]-0.2, edge("n6", "bottom")[1], *edge("n8", "left"), R, 1.0)
-    add_arrow(slide, edge("n6", "bottom")[0]-0.4, edge("n6", "bottom")[1], *edge("n9", "left"), R, 1.0)
-    # (7)(8)(9)→(10) join
-    add_arrow(slide, *edge("n7", "right"), *edge("n10", "left", -0.15), R, 1.0)
-    add_arrow(slide, *edge("n8", "right"), *edge("n10", "left"), R, 1.0)
-    add_arrow(slide, *edge("n9", "right"), *edge("n10", "left",  0.15), R, 1.0)
-    # (10)→(11) router
-    add_arrow(slide, *edge("n10", "top"), *edge("n11", "bottom"), R, 1.4)
-    # (11)→T2 / T3 (black)
-    add_arrow(slide, *edge("n11", "bottom"), *edge("nT2", "top"), B, 1.0)
-    add_arrow(slide, *edge("n11", "right"), *edge("nT3", "top"), B, 1.0)
-    # (11)→(12) Explanation (red, T1 path)
-    add_arrow(slide, *edge("n11", "top"), *edge("n12", "bottom"), R, 1.4)
-    # (12)→(13)
-    add_arrow(slide, *edge("n12", "right"), edge("n13", "top")[0], edge("n12", "right")[1], R, 1.4)
-    # Add second segment of (12)→(13)
-    add_arrow(slide, edge("n13", "top")[0], edge("n12", "right")[1], *edge("n13", "top"), R, 1.4)
-    # (13)→back to customer (long dashed loop back up-left)
-    add_arrow(slide, *edge("n13", "right"), edge("n13", "right")[0]+0.05, 0.20, R, 1.0, dashed=True)
-    add_arrow(slide, edge("n13", "right")[0]+0.05, 0.20, edge("n1", "top")[0], 0.20, R, 1.0, dashed=True)
-    add_arrow(slide, edge("n1", "top")[0], 0.20, *edge("n1", "top"), R, 1.0, dashed=True)
-    # Audit arrows (gold dashed) - skip individual ones to reduce clutter, draw 3 representative
-    add_arrow(slide, *edge("n4", "left"), edge("n4", "left")[0]-0.05, edge("audit", "top")[1]-0.05, G, 0.75, dashed=True)
-    add_arrow(slide, edge("n4", "left")[0]-0.05, edge("audit", "top")[1]-0.05, edge("n4", "left")[0]-0.05, edge("audit", "top")[1], G, 0.75, dashed=True)
-    add_arrow(slide, *edge("n10", "bottom"), edge("n10", "bottom")[0], edge("audit", "top")[1], G, 0.75, dashed=True)
 
-    # ====== COMMENTARY PANEL (right side, x=6.90 - 9.95) ======
-    PX = 6.90; PW = 3.02; PY = 0.40; PH = 5.00
+    # (1)→(2)  - pure vertical (n1 and n2 share center x = 1.55)
+    ortho(slide, *E("n1", "bottom"), *E("n2", "top"), R, 1.4)
+    # (2)→(3)  - pure horizontal (same y=1.19)
+    ortho(slide, *E("n2", "right"), *E("n3", "left"), R, 1.4)
+    # (3)→(4)  - pure vertical (share center x = 3.20)
+    ortho(slide, *E("n3", "bottom"), *E("n4", "top"), R, 1.4)
+    # (4)→(5)  - pure vertical (share center x = 3.20 / 3.08 ≈ aligned via L)
+    ortho(slide, *E("n4", "bottom"), *E("n5", "top"), R, 1.4, route="v")
+    # (5)→(6)  - pure horizontal
+    ortho(slide, *E("n5", "right"), *E("n6", "left"), R, 1.4)
+    # (6) fan-out → (7) (8) (9). Master bottom is at (4.375, 2.68).
+    # Route each via vertical-then-horizontal so they don't cross.
+    ortho(slide, *E("n6", "bottom"), *E("n7", "left"), R, 1.0, route="v")
+    ortho(slide, E("n6", "bottom")[0]-0.20, E("n6", "bottom")[1], *E("n8", "left"), R, 1.0, route="v")
+    ortho(slide, E("n6", "bottom")[0]-0.40, E("n6", "bottom")[1], *E("n9", "left"), R, 1.0, route="v")
+    # (7)(8)(9)→(10) join — orthogonal H then V
+    ortho(slide, *E("n7", "right"), *E("n10", "left", -0.15), R, 1.0, route="h")
+    ortho(slide, *E("n8", "right"), *E("n10", "left"),         R, 1.0, route="h")
+    ortho(slide, *E("n9", "right"), *E("n10", "left",  0.15),  R, 1.0, route="h")
+    # (10)→(11) — vertical up + slight horizontal
+    ortho(slide, *E("n10", "top"), *E("n11", "bottom"), R, 1.4, route="v")
+    # (11)→T2 (black, vertical down)
+    ortho(slide, *E("n11", "bottom"), *E("nT2", "top"), B, 1.0, route="v")
+    # (11)→T3 (black, route h then v)
+    ortho(slide, *E("n11", "right"), *E("nT3", "top"), B, 1.0, route="v")
+    # (11)→(12) — vertical up (red, T1 path)
+    ortho(slide, *E("n11", "top"), *E("n12", "bottom"), R, 1.4, route="v")
+    # (12)→(13) — vertical down (same x center column area)
+    ortho(slide, *E("n12", "bottom"), *E("n13", "top"), R, 1.4, route="v")
+    # (13)→customer loop back — long red dashed via top-right corner
+    nx, ny = E("n13", "right")
+    cx, cy = E("n1", "top")
+    # Right, then up, then left to customer top
+    ortho(slide, nx, ny, 7.95, ny, R, 1.0, dashed=True)   # right edge
+    ortho(slide, 7.95, ny, 7.95, 0.20, R, 1.0, dashed=True)  # up to top band
+    ortho(slide, 7.95, 0.20, cx, 0.20, R, 1.0, dashed=True)  # left across top
+    ortho(slide, cx, 0.20, cx, cy, R, 1.0, dashed=True)      # down into n1 top
+
+    # Audit arrows (gold dashed) - draw 3 representative arrows down to audit row
+    ax, ay = E("n4", "left")
+    ortho(slide, ax, ay, ax - 0.20, ay, G, 0.75, dashed=True)
+    ortho(slide, ax - 0.20, ay, ax - 0.20, 4.62, G, 0.75, dashed=True)
+    ax2, ay2 = E("n10", "bottom")
+    ortho(slide, ax2, ay2, ax2, 4.62, G, 0.75, dashed=True)
+    ax3, ay3 = E("n12", "bottom")
+    ortho(slide, ax3, ay3, ax3, 4.10, G, 0.75, dashed=True, route="v")
+    ortho(slide, ax3, 4.10, 7.40, 4.10, G, 0.75, dashed=True)
+    ortho(slide, 7.40, 4.10, 7.40, 4.62, G, 0.75, dashed=True)
+
+    # ====== COMMENTARY PANEL (right ~20%, x=8.0 to 9.95) ======
+    PX = 8.00; PW = 1.95; PY = 0.40; PH = 5.00
     add_rect(slide, PX, PY, PW, PH, C["white"], C["blue_d"], 1.0)
-    add_card(slide, PX, PY, PW, 0.26, C["blue_d"], C["blue_d"], 0.5,
-             "FLOW LEGEND", size=9, bold=True, font_color=C["white"], align="center", valign="middle")
+    add_card(slide, PX, PY, PW, 0.24, C["blue_d"], C["blue_d"], 0.5,
+             "FLOW LEGEND", size=8, bold=True, font_color=C["white"], align="center", valign="middle")
 
     items = [
-        ("1",  "CUSTOMER FILES FNOL",
+        ("1",  "CUSTOMER FNOL",
          "Mobile · Web · Teams · SMS · Email", C["orange_lt"], C["orange_d"]),
         ("2",  "REACT SPA + TOKEN BROKER",
-         "Azure Static Web Apps · token mint", C["blue_bg"], C["blue"]),
+         "Static Web Apps · token mint", C["blue_bg"], C["blue"]),
         ("3",  "DIRECT LINE BRIDGE",
          "Bot Service ↔ Copilot Studio", C["blue_bg"], C["blue"]),
         ("4",  "INTAKE AGENT (AI)",
-         "11 loss-type topics · sub-flows · sentiment", C["purple_bg"], C["purple"]),
-        ("5",  "CREATE_CLAIM FLOW",
-         "Inserts Claim + Document rows", C["purple_bg"], C["purple"]),
+         "11 loss topics · sub-flows", C["purple_bg"], C["purple"]),
+        ("5",  "CREATE_CLAIM",
+         "Inserts Claim + Document", C["purple_bg"], C["purple"]),
         ("6",  "MASTER ORCHESTRATION",
-         "Trigger on Claim insert · fan-out", C["purple_bg"], C["purple"]),
-        ("7",  "EXTRACTION AGENT (AI)",
+         "Trigger on Claim · fan-out", C["purple_bg"], C["purple"]),
+        ("7",  "EXTRACTION AGENT",
          "Doc Intel + GPT-4o Vision", C["blue_bg"], C["blue"]),
-        ("8",  "POLICY AGENT (AI)",
-         "AI Search vector RAG + citations", C["blue_bg"], C["blue"]),
+        ("8",  "POLICY AGENT",
+         "AI Search vector RAG", C["blue_bg"], C["blue"]),
         ("9",  "VALIDATION AGENT",
-         "7 ext checks (NOAA, NHTSA live + 5 sb)", C["blue_bg"], C["blue"]),
-        ("10", "ADJUDICATION (AI · GPT-4.1)",
+         "7 ext checks parallel", C["blue_bg"], C["blue"]),
+        ("10", "ADJUDICATION (GPT-4.1)",
          "Decides + assigns tier", C["blue_bg"], C["blue"]),
         ("11", "TIER ROUTER",
-         "T1 auto · T2 adjuster · T3 CSR", C["green_bg"], C["green"]),
-        ("12", "EXPLANATION AGENT (AI)",
-         "Runs every claim · plain English", C["purple_bg"], C["purple"]),
+         "T1 auto · T2 adj · T3 CSR", C["green_bg"], C["green"]),
+        ("12", "EXPLANATION (AI)",
+         "Plain-English rationale", C["purple_bg"], C["purple"]),
         ("13", "NOTIFY_CUSTOMER",
-         "Reply on original channel · loop close", C["green_bg"], C["green"]),
+         "Reply on original channel", C["green_bg"], C["green"]),
     ]
-    item_h = 0.31
-    item_y = PY + 0.30
+    item_h = 0.30
+    gap = 0.02
+    item_y = PY + 0.27
     for num, title, body, fill, num_col in items:
-        add_rect(slide, PX + 0.05, item_y, PW - 0.10, item_h, fill, num_col, 0.4)
-        # number + title on first line, body on second
-        tb = slide.shapes.add_textbox(I(PX + 0.08), I(item_y), I(PW - 0.16), I(item_h))
+        add_rect(slide, PX + 0.05, item_y, PW - 0.10, item_h, fill, num_col, 0.3)
+        tb = slide.shapes.add_textbox(I(PX + 0.07), I(item_y), I(PW - 0.14), I(item_h))
         tf = tb.text_frame
-        tf.margin_left = Emu(15000); tf.margin_right = Emu(15000)
-        tf.margin_top = Emu(10000); tf.margin_bottom = Emu(10000)
+        tf.margin_left = Emu(10000); tf.margin_right = Emu(10000)
+        tf.margin_top = Emu(8000); tf.margin_bottom = Emu(8000)
         tf.word_wrap = True
         tf.vertical_anchor = MSO_ANCHOR.MIDDLE
         p = tf.paragraphs[0]; p.alignment = PP_ALIGN.LEFT
         r1 = p.add_run(); r1.text = f"{num}  "
-        r1.font.size = Pt(9); r1.font.bold = True; r1.font.color.rgb = num_col
+        r1.font.size = Pt(8); r1.font.bold = True; r1.font.color.rgb = num_col
         r2 = p.add_run(); r2.text = title
-        r2.font.size = Pt(6); r2.font.bold = True; r2.font.color.rgb = C["black"]
+        r2.font.size = Pt(5); r2.font.bold = True; r2.font.color.rgb = C["black"]
         p2 = tf.add_paragraph(); p2.alignment = PP_ALIGN.LEFT
         r3 = p2.add_run(); r3.text = body
-        r3.font.size = Pt(6); r3.font.color.rgb = C["black"]
-        item_y += item_h + 0.02
+        r3.font.size = Pt(5); r3.font.color.rgb = C["black"]
+        item_y += item_h + gap
 
-    # Glass Box callout at bottom of panel
-    add_rect(slide, PX + 0.05, item_y + 0.05, PW - 0.10, 0.42, C["gold_bg"], C["gold"], 1.0)
-    tb = slide.shapes.add_textbox(I(PX + 0.08), I(item_y + 0.05), I(PW - 0.16), I(0.42))
+    # Glass Box callout at the bottom of panel
+    add_rect(slide, PX + 0.05, item_y + 0.04, PW - 0.10, 0.40, C["gold_bg"], C["gold"], 1.0)
+    tb = slide.shapes.add_textbox(I(PX + 0.07), I(item_y + 0.04), I(PW - 0.14), I(0.40))
     tf = tb.text_frame; tf.word_wrap = True
-    tf.margin_left = Emu(15000); tf.margin_right = Emu(15000)
-    tf.margin_top = Emu(10000); tf.margin_bottom = Emu(10000)
+    tf.margin_left = Emu(10000); tf.margin_right = Emu(10000)
+    tf.margin_top = Emu(8000); tf.margin_bottom = Emu(8000)
     p = tf.paragraphs[0]; p.alignment = PP_ALIGN.LEFT
-    r = p.add_run(); r.text = "🛡 GLASS BOX  "
+    r = p.add_run(); r.text = "🛡 GLASS BOX"
     r.font.size = Pt(7); r.font.bold = True; r.font.color.rgb = C["gold_d"]
-    r = p.add_run(); r.text = "(cross-cutting)"
-    r.font.size = Pt(6); r.font.color.rgb = C["gold_d"]
     p2 = tf.add_paragraph(); p2.alignment = PP_ALIGN.LEFT
     r = p2.add_run()
-    r.text = "1 row per AI step → CO SB21-169 · NAIC · NY DFS · CA AB 2930"
-    r.font.size = Pt(6); r.font.color.rgb = C["gold_d"]
+    r.text = "Every AI step → 1 row in Decision_Rationale"
+    r.font.size = Pt(5); r.font.color.rgb = C["gold_d"]
 
     # ====== FOOTER ======
     add_text(slide, 0.08, 5.45, 9.85, 0.15,
-             "ARROWS:  red = runtime flow  ·  red dashed = loop back to customer  ·  black = Tier-2 / Tier-3 human branches  ·  gold dashed = audit write",
+             "ARROWS:  red = runtime flow  ·  red dashed = loop back  ·  black = Tier-2/3 human branches  ·  gold dashed = audit write",
              size=6, italic=True, color=C["grey"], align="left", valign="middle")
 
 
@@ -407,10 +464,10 @@ def main():
         if slide_title_text(s).startswith("Logical Architecture"):
             target = s; break
     if target is None:
-        raise SystemExit(f"Could not find slide titled '{SLIDE_TITLE}'")
+        raise SystemExit("Could not find 'Logical Architecture' slide")
     build(target)
     prs.save(PPTX)
-    print(f"Done. Slide rebuilt with {len(target.shapes)} native shapes (incl. arrows + commentary).")
+    print(f"Done. Slide rebuilt with {len(target.shapes)} native shapes (orthogonal arrows + 20% commentary).")
 
 
 if __name__ == "__main__":
