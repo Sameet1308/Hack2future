@@ -265,7 +265,7 @@
         <mxCell id="c5_esc_h" value="TIER ASSIGNMENT" style="text;html=1;align=left;fontSize=11;fontStyle=1;fontColor=#dc2626" vertex="1" parent="1">
           <mxGeometry x="680" y="939" width="160" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="c5_esc" value="conf ≥ 0.85 → T1 auto  ·  0.60 – 0.85 → T2 adjuster  ·  fraud/fatality/total-loss → T3 CSR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#7f1d1d;fontSize=12;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+        <mxCell id="c5_esc" value="conf ≥ 90% → T1 auto  ·  60-90% → T2 adjuster  ·  &lt; 60% / fraud / fatality → T3 CSR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#7f1d1d;fontSize=12;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
           <mxGeometry x="680" y="957" width="570" height="34" as="geometry" />
         </mxCell>
 

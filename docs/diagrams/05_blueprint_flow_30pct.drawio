@@ -99,7 +99,7 @@
         <mxCell id="agent_validation_icon2" value="" style="sketch=0;outlineConnect=0;gradientColor=none;fillColor=none;strokeColor=none;dashed=0;html=1;aspect=fixed;shape=image;image=https://raw.githubusercontent.com/Sameet1308/Hack2future/main/docs/diagrams/icons/azure/Azure_Public_Service_Icons/Icons/compute/10029-icon-service-Function-Apps.svg" vertex="1" parent="1">
           <mxGeometry x="520" y="406" width="28" height="28" as="geometry" />
         </mxCell>
-        <mxCell id="agent_validation_desc" value="PA parent + 7 sub-flows&#10;NOAA · NHTSA (live) + ISO, NICB, CARFAX, DMV, KBB, Telematics (sandbox)" style="text;html=1;align=center;verticalAlign=middle;fontSize=8;fontColor=#92400e" vertex="1" parent="1">
+        <mxCell id="agent_validation_desc" value="PA parent + 8 sub-flows&#10;NOAA · NHTSA (LIVE) + ISO, NICB, CARFAX, DMV, KBB, Telematics (sandbox)" style="text;html=1;align=center;verticalAlign=middle;fontSize=8;fontColor=#92400e" vertex="1" parent="1">
           <mxGeometry x="404" y="438" width="182" height="40" as="geometry" />
         </mxCell>
 
@@ -124,13 +124,13 @@
         <mxCell id="tier_router_label" value="⑧ Tier Routing  (decision inside Master Orchestration)" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontStyle=2;fontColor=#0e3a0e" vertex="1" parent="1">
           <mxGeometry x="10" y="572" width="580" height="16" as="geometry" />
         </mxCell>
-        <mxCell id="tier1" value="Tier 1 · Auto-approve  (no human) · confidence ≥ 0.85" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontColor=#14532d;fontSize=10;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="tier1" value="Tier 1 · Auto-approve  (no human) · confidence ≥ 90%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;fontColor=#14532d;fontSize=10;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="10" y="592" width="580" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="tier2" value="Tier 2 · Adjuster reviews in Teams Adaptive Card  ·  0.60 – 0.85" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="tier2" value="Tier 2 · Adjuster reviews in Teams Adaptive Card  ·  60 – 90%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#92400e;fontSize=10;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="10" y="618" width="580" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="tier3" value="Tier 3 · Live CSR via Teams chat  ·  &lt; 0.60  ·  BI / fatality / distress" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#991b1b;fontSize=10;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="tier3" value="Tier 3 · Live CSR via Teams chat  ·  &lt; 60%  ·  BI / fatality / distress" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;fontColor=#991b1b;fontSize=10;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="10" y="644" width="580" height="22" as="geometry" />
         </mxCell>
 
@@ -273,9 +273,9 @@
         <mxCell id="e21" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="agent_validation_box" target="agent_adjud_box"><mxGeometry relative="1" as="geometry" /></mxCell>
 
         <!-- Adjudication → Tier 1/2/3 -->
-        <mxCell id="e22" value="≥ 0.85" style="endArrow=classic;html=1;strokeColor=#16a34a;strokeWidth=1.5;fontColor=#16a34a;fontSize=8;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="agent_adjud_box" target="tier1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e23" value="0.60-0.85" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;fontColor=#d97706;fontSize=8;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="agent_adjud_box" target="tier2"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e24" value="&lt; 0.60" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;fontColor=#dc2626;fontSize=8;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="agent_adjud_box" target="tier3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e22" value="≥ 90%" style="endArrow=classic;html=1;strokeColor=#16a34a;strokeWidth=1.5;fontColor=#16a34a;fontSize=8;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="agent_adjud_box" target="tier1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e23" value="60-90%" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;fontColor=#d97706;fontSize=8;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="agent_adjud_box" target="tier2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e24" value="&lt; 60%" style="endArrow=classic;html=1;strokeColor=#dc2626;strokeWidth=1.5;fontColor=#dc2626;fontSize=8;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="agent_adjud_box" target="tier3"><mxGeometry relative="1" as="geometry" /></mxCell>
 
         <!-- Tier 2 → Adjuster Card  ·  Tier 3 → CSR Chat -->
         <mxCell id="e25" style="endArrow=classic;html=1;strokeColor=#d97706;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;rounded=1" edge="1" parent="1" source="tier2" target="adjuster_card"><mxGeometry relative="1" as="geometry" /></mxCell>
