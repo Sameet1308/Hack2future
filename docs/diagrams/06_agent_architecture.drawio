@@ -26,28 +26,28 @@
         <mxCell id="p_cust" value="Customer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ea580c;strokeColor=#9a3412;fontColor=#ffffff;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="40" y="105" width="100" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_intake" value="①&#10;Intake" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="p_intake" value="&lt;font style=&quot;font-size:20px&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;Intake" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=12;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="180" y="105" width="110" height="48" as="geometry" />
         </mxCell>
         <mxCell id="p_master" value="Master Orch&#10;(Power Automate)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="330" y="105" width="160" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_ext" value="②  Extraction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="p_ext" value="&lt;font style=&quot;font-size:18px&quot;&gt;&lt;b&gt;2&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;Extraction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="530" y="80" width="150" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="p_pol" value="③  Policy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="p_pol" value="&lt;font style=&quot;font-size:18px&quot;&gt;&lt;b&gt;3&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;Policy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="530" y="118" width="150" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="p_val" value="④  Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="p_val" value="&lt;font style=&quot;font-size:18px&quot;&gt;&lt;b&gt;4&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="530" y="156" width="150" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="p_adj" value="⑤  Adjudication&#10;GPT-4.1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="p_adj" value="&lt;font style=&quot;font-size:20px&quot;&gt;&lt;b&gt;5&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;Adjudication&lt;br&gt;GPT-4.1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="720" y="105" width="150" height="48" as="geometry" />
         </mxCell>
         <mxCell id="p_router" value="Router" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#107c10;strokeWidth=2;fontSize=11;fontStyle=1;fontColor=#0e3a0e" vertex="1" parent="1">
           <mxGeometry x="910" y="105" width="100" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="p_expl" value="⑥  Explanation&#10;(AI — not CSR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="p_expl" value="&lt;font style=&quot;font-size:20px&quot;&gt;&lt;b&gt;6&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;Explanation&lt;br&gt;(AI — not CSR)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede4f5;strokeColor=#742774;fontColor=#3d2c70;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="1050" y="105" width="170" height="48" as="geometry" />
         </mxCell>
         <mxCell id="p_audit" value="🛡  Decision_Rationale&#10;Glass Box audit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5b73a;strokeColor=#d99416;strokeWidth=2;fontColor=#0a2540;fontSize=11;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
@@ -113,7 +113,7 @@
         <mxCell id="c1_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;strokeWidth=2" vertex="1" parent="1">
           <mxGeometry x="25" y="180" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c1_hdr" value="①  INTAKE AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="c1_hdr" value="&lt;font style=&quot;font-size:28px&quot;&gt;&lt;b&gt;1&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;INTAKE AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="25" y="180" width="610" height="52" as="geometry" />
         </mxCell>
         <mxCell id="c1_eng" value="🤖  AI agent  ·  Microsoft Copilot Studio" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#3d2c70" vertex="1" parent="1">
@@ -145,7 +145,7 @@
         <mxCell id="c2_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2" vertex="1" parent="1">
           <mxGeometry x="660" y="180" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c2_hdr" value="②  EXTRACTION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#0a2540;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="c2_hdr" value="&lt;font style=&quot;font-size:28px&quot;&gt;&lt;b&gt;2&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;EXTRACTION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#0a2540;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="660" y="180" width="610" height="52" as="geometry" />
         </mxCell>
         <mxCell id="c2_eng" value="🤖  AI agent  ·  Azure AI Document Intelligence  +  GPT-4o Vision" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#0a2540" vertex="1" parent="1">
@@ -177,7 +177,7 @@
         <mxCell id="c3_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=2" vertex="1" parent="1">
           <mxGeometry x="1295" y="180" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c3_hdr" value="③  POLICY AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#0a2540;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="c3_hdr" value="&lt;font style=&quot;font-size:28px&quot;&gt;&lt;b&gt;3&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;POLICY AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078d4;strokeColor=#0a2540;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="1295" y="180" width="610" height="52" as="geometry" />
         </mxCell>
         <mxCell id="c3_eng" value="🤖  AI agent  ·  Azure AI Search (vector RAG over policy PDFs)" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#0a2540" vertex="1" parent="1">
@@ -209,7 +209,7 @@
         <mxCell id="c4_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;strokeWidth=2" vertex="1" parent="1">
           <mxGeometry x="25" y="605" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c4_hdr" value="④  VALIDATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="c4_hdr" value="&lt;font style=&quot;font-size:28px&quot;&gt;&lt;b&gt;4&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;VALIDATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="25" y="605" width="610" height="52" as="geometry" />
         </mxCell>
         <mxCell id="c4_eng" value="⚙  Workflow  ·  Power Automate parent flow  +  7 sub-flow adapters" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#3d2c70" vertex="1" parent="1">
@@ -241,7 +241,7 @@
         <mxCell id="c5_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=3" vertex="1" parent="1">
           <mxGeometry x="660" y="605" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c5_hdr" value="⑤  ADJUDICATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0a2540;strokeColor=#0a2540;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="c5_hdr" value="&lt;font style=&quot;font-size:28px&quot;&gt;&lt;b&gt;5&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;ADJUDICATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0a2540;strokeColor=#0a2540;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="660" y="605" width="610" height="52" as="geometry" />
         </mxCell>
         <mxCell id="c5_eng" value="🤖  AI agent  ·  Azure OpenAI  GPT-4.1  (reasoning model)" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#0a2540" vertex="1" parent="1">
@@ -273,7 +273,7 @@
         <mxCell id="c6_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#742774;strokeWidth=2" vertex="1" parent="1">
           <mxGeometry x="1295" y="605" width="610" height="410" as="geometry" />
         </mxCell>
-        <mxCell id="c6_hdr" value="⑥  EXPLANATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
+        <mxCell id="c6_hdr" value="&lt;font style=&quot;font-size:28px&quot;&gt;&lt;b&gt;6&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;EXPLANATION AGENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#742774;strokeColor=#5a1d5e;fontColor=#ffffff;fontSize=18;fontStyle=1;align=center;verticalAlign=middle" vertex="1" parent="1">
           <mxGeometry x="1295" y="605" width="610" height="52" as="geometry" />
         </mxCell>
         <mxCell id="c6_eng" value="🤖  AI agent  ·  Copilot Studio  +  Azure OpenAI  (summarisation)" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=2;fontColor=#3d2c70" vertex="1" parent="1">
