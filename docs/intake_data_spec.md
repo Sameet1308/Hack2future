@@ -15,6 +15,27 @@ Question wording is provided in plain conversational English. Person 1 should ke
 
 ---
 
+## 0.5. Data flow — where claim and policy data live
+
+**Microsoft Dataverse is the source of truth for the agent layer.** Every AI agent reads from and writes to Dataverse only — never directly to the legacy core.
+
+**Policy data origin:** Legacy core systems at the host carrier (Guidewire PolicyCenter or equivalent). Synced into Dataverse via Azure Data Factory event-triggered pipelines, typically &lt;5 minute latency. The Intake Agent's policy lookup (gate check §1.5 #1) hits the Dataverse replica, not the legacy core.
+
+**Claim data direction:** FNOL is created in Dataverse first (`gbx_claim` row insert triggers Master Orchestration). A reverse-direction ADF pipeline pushes the new claim to the legacy core within minutes for actuarial reserving, GL impact, and downstream claims systems. Bidirectional sync is at the **field level — never full-record overwrite**.
+
+**Why this design:**
+- Dataverse is the single agent-readable store (matches the Microsoft-only stack mandate)
+- The legacy core remains the enterprise SOR for accountants, auditors, actuaries, regulators
+- `Decision_Rationale` (Glass Box audit) lives in Dataverse **only** — never pushed to legacy. The AI audit trail is owned end-to-end by the agent layer.
+
+**Fallback for brand-new policies (bound &lt;5 min ago):** Dataverse policy lookup miss → synchronous read-through to legacy via ADF on-demand call, 3-second timeout. If still not found → fall through to gate-check §1.5 #1 failure path.
+
+**Two claim numbers per claim:**
+- `gbx_claim_id` — Dataverse autonumber, issued in real time during FNOL, shown to the customer
+- `gbx_legacy_claim_id` — legacy core assigns its own once the ADF push lands; stored back on the same Claim row
+
+---
+
 ## 1. Loss taxonomy
 
 ```
@@ -46,6 +67,36 @@ Branch point = U5 in §2. Every other branch flows from this answer.
 
 ---
 
+## 1.5. Pre-claim-number GATE checks (10 checks — all must pass)
+
+Before the Intake Agent says *"Your claim number is XYZ"*, every one of these 10 checks must succeed. Each maps to a specific Power Automate action in the `Create_Claim` flow, executed in order. If a check fails → don't issue claim #, branch to the remediation path on the right.
+
+**Guiding principle: "Day-1 claim number, always."** A customer never leaves the conversation without either a claim # or a clear reason + a warm human handoff.
+
+| # | Check | What we look at | Failure path |
+|---|---|---|---|
+| 1 | **Policy exists** | Dataverse `gbx_policy` lookup on U1 input. Fallback: ADF on-demand read-through to legacy core (3s timeout) for very fresh policies. | *"I'm not finding that policy — let me transfer you to someone who can help."* → live agent |
+| 2 | **Policy status = ACTIVE on DOL** | `gbx_policy.gbx_status` + effective/expiry vs U3 IncidentDate | ACTIVE → proceed. CANCELLED with DOL before cancel → proceed with coverage-confirmation flag. CANCELLED after cancel → coverage review handoff. LAPSED → check grace period (10-30 days, state-specific). REINSTATED → check reinstatement effective vs DOL. |
+| 3 | **Caller identity verified** | Match U2 RelationshipToHolder against `gbx_policy.gbx_named_insured` + `gbx_listed_drivers`. Verify with DOB + last 4 SSN, OR policy + zip + VIN last 6 | 3 failed attempts → live agent (don't try a 4th) |
+| 4 | **Excluded-driver check** | `gbx_policy.gbx_excluded_drivers` array vs caller name | **HARD STOP.** Transfer to coverage specialist. Never issue claim # to an excluded driver — that's a coverage void. |
+| 5 | **DOL within policy dates** | U3 IncidentDate between policy effective and expiry | Future-dated DOL → reject as suspicious. DOL &gt;30 days ago → still proceed but flag for late-reporting follow-up questions. |
+| 6 | **Duplicate claim check** | Dataverse query: any open `gbx_claim` for same policy + DOL ±24h + vehicle? | Match → *"We already have a claim for this — Claim # XYZ. Let me pull that up."* Don't create a duplicate. |
+| 7 | **Coverage matches loss type** | U5 LossType vs the policy's coverage matrix (Collision / Comp / Liab / UM-UIM / PIP-MedPay present?) | Mismatch → *"This policy doesn't carry comprehensive coverage — let me explain your options."* Don't issue claim # for an uncovered loss type. |
+| 8 | **Vehicle on policy** | VIN/plate match against `gbx_policy.gbx_scheduled_vehicles` | Exceptions: newly-acquired vehicle within 14-30 day auto-coverage window → proceed. Rental vehicle → check rental endorsement. Borrowed vehicle → permissive-use rules by state. |
+| 9 | **Minimum FNOL fields complete** | U1, U3, U4, U5, vehicle, U7 InjuryFlag, U11 OtherPartyInvolved | If incomplete: **still issue claim #** with status = `PENDING_INCOMPLETE`. Notification Agent chases missing fields. Customer always leaves with a number. |
+| 10 | **SIU pre-flight check** | Three quick fraud signals: policy purchased &lt;60 days before DOL; &gt;2 claims same policy in last 12 months; weekend incident reported Monday | Any signal → issue claim # but pre-flag with `gbx_siu_preflag = Y`. Don't lose the customer over a signal — trace it through adjudication. |
+
+### Output of the gate
+- **All 10 pass** → issue claim # immediately, status = `OPEN`
+- **Checks 1, 2, 3, 4, 7 fail** → don't issue, transfer to specialist with full conversation transcript
+- **Check 9 fails** → issue # with status = `PENDING_INCOMPLETE`, Notification Agent takes over the chase
+- **Check 10 flags** → issue # with `gbx_siu_preflag = Y`, SIU sub-agent in the adjudication path runs deeper
+
+### Audit logging
+Every gate-check outcome writes one row to `Decision_Rationale` with `agent = 'intake_gate'`, `check_name`, `result`, raw Dataverse query input, and timestamp — so any auditor or judge can trace exactly why a claim # was or was not issued.
+
+---
+
 ## 2. Universal questions (asked for EVERY claim)
 
 | # | Question | Field | Type | Required | Source | Notes |
@@ -73,6 +124,34 @@ Run on U6 narrative via Azure OpenAI. If `distress_score >= 0.7`:
 - Set `DistressFlag = Y`
 - Soften the next response: "I'm really sorry you're going through this. Take your time."
 - At adjudication, override auto-approve → route to Tier 3 even if confidence ≥ 90%
+
+---
+
+## 2.5. Policyholder-centric UX principles (10 rules the Intake Agent must follow)
+
+These are not optional. Every Copilot Studio topic and every channel adapter must honour these. The empathy KPI in §10 is how we measure compliance.
+
+1. **Pre-fill from policy** — never re-ask what's already on the policy. Name, address, vehicle, coverage, deductible all come from the Dataverse policy record. *"Policy 12345"* → next utterance is *"Hi Sara — confirming this is for your 2022 Honda Civic?"* not eight questions about who they are.
+
+2. **Progressive disclosure** — one question per turn, never compound. Loss-type branching skips irrelevant questions (don't ask about other parties on a single-vehicle weather claim).
+
+3. **Sentiment check every turn** — Azure OpenAI sentiment score on each customer turn. Distress detected (`distress_score >= 0.7`) → soften tone, offer human handoff. Set `DistressFlag = Y` on the Claim row.
+
+4. **Plain language, no jargon** — *"the person you hit"* not *"third-party claimant"*. *"your share of the cost"* not *"deductible"* — or define inline the first time. Insurance terms are barriers, not features.
+
+5. **Empathy first sentence after bad news** — *"I'm so sorry that happened. Let's take this one step at a time."* before any data collection. The customer just had an accident.
+
+6. **Confirm before commit** — before generating claim #, summarise back: *"Here's what I have: collision with another vehicle on May 18 in Austin TX, you're not hurt, other driver was cited. Does that look right?"* Only then commit.
+
+7. **One-click escalation always visible** — every channel must surface a "Talk to a person" affordance at all times. Never trap the customer in the bot.
+
+8. **Photo upload everywhere** — drag-drop in web, camera capture in mobile, attachment in email, MMS in SMS. The customer does not switch channels to send a photo.
+
+9. **Save and resume** — temp claim # issued on minimum fields (gate check §1.5 #9). Customer can close the chat / hang up and come back later via "What's my claim status" with the claim # to finish.
+
+10. **Transparency on what's next** — close every successful FNOL with: *"Here's what happens next: email with your claim # in 2 minutes, document checklist within an hour, your adjuster's name within 24 hours. You can check status any time at [URL] or just text 'STATUS' to this number."*
+
+**Conversation length target** (see §10 for full table): **median FNOL completion in ≤14 turns end-to-end**. If a topic regularly exceeds 18 turns in production telemetry, the topic gets refactored — it's failing the empathy KPI.
 
 ---
 
