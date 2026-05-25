@@ -44,6 +44,10 @@ Claim,assignment_reason,gbx_assignment_reason,Multiline,N,,,Plain-English why th
 Claim,assigned_at,gbx_assigned_at,DateTime,N,,,Starts the SLA clock
 Claim,sla_due_at,gbx_sla_due_at,DateTime,N,,,Computed at assignment time per tier
 Claim,resolved_at,gbx_resolved_at,DateTime,N,,,
+Claim,docs_outstanding,gbx_docs_outstanding,Yes/No,N,,,Track B flag (intake_data_spec §5.5) - true if minimum FNOL complete but supporting docs missing
+Claim,manual_contact_flag,gbx_manual_contact_flag,Yes/No,N,,,Set Y at Day 10 of post-FNOL chase when adjuster makes manual contact
+Claim,chase_day_count,gbx_chase_day_count,Whole number,N,0,,Days elapsed since Day 0 of post-FNOL chase cadence (intake_data_spec §5.5)
+Claim,legacy_claim_id,gbx_legacy_claim_id,Text(50),N,,,Claim # assigned by legacy core (Guidewire-equivalent) after ADF push lands - intake_data_spec §0.5
 Document,id,gbx_doc_id,Auto-number,Y,DOC-{YYYY}-{SEQNUM:5},,Primary key
 Document,claim_id,gbx_claim,Lookup,Y,,Claim.id,
 Document,doc_type,gbx_doc_type,Choice,Y,DamagePhoto|DriversLicense|InsuranceCard|VehicleTitle|RegistrationCard|RepairEstimate|PoliceReport|FireDeptReport|MedicalRecord|LostWagesLetter|ContractorEstimate|WitnessStatement|Other,,
@@ -66,6 +70,7 @@ Communication,timestamp,gbx_timestamp,DateTime,Y,,,
 Communication,agent_name,gbx_agent_name,Text(100),N,,,Intake|Explanation|Adjuster|Notification
 Communication,sentiment_score,gbx_sentiment_score,Decimal (-1 to 1),N,,,From AOAI on inbound only
 Communication,sender_id,gbx_sender_id,Text(255),N,,,
+Communication,delivery_status,gbx_delivery_status,Choice,N,Sent|Delivered|Read|Failed|Bounced,,Outbound delivery state from ACS / Outlook / Bot Service (intake_data_spec §5.5)
 Decision_Rationale,id,gbx_log_id,Auto-number,Y,LOG-{YYYY}-{SEQNUM:7},,Primary key
 Decision_Rationale,claim_id,gbx_claim,Lookup,Y,,Claim.id,
 Decision_Rationale,agent_name,gbx_agent_name,Choice,Y,Intake|Extraction|Policy|Validation|Adjudication|Explanation|Notification|Adjuster|AssignmentEngine|VendorEngine,,
@@ -118,3 +123,13 @@ ClaimVendorAssignment,assigned_at,gbx_assigned_at,DateTime,Y,,,
 ClaimVendorAssignment,sla_due_at,gbx_sla_due_at,DateTime,N,,,
 ClaimVendorAssignment,status,gbx_cva_status,Choice,Y,Notified|Accepted|InProgress|Completed|Cancelled|Declined,,
 ClaimVendorAssignment,completion_notes,gbx_completion_notes,Multiline,N,,,Vendor's update on completion
+StateRule,id,gbx_state_rule_id,Auto-number,Y,SR-{SEQNUM:3},,Primary key
+StateRule,state,gbx_state,Choice,Y,US 50 states + DC,,One row per state
+StateRule,closure_deadline_days,gbx_closure_deadline_days,Whole number,Y,30 default,,State-mandated claim closure window (30-45 days varies by state) - read by Notification Agent at each chase iteration (intake_data_spec §5.5)
+StateRule,is_no_fault,gbx_is_no_fault,Yes/No,Y,,,FL/NY/NJ/MI/PA/KY/KS/ND/HI/UT/OR/MA = true
+StateRule,comparative_negligence_rule,gbx_comp_neg_rule,Choice,Y,Pure|Modified50|Modified51|Contributory,,Pure (CA/NY/FL/MO) / Mod50 (TX/CO/GA/SC) / Mod51 (OH/MI/PA/NJ) / Contributory (MD/VA/NC/DC/AL)
+StateRule,um_grace_period_days,gbx_um_grace_days,Whole number,N,,,Hit-and-run police report deadline (24/48/72 hours by state)
+StateRule,policy_lapse_grace_days,gbx_lapse_grace_days,Whole number,Y,15 default,,Cancellation grace period 10-30 days by state (used by §1.5 gate check #2)
+StateRule,total_loss_threshold_pct,gbx_tl_threshold_pct,Decimal,Y,75 default,,Repair-vs-ACV cutoff (most states 75-80%, IA 100%)
+StateRule,acknowledgment_deadline_days,gbx_ack_deadline_days,Whole number,Y,10 default,,FNOL acknowledgment deadline (most states 10 business days)
+StateRule,glass_zero_deductible,gbx_glass_zero_ded,Yes/No,Y,,,FL/KY/KS/MA/SC/MN waive comprehensive deductible for glass-only claims
