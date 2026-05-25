@@ -118,7 +118,7 @@
 
         <!-- ===== CLAIM ENTITY (center, the hub) ===== -->
         <mxCell id="ent_claim" value="Claim" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontSize=14;fillColor=none;strokeColor=#0a2540;strokeWidth=3;swimlaneFillColor=#dbeafe;fontColor=#0a2540;fontStyle=1;align=center" vertex="1" parent="1">
-          <mxGeometry x="500" y="100" width="320" height="612" as="geometry" />
+          <mxGeometry x="500" y="100" width="320" height="700" as="geometry" />
         </mxCell>
         <mxCell id="cl_r1" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="ent_claim">
           <mxGeometry y="30" width="320" height="28" as="geometry" />
@@ -336,6 +336,42 @@
         <mxCell id="cl_r24_c2" value="resolved_at · DateTime" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="cl_r24">
           <mxGeometry x="80" width="240" height="22" as="geometry" />
         </mxCell>
+        <mxCell id="cl_r25" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="ent_claim">
+          <mxGeometry y="564" width="320" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r25_c1" value="" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="cl_r25">
+          <mxGeometry width="80" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r25_c2" value="docs_outstanding · Yes/No" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#fef3c7;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="cl_r25">
+          <mxGeometry x="80" width="240" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r26" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="ent_claim">
+          <mxGeometry y="586" width="320" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r26_c1" value="" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="cl_r26">
+          <mxGeometry width="80" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r26_c2" value="manual_contact_flag · Yes/No" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#fef3c7;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="cl_r26">
+          <mxGeometry x="80" width="240" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r27" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="ent_claim">
+          <mxGeometry y="608" width="320" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r27_c1" value="" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="cl_r27">
+          <mxGeometry width="80" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r27_c2" value="chase_day_count · Whole#" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#fef3c7;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="cl_r27">
+          <mxGeometry x="80" width="240" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r28" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="ent_claim">
+          <mxGeometry y="630" width="320" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r28_c1" value="" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=10;align=left;spacingLeft=8" vertex="1" parent="cl_r28">
+          <mxGeometry width="80" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="cl_r28_c2" value="legacy_claim_id · Text(50) ⓘ from legacy core" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=#dbeafe;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=9;align=left;spacingLeft=8" vertex="1" parent="cl_r28">
+          <mxGeometry x="80" width="240" height="22" as="geometry" />
+        </mxCell>
 
         <!-- ===== DOCUMENT ENTITY ===== -->
         <mxCell id="ent_doc" value="Document" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2;verticalAlign=top;fontSize=14;fontStyle=1;fontColor=#0a2540;align=center" vertex="1" parent="1">
@@ -347,10 +383,10 @@
 
         <!-- ===== COMMUNICATION ENTITY ===== -->
         <mxCell id="ent_comm" value="Communication" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#0078d4;strokeWidth=2;verticalAlign=top;fontSize=14;fontStyle=1;fontColor=#0a2540;align=center" vertex="1" parent="1">
-          <mxGeometry x="980" y="350" width="280" height="220" as="geometry" />
+          <mxGeometry x="980" y="350" width="280" height="238" as="geometry" />
         </mxCell>
-        <mxCell id="comm_cols" value="🔑 PK · id (Comm ID)&#10;🔗 FK · claim_id → Claim&#10;direction · Choice (In/Out)&#10;channel · Choice&#10;message_content · Multiline&#10;attachments · JSON array&#10;timestamp · DateTime&#10;agent_name · Text(100)&#10;sentiment_score · Decimal (-1..1)&#10;sender_id · Text(255)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=0;align=left;fontSize=10;verticalAlign=top;spacingLeft=10;spacingTop=8" vertex="1" parent="1">
-          <mxGeometry x="980" y="380" width="280" height="190" as="geometry" />
+        <mxCell id="comm_cols" value="🔑 PK · id (Comm ID)&#10;🔗 FK · claim_id → Claim&#10;direction · Choice (In/Out)&#10;channel · Choice&#10;message_content · Multiline&#10;attachments · JSON array&#10;timestamp · DateTime&#10;agent_name · Text(100)&#10;sentiment_score · Decimal (-1..1)&#10;sender_id · Text(255)&#10;delivery_status · Choice (Sent/Delivered/Read/Failed/Bounced) ⓘ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0078d4;strokeWidth=0;align=left;fontSize=10;verticalAlign=top;spacingLeft=10;spacingTop=8" vertex="1" parent="1">
+          <mxGeometry x="980" y="380" width="280" height="208" as="geometry" />
         </mxCell>
 
         <!-- ===== DECISION_RATIONALE ENTITY (audit log) ===== -->
@@ -428,6 +464,25 @@
 
         <!-- Vendor 1:N ClaimVendorAssignment -->
         <mxCell id="rel_vendor_cva" value="1 ── many" style="endArrow=ERmany;startArrow=ERone;html=1;fontSize=11;fontStyle=1;strokeColor=#742774;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="ent_vendor" target="ent_cva">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ===== STATE RULE ENTITY (reference table) ===== -->
+        <mxCell id="ent_state" value="StateRule  (reference table, 51 rows)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ecfdf5;strokeColor=#16a34a;strokeWidth=2;verticalAlign=top;fontSize=14;fontStyle=1;fontColor=#14532d;align=center" vertex="1" parent="1">
+          <mxGeometry x="1340" y="350" width="320" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="state_cols" value="🔑 PK · id (StateRule ID)&#10;state · Choice (50 + DC)&#10;closure_deadline_days · Whole#&#10;is_no_fault · Yes/No&#10;comparative_negligence_rule · Choice (Pure/Mod50/Mod51/Contrib)&#10;um_grace_period_days · Whole#&#10;policy_lapse_grace_days · Whole#&#10;total_loss_threshold_pct · Decimal&#10;acknowledgment_deadline_days · Whole#&#10;glass_zero_deductible · Yes/No" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#16a34a;strokeWidth=0;align=left;fontSize=10;verticalAlign=top;spacingLeft=10;spacingTop=8" vertex="1" parent="1">
+          <mxGeometry x="1340" y="380" width="320" height="245" as="geometry" />
+        </mxCell>
+        <mxCell id="state_usage" value="Read by:  Notification Agent (closure_deadline_days) · Validation Agent (comparative_negligence_rule, is_no_fault) · Coverage Agent (lapse_grace_days, glass_zero_deductible) · Adjudication Agent (total_loss_threshold_pct)" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontStyle=2;fontColor=#14532d" vertex="1" parent="1">
+          <mxGeometry x="1340" y="640" width="320" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ===== STATE RULE LOOKUP RELATIONSHIPS (dashed - by-value lookups, not enforced FK) ===== -->
+        <mxCell id="rel_pol_state" value="lookup by state" style="endArrow=open;startArrow=none;html=1;fontSize=9;fontStyle=2;strokeColor=#16a34a;strokeWidth=1.5;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.2" edge="1" parent="1" source="ent_policy" target="ent_state">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_clm_state" value="lookup by incident_state" style="endArrow=open;startArrow=none;html=1;fontSize=9;fontStyle=2;strokeColor=#16a34a;strokeWidth=1.5;dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5" edge="1" parent="1" source="ent_claim" target="ent_state">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
