@@ -1,0 +1,97 @@
+# k8s/deployment.yaml
+# AKS Deployment for GlassBox Claims API
+# Uses Workload Identity (pod-level Managed Identity) for Azure SQL + Blob + Dataverse auth
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gbx-claims-api
+  namespace: gbx-claims
+  labels:
+    app: gbx-claims-api
+    version: "1.0.0"
+    environment: production
+spec:
+  replicas: 2                     # Scale via HPA in production
+  selector:
+    matchLabels:
+      app: gbx-claims-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0           # Zero-downtime deploys
+  template:
+    metadata:
+      labels:
+        app: gbx-claims-api
+        azure.workload.identity/use: "true"   # Enable Workload Identity on pod
+    spec:
+      serviceAccountName: gbx-claims-sa       # Linked to Managed Identity via annotation
+
+      # Security hardening
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+
+      containers:
+        - name: gbx-claims-api
+          image: gbxacr.azurecr.io/gbx-claims-api:1.0.0   # Replace with your ACR
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+              name: http
+
+          # All sensitive values injected from K8s Secret (backed by Azure Key Vault via CSI)
+          envFrom:
+            - configMapRef:
+                name: gbx-claims-config
+            - secretRef:
+                name: gbx-claims-secret
+
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
+
+          # AKS liveness probe — restarts pod if app hangs
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3
+
+          # AKS readiness probe — removes pod from load balancer if DB is unreachable
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+
+      imagePullSecrets:
+        - name: acr-pull-secret               # ACR pull credentials
+
+---
+# ConfigMap — non-sensitive config
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gbx-claims-config
+  namespace: gbx-claims
+data:
+  ENV: "production"
+  LOG_LEVEL: "INFO"
+  DB_NAME: "GlassBoxClaims"
+  DB_DRIVER: "ODBC Driver 18 for SQL Server"
+  DB_USE_MSI: "true"
+  DB_POOL_SIZE: "10"
+  BLOB_CONTAINER: "claim-documents"
+  NOAA_BASE_URL: "https://api.weather.gov"
+  RATE_LIMIT_PER_MINUTE: "60"

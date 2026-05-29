@@ -1,0 +1,116 @@
+# ── Service — internal ClusterIP (agents in same AKS workspace call this) ──────
+apiVersion: v1
+kind: Service
+metadata:
+  name: gbx-claims-api-svc
+  namespace: gbx-claims
+  labels:
+    app: gbx-claims-api
+spec:
+  type: ClusterIP                 # Internal only — agents reach it via cluster DNS
+  selector:
+    app: gbx-claims-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+      protocol: TCP
+
+---
+# ── Ingress — exposes /docs externally for dev; lock down in prod ──────────────
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gbx-claims-api-ingress
+  namespace: gbx-claims
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "25m"    # Allow up to 25MB doc uploads
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+    - hosts:
+        - claims-api.internal.gbx.io
+      secretName: gbx-claims-tls
+  rules:
+    - host: claims-api.internal.gbx.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gbx-claims-api-svc
+                port:
+                  number: 80
+
+---
+# ── Secret — sensitive values (populated by Azure Key Vault CSI driver) ────────
+# DO NOT commit real values. This is a template.
+# In production, use the Secrets Store CSI driver to mount from Key Vault.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gbx-claims-secret
+  namespace: gbx-claims
+type: Opaque
+stringData:
+  DB_SERVER: "REPLACE_WITH_KEYVAULT_REFERENCE"
+  AZURE_TENANT_ID: "REPLACE_WITH_KEYVAULT_REFERENCE"
+  AZURE_CLIENT_ID: "REPLACE_WITH_KEYVAULT_REFERENCE"
+  AAD_AUDIENCE: "api://gbx-claims-api"
+  DATAVERSE_URL: "REPLACE_WITH_KEYVAULT_REFERENCE"
+  BLOB_ACCOUNT_URL: "REPLACE_WITH_KEYVAULT_REFERENCE"
+  NICB_API_URL: "REPLACE_WITH_KEYVAULT_REFERENCE"
+  ISO_CLAIMSEARCH_URL: "REPLACE_WITH_KEYVAULT_REFERENCE"
+
+---
+# ── ServiceAccount — linked to Managed Identity via Workload Identity ──────────
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gbx-claims-sa
+  namespace: gbx-claims
+  annotations:
+    # Tells AKS Workload Identity which Managed Identity to bind to
+    azure.workload.identity/client-id: "REPLACE_WITH_MANAGED_IDENTITY_CLIENT_ID"
+    azure.workload.identity/tenant-id: "REPLACE_WITH_TENANT_ID"
+
+---
+# ── HorizontalPodAutoscaler — scale 2–10 pods on CPU/memory ───────────────────
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gbx-claims-api-hpa
+  namespace: gbx-claims
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gbx-claims-api
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+
+---
+# ── Namespace ──────────────────────────────────────────────────────────────────
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gbx-claims
+  labels:
+    environment: production
+    team: ai-elites
