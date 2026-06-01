@@ -1,3 +1,6 @@
+# =============================================================
+# .gitignore  -  Glass Box AI
+# =============================================================
 # Secrets & env
 .env
 .env.*
@@ -6,9 +9,16 @@
 *.pem
 secrets/
 
-# Claude Code local state
+# Claude Code local state + project instructions (internal)
 .claude/
 .claude-cache/
+CLAUDE.md
+
+# Session / sprint internal tracking — local only, never pushed to GitHub
+CHANGELOG.md
+SESSION_BRIEF.md
+DAILY_LOG.md
+setup-repo.ps1
 
 # OS / editor
 .DS_Store
@@ -33,8 +43,45 @@ out/
 tmp/
 *.log
 
-# Power Platform / Azure exports (often large or sensitive)
+# Power Platform / Azure exports
 *.zip
 *.cmproj
 exports/
 solutions-export/
+
+# =============================================================
+# Internal working docs - kept LOCAL but not pushed to GitHub
+# =============================================================
+
+# Internal sprint / process docs
+docs/03_implementation_tips.md
+docs/04_daily_tasks.md
+docs/jira_*.csv
+docs/jira_*.md
+
+# Legacy / superseded
+docs/diagrams/architecture.html
+
+# Empty templates (not deliverables)
+docs/hackathon_blueprint_template.pptx
+
+# One-time build scripts (output is the .pptx, scripts not needed by panel)
+docs/add_flow_to_blueprint.py
+docs/build_logical_arch_native.py
+docs/fill_blueprint.py
+docs/fix_slides_5_and_8.py
+docs/insert_logical_arch_slide.py
+docs/schema/generate_xlsx.py
+
+# Generated artifacts (regeneratable from .drawio)
+docs/*.drawio.png
+docs/*.drawio.svg
+
+# Research / reference materials (third-party, not ours)
+docs/Microsoft-AI-Agent-for-Finance_Claim-Settlement-Agent.pptx
+docs/compass_artifact_*.md
+docs/compass_*.pdf
+
+# PowerPoint lock files
+~$*.pptx
+~$*.docx
