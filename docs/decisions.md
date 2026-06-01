@@ -106,3 +106,21 @@ Consequence: Single source of truth maintained. Team that prefers Confluence has
 Context: Atlassian OAuth token has Confluence scopes only — no Jira scopes. Cannot create Jira project or issues programmatically.
 Decision: Generate `docs/jira_backlog.csv` as Jira-importable CSV (6 epics + 22 stories per Confluence PRD R1–R22). Provide step-by-step manual setup instructions in `docs/jira_setup.md`. Sameet creates the Jira `GBX` project manually in 5 min and bulk-imports the CSV.
 Consequence: Jira board exists outside Claude's control loop. To enable Claude-driven Jira management later, an Atlassian admin re-authorizes the MCP server with Jira scopes (read:jira-work, write:jira-work).
+
+## 2026-06-06 — 3-day sprint scope: every feature has a home, nothing skipped
+Context: Build window opens June 6 evening; demo June 9 morning. $55 Azure credit budget. Team is new to Power Platform. Earlier sprint plans either over-promised (12-day build window) or proposed dropping Avatar/Foundry/MCP/Tier-3 outright. User pushed back — *"do not compromise on any feature, make a provision for real integration"*.
+
+Decision: **3-tier feature classification** captured in `docs/3_day_sprint.md`:
+- **Tier A — real for demo, deeply exercised**: Copilot Studio Intake (parent + 2 polished + 9 stub child topics); Power Automate flows (Create_Claim, Master_Orchestration, Notify_Customer, Log_To_Audit, Validation parent); Azure OpenAI Adjudication (gpt-4o-mini dev, gpt-4.1 demo); Azure AI Search Free tier RAG over 5 policy PDFs; Document Intelligence F0; NOAA + NHTSA live; Dataverse 9 tables + sample data; Teams Adaptive Card T2; Decision_Rationale audit; React frontend wired to live data; Sara animated character in chat UI.
+- **Tier B — real interface + mock data behind a config flag**: 6 sandbox validators (ISO / NICB / CARFAX / DMV / KBB / Telematics) and GPT-4o Vision photo extraction. Same JSON schema as production. One Dataverse env var `gbx_use_real_<X>` flips mock → real.
+- **Tier C — provisioned + wired + lightly exercised in demo**: Azure AI Foundry Agent (created, basic agent deployed, React `/customer/avatar-preview` route calls it briefly); Azure Speech Avatar real-time video (provisioned F0 free tier, Microsoft sample cloned, pre-recorded 60-sec fallback video as primary); MCP server (FastMCP container in Container Apps Consumption, 2 tools wired); Tier 3 CSR Teams chat (real, one team member plays CSR Maria); Power BI Desktop dashboard; Closure / CSAT / Recovery / Compliance reporting (skeleton agents with audit row + survey link).
+
+Decision: **Microsoft-only stack, Copilot Studio is canonical agent layer.** Foundry stays as Tier C "alternative voice channel" preview, not the primary intake path. Maintains continuity with all blueprint artifacts (PRD R1-R25 + Confluence Schema v4 + 5 drawio diagrams + intake_data_spec.md §1.5 gate checks + §5.5 chase cadence).
+
+Decision: **`gpt-4o-mini` for all dev/test calls; `gpt-4.1` only on live demo Adjudication path; `gpt-4o` vision mocked in dev (`gbx_use_real_vision = false`), flipped only at demo time** (~3 photo calls = ~$0.15). Saves ~$40 of $55 credit.
+
+Decision: **"Sara animated character"** in the existing web chat = our demo "avatar". The real-time video talking head is Tier C — wired but not the primary demo path.
+
+Decision: **Cost guardrails**: free-tier SKUs pinned in Bicep for AI Search / Doc Intel / Speech / Static Web Apps / Functions. Container Apps Consumption only. Kill switch `az group delete --name rg-glassbox-dev --yes --no-wait`. Daily spend check via `az consumption usage list`. Projected spend $7-12 of $55.
+
+Consequence: Every feature in the blueprint has a home — nothing is silently dropped. Glass Box audit story stays fully real (all agent steps write real `Decision_Rationale` rows) because that is the differentiator. Demo lands with both scenarios live end-to-end + Tier-C reveals that prove the production architecture is real. Spend remains under $15 with $40+ safety margin. Detailed runbooks in `docs/setup/` are the team's executable plan; `docs/3_day_sprint.md` is the master and `docs/demo_script.md` is the panel-facing script.
