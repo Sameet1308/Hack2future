@@ -150,6 +150,49 @@ Create row in Decision_Rationale:
 - HumanReadableExplanation: "Extracted 5 line items from contractor invoice totaling $4,200. Missing: date of service."
 ```
 
+## Production Data Architecture & Scale
+
+> Why this matters: a judge will ask *"how does this handle 200M policies?"* Answer: the policy master does **not** live in Dataverse, and we never scan the table — we do an **indexed lookup via a service layer**. Full rationale in `docs/decisions.md` (ADR 2026-06-02).
+
+### Tiered data stores (where each thing lives at scale)
+
+| Data | Production store | Lookup method |
+|---|---|---|
+| **Policy master (~200M)** | Core policy system (Guidewire PolicyCenter) **or** Azure SQL Hyperscale / Cosmos DB, indexed on policy number | **Indexed exact-match** (B-tree / alternate key) — ~28 comparisons for 200M, not a scan |
+| **Policy coverage *wording*** (PDF language) | **Azure AI Search** (vector + keyword index) | Generative / semantic retrieval (fuzzy) |
+| **Claims in flight** | **Dataverse** (small working set) | Standard queries |
+| **Decision_Rationale audit** | **Dataverse** | Standard queries |
+
+**Key distinction — two different mechanisms, never conflated:**
+- *Exact policy-number lookup* → **indexed query** (microseconds at any volume). Never a scan, never generative.
+- *Coverage-language questions* → **Azure AI Search** (RAG). Fuzziness is desired here.
+
+### Request flow: customer provides a policy number (production)
+```
+Customer ──"POL-2026-0847"──► Sara (Copilot Studio)
+   └─ extracts # → calls GetPolicy action (NOT a DB; an API)
+        └─► Azure API Management (Entra ID authN/authZ + rate-limit + logging)
+             └─► Policy API (microservice / Function): SELECT … WHERE PolicyNumber = X  [indexed]
+                  └─► Policy store returns ONE row (~5-20ms even at 200M)
+   ◄── policy JSON (holder, vehicle, coverage, status) ──┘
+Sara replies, grounded: "Hi Sarah, confirming your 2022 Honda Civic?"
+```
+
+**CQRS / read-model**: real insurers keep a fast read-replica/cache (Cosmos DB / Redis) of just the fields the agent needs, synced from the core system via events (CDC / Event Grid). Writes → system of record; reads → fast store. Sub-20ms lookups at any scale; core system not hammered.
+
+**Service-layer rule**: the agent **never** reads/writes a data store directly. It calls a governed service layer (Power Automate flow / Azure Function behind APIM) that routes to the right backend. Separation of concerns, least-privilege identity, reuse across all channels, single audit chokepoint.
+
+### Demo vs. production (the only thing that changes is the backend, not the conversation)
+
+| | Demo (current build) | Production |
+|---|---|---|
+| Policy lookup | Copilot Studio "knowledge" over 5-row Dataverse Policy table (generative) | APIM → Policy API → indexed Azure SQL/Cosmos (exact) |
+| Coverage wording | (n/a in demo) | Azure AI Search |
+| Claims + audit | Dataverse | Dataverse |
+| Agent → data | knowledge/tool | agent → **service layer** → store |
+
+The demo's Dataverse Policy table (5 rows) is an explicit **stand-in** for "the policy system." Swapping it for the indexed API is a backend change invisible to the conversation — which is exactly why Sara sits behind a service layer.
+
 ## Teams Adaptive Card Design (For Adjusters)
 
 The card sent to adjusters in Teams should contain:

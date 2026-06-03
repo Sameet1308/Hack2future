@@ -277,3 +277,33 @@ From here on, Claude runs `az` + `python` directly on this machine.
 **What happened:** ✅ Re-ran → completed with **zero errors**, published successfully. Verified independently with `scripts/verify_tables.py`, which queried the database and confirmed all 9 tables and their column counts (Policy 7, Claim 40, Decision Rationale 21, Vendor 18, CVA 16, Adjuster/Communication/State Rule 14, Document 12).
 
 **State now:** the complete Dataverse schema exists in GlassBox-Dev. Ready to wire up Copilot Studio (the chat agent) next.
+
+---
+
+# Session 2 — 2026-06-02 — Copilot Studio: Hello World achieved
+
+### Step 9 — Built the "Glass Box Claims Assistant" agent (persona: Sara)
+**What:** Created a Copilot Studio agent in the **GlassBox-Dev** environment.
+
+**Why it matters:** This is the customer-facing chat agent — the thing a judge actually talks to.
+
+**Clicks/config:**
+- copilotstudio.microsoft.com → **+ New agent → Agent → Skip to configure**
+- Name: `Glass Box Claims Assistant`; persona **Sara**; model **GPT-4.1**
+- Description + "Sara" instructions (warm, grounded, greet-by-name, confirm vehicle, log every decision)
+- **Knowledge:** added the **Policy** Dataverse table (`crcce_policy`) as a knowledge source
+- Disabled Web Search (keep Sara grounded only in policy data)
+
+**Bump:** first creation landed in the **Default** environment (Sandbox AI Labs 1010), not GlassBox-Dev — so it couldn't see the Policy table. Fix: switched the environment picker to GlassBox-Dev first, then recreated. (Lesson: in Copilot Studio, set the environment **before** clicking Create.)
+
+### Step 10 — HELLO WORLD MILESTONE ✅
+Tested in the agent's test pane:
+
+| Input | Sara's response | Result |
+|---|---|---|
+| "start a claim, policy POL-2026-0847" | "Hello Sarah Chen … policy is active … insured vehicle is a **2022 Honda Civic**" + Compliance Note | ✅ happy path |
+| "file a claim, policy POL-2026-0998" | "Amanda Williams … 2019 Chevrolet Malibu … status is **Expired** … you cannot file a claim" + Compliance Note | ✅ denial path |
+
+**Significance:** the full spine works end-to-end — **chat → real Dataverse Policy table → grounded, accurate, compliant response** — citing `crcce_Policy` as its source. Used generative/agentic retrieval (the AI decided what to query), which is a stronger story than a hardcoded topic. The "every decision recorded for compliance" line — the core pitch — appears naturally.
+
+**Next:** publish to a web channel (shareable demo) and/or make the audit trail *real* (write decisions to the `Decision_Rationale` table — the true "glass box").
