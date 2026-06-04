@@ -56,6 +56,24 @@ If you *did* keep policies in Dataverse, you'd add an **alternate key** on the p
 
 ---
 
+## 3b. How retrieval works *inside* Dataverse — index-based, built on Azure SQL
+
+**Dataverse is built on top of Azure SQL Database** (with Cosmos DB powering "elastic tables"). It is not a flat file or a "scan everything" store — underneath it's a relational SQL engine with real indexes. So agent retrieval is **index-based even at 100M+ records**:
+
+- Every table is indexed on its primary key by default.
+- Add a unique **alternate key** on `PolicyNumber` → Dataverse creates a **unique index** in the underlying SQL.
+- A lookup by PolicyNumber becomes an **indexed B-tree seek** → ~27 comparisons for 100M rows (log₂ 100M), **milliseconds** — never a 100M-row scan.
+
+**Two consequences that matter for the agent:**
+1. **Latency is flat** — an indexed seek is ~constant time whether the table holds 5 or 100M rows.
+2. **Token cost is flat and tiny** — the LLM only ever receives the **single returned row** (~100-200 tokens), *never the table*. The database seek itself costs **zero LLM tokens**. Table size has **no effect** on token usage. (The earlier worry — "scanning rows wastes tokens" — doesn't happen: the model reads the *result*, not the rows searched.)
+
+Because **Dataverse *is* Azure SQL underneath**, the retrieval *mechanism* (indexed seek) is identical to what a dedicated Azure SQL policy store would use. The reasons to still prefer a dedicated Azure SQL store for a 100M+ policy master are **cost** (Dataverse premium per-GB capacity) and **throughput** (Dataverse API service-protection limits) — **not** lookup speed.
+
+> **TL;DR:** With an alternate key, Dataverse retrieval at 100M records is an **indexed seek** (fast), and the agent's **token cost is bounded by the one returned row** (tiny), not the table size. Dataverse runs on Azure SQL, so the indexing is real SQL indexing.
+
+---
+
 ## 4. Production request flow — customer gives a policy number
 
 ```
