@@ -85,3 +85,6 @@ docs/compass_*.pdf
 # PowerPoint lock files
 ~$*.pptx
 ~$*.docx
+
+# Scratch folder for docx/pptx generation (node_modules)
+.docbuild/
