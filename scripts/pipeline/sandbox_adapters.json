@@ -1,0 +1,47 @@
+{
+  "_comment": "Canned JSON returned by the six GlassBox-Sandbox-* HTTP-trigger flows (Runbook 04 §B.4). Each object is the exact Response Body to paste into the matching flow. Interfaces are production-final; only the data values are stubbed. adapterStatus is always 'Sandbox' here; the real (Live) branch returns the same shape from the vendor. Flip per-source with the gbx_use_real_<x> env var.",
+  "iso": {
+    "source": "ISO ClaimSearch (sandbox)",
+    "match": false,
+    "summary": "no cross-carrier duplicate found",
+    "matchCount": 0,
+    "adapterStatus": "Sandbox"
+  },
+  "nicb": {
+    "source": "NICB (sandbox)",
+    "match": false,
+    "summary": "VIN not on NICB watchlist",
+    "watchlistHit": false,
+    "adapterStatus": "Sandbox"
+  },
+  "carfax": {
+    "source": "CARFAX (sandbox)",
+    "match": false,
+    "summary": "clean title, no prior total loss",
+    "titleBrand": "clean",
+    "priorTotalLoss": false,
+    "adapterStatus": "Sandbox"
+  },
+  "dmv": {
+    "source": "DMV (sandbox)",
+    "match": false,
+    "summary": "registration active, driver licensed",
+    "registrationStatus": "active",
+    "licenseStatus": "valid",
+    "adapterStatus": "Sandbox"
+  },
+  "kbb": {
+    "source": "KBB (sandbox)",
+    "match": false,
+    "summary": "ACV $18,400",
+    "acv": 18400,
+    "adapterStatus": "Sandbox"
+  },
+  "telematics": {
+    "source": "Telematics (sandbox)",
+    "match": false,
+    "summary": "hard-braking event confirmed at DOL",
+    "crashEventFound": true,
+    "adapterStatus": "Sandbox"
+  }
+}

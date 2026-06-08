@@ -1,0 +1,33 @@
+{
+  "_comment": "Exact request body for the AOAI_Adjudicate HTTP action (Runbook 04 §C.2). POST to {AZURE_OPENAI_ENDPOINT}/openai/deployments/gpt-4.1/chat/completions?api-version=2024-10-21 with header 'api-key: {AZURE_OPENAI_KEY}'. The {{user content}} is assembled by AdjudicationUserPrompt Compose. response_format json_object forces a parseable verdict. This is the ONLY live gpt-4.1 call on the demo path.",
+  "endpoint_template": "{AZURE_OPENAI_ENDPOINT}/openai/deployments/gpt-4.1/chat/completions?api-version=2024-10-21",
+  "headers": {
+    "Content-Type": "application/json",
+    "api-key": "{AZURE_OPENAI_KEY}"
+  },
+  "body": {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are the Adjudication Agent for a US personal-auto insurer. Decide the claim from the facts provided. Respond with ONLY a JSON object, no prose, no markdown fences, exactly: {\"recommendation\":\"Approve|Deny|Partial|Escalate|Adjust\",\"confidence\":0-100,\"tier\":1|2|3,\"settlementAmount\":<number>,\"rationale\":\"one plain-English sentence a regulator could read\"}. Rules: confidence is your calibrated certainty. tier 1 = auto-approve, 2 = senior adjuster, 3 = specialist. If coverage is confirmed, validation is clean, and estimate < $25,000 with no injuries, lean Approve, tier 1. Be conservative: when validation flags an anomaly or data is thin, lower confidence and raise tier."
+      },
+      {
+        "role": "user",
+        "content": "{{AdjudicationUserPrompt — assembled at runtime from claim+policy+validation facts}}"
+      }
+    ],
+    "temperature": 0.2,
+    "max_tokens": 300,
+    "response_format": { "type": "json_object" }
+  },
+  "verdict_schema": {
+    "type": "object",
+    "properties": {
+      "recommendation": { "type": "string" },
+      "confidence": { "type": "integer" },
+      "tier": { "type": "integer" },
+      "settlementAmount": { "type": "number" },
+      "rationale": { "type": "string" }
+    }
+  }
+}

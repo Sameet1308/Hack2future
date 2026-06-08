@@ -11,6 +11,7 @@ import Documents from './customer/Documents.jsx';
 import Review from './customer/Review.jsx';
 import Processing from './customer/Processing.jsx';
 import Success from './customer/Success.jsx';
+import Chat from './customer/Chat.jsx';
 
 // Handler flow
 import HandlerSignIn from './handler/SignIn.jsx';
@@ -33,6 +34,7 @@ export default function App() {
       <Route path="/customer/questions" element={<Questions />} />
       <Route path="/customer/documents" element={<Documents />} />
       <Route path="/customer/review" element={<Review />} />
+      <Route path="/customer/chat" element={<Chat />} />
       <Route path="/customer/processing" element={<Processing />} />
       <Route path="/customer/processing/:id" element={<Processing />} />
       <Route path="/customer/success" element={<Success />} />

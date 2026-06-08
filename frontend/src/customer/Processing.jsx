@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import useAgentTimeline from '../hooks/useAgentTimeline.js';
+import useClaimAudit from '../hooks/useClaimAudit.js';
 import { timelines } from '../data/agentTimelines.js';
+import { CLAIM_AUDIT_URL } from '../config.js';
 import AgentFlow from '../components/AgentFlow.jsx';
 import PhoneFrame from '../components/PhoneFrame.jsx';
 import { SaraAvatar } from '../components/SaraHeader.jsx';
@@ -9,9 +11,28 @@ import { SaraAvatar } from '../components/SaraHeader.jsx';
 export default function Processing() {
   const { id = 'CLM-2026-4521' } = useParams();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
   const timeline = timelines[id] || timelines['CLM-2026-4521'];
 
-  const t = useAgentTimeline(timeline, { autoStart: true, speed: 1.5 });
+  const mock = useAgentTimeline(timeline, { autoStart: true, speed: 1.5 });
+
+  // Hybrid (low-risk): mock keeps the clock/progress/animation; real audit
+  // overrides agent states + verdict when CLAIM_AUDIT_URL is set (or ?live=1).
+  const wantLive = CLAIM_AUDIT_URL && (params.get('live') !== '0');
+  const audit = useClaimAudit(id, { enabled: !!wantLive });
+  const live = audit.live;
+
+  const t = live
+    ? {
+        ...mock,
+        agents: { ...mock.agents, ...pickActive(audit.agents) },
+        subs: { ...mock.subs, ...pickActive(audit.subs) },
+        latencies: { ...mock.latencies, ...audit.latencies },
+        summaries: { ...mock.summaries, ...audit.summaries },
+        narrate: audit.narrate || mock.narrate,
+        verdict: audit.verdict || mock.verdict
+      }
+    : mock;
 
   // When the timeline finishes, route forward
   useEffect(() => {
@@ -62,6 +83,13 @@ export default function Processing() {
         </p>
       </div>
     </PhoneFrame>
+  );
+}
+
+// Keep only non-idle states from the live map so mock backfills the rest.
+function pickActive(stateMap) {
+  return Object.fromEntries(
+    Object.entries(stateMap).filter(([, v]) => v && v !== 'idle')
   );
 }
 

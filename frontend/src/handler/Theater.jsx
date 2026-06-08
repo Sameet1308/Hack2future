@@ -1,22 +1,35 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import useAgentTimeline from '../hooks/useAgentTimeline.js';
+import useClaimAudit from '../hooks/useClaimAudit.js';
 import { timelines } from '../data/agentTimelines.js';
 import { mockClaims } from '../data/mockClaims.js';
+import { CLAIM_AUDIT_URL } from '../config.js';
 import AgentFlow from '../components/AgentFlow.jsx';
 import GlassBoxLiveFeed from '../components/GlassBoxLiveFeed.jsx';
 
 export default function Theater() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
 
   const claim = mockClaims.find((c) => c.id === id) || mockClaims[0];
   const timeline = timelines[claim.id] || timelines['CLM-2026-4521'];
 
-  const t = useAgentTimeline(timeline, {
+  // Scripted mock — always runs, always the demo-safe fallback.
+  const mock = useAgentTimeline(timeline, {
     autoStart: true,
     speed: 1,
     baseTimeISO: incidentBase(claim)
   });
+
+  // Real backend audit — only fetches when CLAIM_AUDIT_URL is set (or ?live=1 forces intent).
+  const wantLive = CLAIM_AUDIT_URL && (params.get('live') !== '0');
+  const audit = useClaimAudit(claim.id, { enabled: !!wantLive });
+
+  // HYBRID merge: real rows drive the steps they cover; mock backfills the rest
+  // so the pipeline always looks complete. Pure mock when no live rows exist.
+  const live = audit.live;
+  const t = live ? mergeLiveOverMock(audit, mock) : mock;
 
   return (
     <div className="fixed inset-0 bg-elite-deep text-white overflow-y-auto">
@@ -29,19 +42,22 @@ export default function Theater() {
             </Link>
             <span className="text-slate-600">·</span>
             <span className="text-xs uppercase tracking-wider text-slate-400">Theater Mode</span>
+            <LiveBadge live={live} wantLive={!!wantLive} />
           </div>
           <div className="text-center">
             <p className="font-mono text-xs text-slate-400">{claim.id}</p>
             <p className="text-sm font-semibold">{claim.customer} · {claim.lossType}</p>
           </div>
           <div className="flex items-center gap-2">
-            <SpeedSelector speed={t.speed} setSpeed={t.setSpeed} />
-            <button
-              onClick={t.playing ? t.pause : (t.progress >= 1 ? t.restart : t.play)}
-              className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-md text-xs font-semibold flex items-center gap-1.5"
-            >
-              {t.progress >= 1 ? '↻ Replay' : t.playing ? '⏸ Pause' : '▶ Play'}
-            </button>
+            {!live && <SpeedSelector speed={mock.speed} setSpeed={mock.setSpeed} />}
+            {!live && (
+              <button
+                onClick={mock.playing ? mock.pause : (mock.progress >= 1 ? mock.restart : mock.play)}
+                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-md text-xs font-semibold flex items-center gap-1.5"
+              >
+                {mock.progress >= 1 ? '↻ Replay' : mock.playing ? '⏸ Pause' : '▶ Play'}
+              </button>
+            )}
           </div>
         </div>
         <ProgressBar progress={t.progress} />
@@ -52,7 +68,9 @@ export default function Theater() {
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
             <div className="flex items-center justify-between mb-4">
               <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold">Agent pipeline</p>
-              <p className="text-xs text-slate-400 font-mono">T+{(t.elapsed / 1000).toFixed(1)}s</p>
+              <p className="text-xs text-slate-400 font-mono">
+                {live ? 'live · Dataverse' : `T+${(mock.elapsed / 1000).toFixed(1)}s`}
+              </p>
             </div>
             <AgentFlow variant="handler" agents={t.agents} subs={t.subs} latencies={t.latencies} summaries={t.summaries} />
           </div>
@@ -63,6 +81,59 @@ export default function Theater() {
         <GlassBoxLiveFeed log={t.log} />
       </main>
     </div>
+  );
+}
+
+/**
+ * Real audit state takes precedence per-agent; mock backfills any agent/sub the
+ * backend hasn't logged yet. The Glass Box feed shows REAL rows when present,
+ * else the scripted feed. Progress + verdict prefer the live signal.
+ */
+function mergeLiveOverMock(audit, mock) {
+  const agents = { ...mock.agents };
+  Object.entries(audit.agents).forEach(([k, v]) => {
+    if (v && v !== 'idle') agents[k] = v;
+  });
+
+  const subs = { ...mock.subs };
+  Object.entries(audit.subs).forEach(([k, v]) => {
+    if (v && v !== 'idle') subs[k] = v;
+  });
+
+  const verdict = audit.verdict || mock.verdict;
+  const doneCount = Object.values(agents).filter((s) => s === 'done' || s === 'flagged' || s === 'escalated').length;
+
+  return {
+    agents,
+    subs,
+    latencies: { ...mock.latencies, ...audit.latencies },
+    summaries: { ...mock.summaries, ...audit.summaries },
+    narrate: audit.narrate || mock.narrate,
+    log: audit.log.length ? audit.log : mock.log,
+    verdict,
+    progress: verdict ? 1 : Math.min(0.95, doneCount / 5)
+  };
+}
+
+function LiveBadge({ live, wantLive }) {
+  if (live) {
+    return (
+      <span className="ml-1 inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold">
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-dot" /> LIVE
+      </span>
+    );
+  }
+  if (wantLive) {
+    return (
+      <span className="ml-1 text-[10px] px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 font-semibold">
+        connecting…
+      </span>
+    );
+  }
+  return (
+    <span className="ml-1 text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-slate-400 font-semibold">
+      mock
+    </span>
   );
 }
 
