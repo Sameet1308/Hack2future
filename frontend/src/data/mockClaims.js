@@ -1,4 +1,53 @@
 export const mockClaims = [
+  // --- LIVE seeded claims (real Dataverse rows + real audit trail via GetClaimAudit) ---
+  // guid = gbx_claimid; Theater passes it to useClaimAudit so the live feed pulls
+  // this claim's real Decision_Rationale rows. Open at /handler/theater/CLM-2026-1001.
+  {
+    id: 'CLM-2026-1001',
+    guid: 'e12873d0-7364-f111-a826-002248046ee3',
+    customer: 'Sarah Chen',
+    policyId: 'POL-2026-0847',
+    submittedAt: '2026-06-10 02:26',
+    lossType: 'Collision',
+    subType: 'Rear-ended',
+    state: 'CA',
+    noFault: false,
+    confidence: 94,
+    recommendation: 'Approve',
+    amount: 3200,
+    tier: 1,
+    channel: 'Web',
+    incidentDate: 'Jun 10, 2026',
+    location: 'Main St, CA',
+    vehicle: '2022 Honda Civic',
+    coverage: 'Collision · $500 deductible',
+    deductible: 500,
+    aiSummary: 'LIVE claim — audit trail served from Dataverse via GlassBox-GetClaimAudit.',
+    flags: [], validation: [], documents: [], glassBox: []
+  },
+  {
+    id: 'CLM-2026-1002',
+    guid: '38058bd6-7364-f111-a826-002248046ee3',
+    customer: 'Jennifer Rodriguez',
+    policyId: 'POL-2026-0592',
+    submittedAt: '2026-06-10 02:26',
+    lossType: 'Comprehensive',
+    subType: 'Weather (hail)',
+    state: 'FL',
+    noFault: true,
+    confidence: 88,
+    recommendation: 'Adjust',
+    amount: 4800,
+    tier: 2,
+    channel: 'Mobile App',
+    incidentDate: 'Jun 10, 2026',
+    location: 'Miami, FL',
+    vehicle: '2023 Toyota Camry',
+    coverage: 'Comprehensive · $250 deductible',
+    deductible: 250,
+    aiSummary: 'LIVE claim — NOAA-corroborated hail, routed to adjuster. Audit from Dataverse.',
+    flags: [], validation: [], documents: [], glassBox: []
+  },
   {
     id: 'CLM-2026-4521',
     customer: 'Sarah Chen',

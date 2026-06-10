@@ -37,7 +37,7 @@ export default function useClaimAudit(claimId, opts = {}) {
     const tick = async () => {
       if (stopRef.current) return;
       try {
-        const url = `${CLAIM_AUDIT_URL}${CLAIM_AUDIT_URL.includes('?') ? '&' : '?'}claimId=${encodeURIComponent(claimId)}`;
+        const url = `${CLAIM_AUDIT_URL}${CLAIM_AUDIT_URL.includes('?') ? '&' : '?'}claimGuid=${encodeURIComponent(claimId)}`;
         const res = await fetch(url, { method: 'GET', headers: { Accept: 'application/json' } });
         if (res.ok) {
           const data = await res.json();
@@ -97,14 +97,20 @@ const AGENT_INT = {
   10009: 'VendorEngine'
 };
 
-// Map a row's agent (int choice, formatted text, or plain string) → canonical name.
+// Map a row's agent → canonical name. Handles the clean GetClaimAudit shape
+// ({agent: "Intake"}) first, then raw-Dataverse fallbacks.
 function agentNameOf(r) {
+  if (r.agent) return r.agent;
   const fv = r['gbx_agent_name@OData.Community.Display.V1.FormattedValue'];
   if (fv) return fv;
   const raw = r.gbx_agent_name;
   if (typeof raw === 'number') return AGENT_INT[raw] || String(raw);
   return raw || '';
 }
+const explanationOf = (r) => r.explanation || r.gbx_human_readable_explanation || r.action || r.gbx_action || '';
+const actionOf = (r) => r.action || r.gbx_action || '';
+const flagOf = (r) => r.flagRaised === true || r.flagRaised === 'True' || r.flagRaised === 'true' || !!r.gbx_flag_raised;
+const adapterOf = (r) => r.adapterStatus || r['gbx_adapter_status@OData.Community.Display.V1.FormattedValue'] || '';
 
 // AgentFlow's top-level pipeline keys.
 const AGENT_KEY = {
@@ -145,9 +151,29 @@ function tierOf(r) {
   return null;
 }
 
-// A row is the "verdict" when the Adjudication agent emits a recommendation.
+// A row is the "verdict" when the Adjudication agent acts.
 function isVerdictRow(r) {
-  return agentNameOf(r) === 'Adjudication' && recommendationOf(r) != null;
+  return agentNameOf(r) === 'Adjudication';
+}
+
+// Derive the verdict from the Adjudication row's plain-English text (clean shape
+// carries no choice fields, so we read tier/confidence/amount from the wording).
+function deriveVerdict(r) {
+  const expl = explanationOf(r);
+  const txt = (expl + ' ' + actionOf(r)).toLowerCase();
+  let tier = 1;
+  if (/tier 3|escalat|live handler|bodily injury/.test(txt)) tier = 3;
+  else if (/adjuster|tier 2|route to|adjust/.test(txt)) tier = 2;
+  const conf = expl.match(/confidence\s+(\d+)/i);
+  const amt = expl.match(/\$([\d,]+)/);
+  return {
+    tier,
+    label: { 1: 'Auto-approved', 2: 'Adjuster review', 3: 'Live handler' }[tier],
+    confidence: conf ? Number(conf[1]) : 0,
+    recommendation: tier === 1 ? 'Approve' : tier === 3 ? 'Escalate' : 'Adjust',
+    amount: amt ? Number(amt[1].replace(/,/g, '')) : null,
+    narrate: expl || null,
+  };
 }
 
 /* --------------------------- state derivation ---------------------------- */
@@ -163,8 +189,8 @@ function mapRowsToTimelineState(rows, ready, active) {
   rows.forEach((r) => {
     const name = agentNameOf(r);
     const key = AGENT_KEY[name];
-    const flag = !!r.gbx_flag_raised;
-    const explanation = r.gbx_human_readable_explanation || r.gbx_action || '';
+    const flag = flagOf(r);
+    const explanation = explanationOf(r);
 
     if (key) {
       // Once a row exists for an agent it has at least run; flag/verdict refine it.
@@ -174,24 +200,18 @@ function mapRowsToTimelineState(rows, ready, active) {
       if (explanation) narrate = explanation;
     }
 
-    // Validation sub-checks: a row whose sub-agent names a known external check.
-    const subKey = subKeyOf(r);
-    if (subKey) {
-      subs[subKey] = flag ? 'flagged' : 'done';
-      if (explanation) summaries[subKey] = shorten(explanation);
+    // Validation sub-checks: only on Validation rows, matched from the wording.
+    if (name === 'Validation') {
+      const subKey = subKeyOf(r);
+      if (subKey) {
+        subs[subKey] = flag ? 'flagged' : 'done';
+        if (explanation) summaries[subKey] = shorten(explanation);
+      }
     }
 
     if (isVerdictRow(r)) {
-      const tier = tierOf(r) ?? 1;
-      verdict = {
-        tier,
-        label: { 1: 'Auto-approved', 2: 'Adjuster review', 3: 'Live handler' }[tier] || 'Decision',
-        confidence: r.gbx_confidence_score != null ? Number(r.gbx_confidence_score) : 0,
-        recommendation: recommendationOf(r) || 'Decision',
-        amount: r.gbx_settlement_amount != null ? Number(r.gbx_settlement_amount) : null,
-        narrate: explanation || null
-      };
-      agents.ADJUDICATION = flag || tier === 3 ? (tier === 3 ? 'escalated' : 'flagged') : 'done';
+      verdict = deriveVerdict(r);
+      agents.ADJUDICATION = verdict.tier === 3 ? 'escalated' : flag ? 'flagged' : 'done';
     }
   });
 
@@ -202,15 +222,19 @@ function mapRowsToTimelineState(rows, ready, active) {
     if (lastKey && agents[lastKey] === 'done') agents[lastKey] = 'running';
   }
 
-  const log = rows.map((r, idx) => ({
-    idx,
-    at: idx,
-    ts: clockOf(r),
-    agent: subLabelOf(r) || agentNameOf(r) + ' Agent',
-    text: r.gbx_human_readable_explanation || r.gbx_action || '',
-    cite: r.gbx_policy_reference || null,
-    flag: !!r.gbx_flag_raised
-  }));
+  const log = rows.map((r, idx) => {
+    const name = agentNameOf(r);
+    const sub = name === 'Validation' ? subKeyOf(r) : null;
+    return {
+      idx,
+      at: idx,
+      ts: clockOf(r),
+      agent: sub ? `${name} · ${sub}` : name + ' Agent',
+      text: explanationOf(r),
+      cite: r.gbx_policy_reference || null,
+      flag: flagOf(r)
+    };
+  });
 
   return {
     live: active && rows.length > 0,
@@ -225,19 +249,13 @@ function mapRowsToTimelineState(rows, ready, active) {
   };
 }
 
-// Detect which validation sub-chip a row maps to, via gbx_sub_agent text.
+// Detect which validation sub-chip a row maps to. Clean shape has no sub_agent
+// field, so we match the known check names from the action + explanation wording.
 function subKeyOf(r) {
-  const sub = (r.gbx_sub_agent || '').toString();
-  const hit = SUB_LIST.find((s) => sub.toLowerCase().includes(s.toLowerCase()));
+  const hay = ((r.gbx_sub_agent || '') + ' ' + actionOf(r) + ' ' + explanationOf(r)).toLowerCase();
+  const hit = SUB_LIST.find((s) => hay.includes(s.toLowerCase()));
   if (hit) return hit;
-  if (/estimate/i.test(sub)) return 'EstimateRule';
-  return null;
-}
-
-// Pretty feed label: "Validation · NOAA" when there's a sub-agent, else "X Agent".
-function subLabelOf(r) {
-  const sub = (r.gbx_sub_agent || '').toString().trim();
-  if (sub) return `${agentNameOf(r)} · ${sub}`;
+  if (/estimate/i.test(hay)) return 'EstimateRule';
   return null;
 }
 

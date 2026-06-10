@@ -23,8 +23,9 @@ export default function Theater() {
   });
 
   // Real backend audit — only fetches when CLAIM_AUDIT_URL is set (or ?live=1 forces intent).
-  const wantLive = CLAIM_AUDIT_URL && (params.get('live') !== '0');
-  const audit = useClaimAudit(claim.id, { enabled: !!wantLive });
+  // Passes the claim's GUID (gbx_claimid) — GetClaimAudit filters audit rows by it.
+  const wantLive = CLAIM_AUDIT_URL && claim.guid && (params.get('live') !== '0');
+  const audit = useClaimAudit(claim.guid, { enabled: !!wantLive });
 
   // HYBRID merge: real rows drive the steps they cover; mock backfills the rest
   // so the pipeline always looks complete. Pure mock when no live rows exist.
