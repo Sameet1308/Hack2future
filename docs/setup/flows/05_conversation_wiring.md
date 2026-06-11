@@ -393,3 +393,36 @@ The React app is **already wired** — `src/config.js` reads `VITE_COPILOT_EMBED
 - **Greeting must run first.** FNOL_Start depends on `Global.policyNumber` already being set by the
   Greeting topic. If you test FNOL_Start in isolation, `policyNumber` is empty and CreateClaim's policy
   lookup returns nothing → no row. Always start the conversation from the greeting.
+
+---
+
+## Gotchas added from the 2026-06-11 build (hit live, fixes verified)
+
+- **New trigger UI = description, not phrases.** With generative orchestration the trigger is
+  "The agent chooses" + a description box. Write the description rich with example utterances
+  ("I was rear-ended", "hail damage", "start a claim"…). It also slot-fills: a sentence like
+  "I was rear-ended by a sleepy driver" can answer lossType *and* description in one go.
+- **Choice variables (EmbeddedOptionSet) can't go into String flow inputs raw.** Wrap them:
+  `Text(Topic.lossType)`, `Text(Topic.injuryFlag)` — both as action inputs and inside
+  `Concatenate(...)` formulas. The enum-literal syntax `'FNOL_Start.lossType'.Collision` does
+  not work in this tenant.
+- **Power Fx variable names are case-sensitive.** `Global.claimId` ≠ `Global.claimID`. Always
+  pick from the autocomplete dropdown instead of typing the name.
+- **Message placeholders are inserted, not typed.** Typing `{claimId}` literally throws
+  *"Identifier not recognized"* — use **+ Add → Variable** (or type `{` and pick the chip).
+- **`gbx_incident_state` is max-length 4.** A customer typing "California" hard-crashes the
+  CreateClaim Add-row (BadGateway in the topic). Demo fix on the flow-input side:
+  `Upper(Left(Topic.incidentState, 2))`. Production fix: proper state-code validation.
+- **Don't hard-redirect the Greeting into the intake topic.** A "Go to topic" at the end of the
+  greeting makes FNOL fire before the customer answered ("Got it — I'm sorry that happened"
+  in reply to "hi"), and breaks with `redirectToDisabledTopic` if the target is disabled.
+  End the greeting after the open question; the reply triggers FNOL_Start by itself.
+- **Disabled topics with stale flow bindings block Publish** (`BindingKeyNotFoundError`).
+  Delete dead topics (e.g. the old `FNOL_Intake`) rather than leaving them toggled off.
+- **No "Custom website" channel? Check Authentication.** Settings → Security → Authentication
+  → **No authentication** → Save → **Publish again**. Otherwise only Teams/M365/SharePoint
+  channels exist and the iframe shows a sign-in wall. The embed URL is the **`/webchat`** one
+  (Channels → Web app → iframe `src`); the `/canvas` URL is the standalone demo site.
+- **flowActionBadGateway in the test pane = the flow failed internally.** The real error is in
+  Power Automate → the flow → 28-day run history → the red card. Check the trigger card's
+  outputs first to see what the topic actually sent.

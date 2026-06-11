@@ -307,3 +307,54 @@ Tested in the agent's test pane:
 **Significance:** the full spine works end-to-end — **chat → real Dataverse Policy table → grounded, accurate, compliant response** — citing `crcce_Policy` as its source. Used generative/agentic retrieval (the AI decided what to query), which is a stronger story than a hardcoded topic. The "every decision recorded for compliance" line — the core pitch — appears naturally.
 
 **Next:** publish to a web channel (shareable demo) and/or make the audit trail *real* (write decisions to the `Decision_Rationale` table — the true "glass box").
+
+---
+
+# Session 3 — 2026-06-11 — FNOL_Start live + Sara embedded in the app
+
+> (Sessions between 06-02 and today — service-layer flows, proactive greeting, live Theater —
+> are documented in the flow runbooks and commit history; see `docs/setup/flows/`.)
+
+### Step 11 — Built the `FNOL_Start` intake topic (Runbook 05)
+**What:** the conversation that turns "I was rear-ended" into a real claim: 4 questions
+(lossType choice, free-text description, state, injury Yes/No) → injury soft-stop message →
+**GlassBox-CreateClaim** → promote `claimId`/`claimGuid` to Globals → **GlassBox-LogDecision**
+(first Glass Box audit row) → confirmation with the real claim number.
+
+**Bumps along the way (and fixes) — all now in the Runbook 05 gotchas:**
+1. **New trigger UI** — no phrase list; agent uses generative orchestration. Wrote a rich
+   trigger *description* with example utterances instead. Routing works (it even slot-fills:
+   one sentence answered both lossType and description).
+2. **Choice variables are EmbeddedOptionSet** — can't pass them raw into a flow's String
+   input. Fix: `Text(Topic.lossType)` / `Text(Topic.injuryFlag)` everywhere (inputs + formulas).
+3. **Variable names are case-sensitive in Power Fx** — `Global.claimId` vs the `claimID`
+   node we'd created. Fix: pick names from autocomplete, never hand-type.
+4. **Placeholders in messages are picked, not typed** — pasting `{claimId}` as text throws
+   "Identifier not recognized"; insert the variable chip instead.
+5. **Greeting was hard-wired** to an old disabled `FNOL_Intake` topic → `redirectToDisabledTopic`
+   error, and FNOL fired before the customer answered. Fix: deleted the redirect — the
+   customer's free-text reply now triggers FNOL_Start naturally.
+6. **"California" crashed CreateClaim** — `gbx_incident_state` is max-length 4.
+   Fix: `Upper(Left(Topic.incidentState, 2))` on the flow input (demo-grade normalization).
+7. **Old `FNOL_Intake` had stale flow bindings** that blocked Publish
+   (`BindingKeyNotFoundError: boolean`). Fix: deleted the dead topic.
+
+**What happened:** ✅ test pane produced a real claim **CLM-2026-3ccce2** (27s end-to-end) —
+Claims row + linked Intake row in Decision Rationales, written live from conversation.
+
+### Step 12 — Published the agent + embedded Sara in the React app
+- **Settings → Security → Authentication → No authentication** (demo-only; production = Entra ID
+  per ADR) — required, otherwise only Teams/M365 channels exist and the iframe shows a sign-in.
+- **Publish** → **Channels → Web app** → copied the `/webchat?__version__=2` embed URL
+  (the `/canvas` URL is the standalone demo site, not the embed).
+- `frontend/.env` → `VITE_COPILOT_EMBED_URL=<url>` → restart Vite (env is read at startup only).
+
+**MILESTONE ✅:** opened `http://localhost:5173/customer/chat` — Sara live **inside the phone
+frame of our own app**, filed a claim through the real UI, got a real claim number back.
+Conversation → service layer → Dataverse → Glass Box: the demo's opening scene works for real.
+
+**Reminder for everyone:** the test pane runs the *draft*; the embedded app runs the *published*
+snapshot — after any topic edit, **Publish again** or the app lags behind.
+
+**Next:** MasterOrchestration (replace `seed_demo.py` with the real pipeline), NotifyCustomer
+email (the "document checklist within the hour" promise), 6 sandbox adapters.
