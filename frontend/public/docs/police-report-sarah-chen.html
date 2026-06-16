@@ -30,6 +30,7 @@
 
   <div class="meta">
     <div class="row"><span class="k">Report number</span><span class="v">SF-2026-044871</span></div>
+    <div class="row"><span class="k">Associated claim #</span><span class="v" id="claimRef">—</span></div>
     <div class="row"><span class="k">Collision date/time</span><span class="v">Jun 15, 2026 · 14:30</span></div>
     <div class="row"><span class="k">Location</span><span class="v">Main St &amp; 4th, San Francisco</span></div>
     <div class="row"><span class="k">Weather / road</span><span class="v">Clear · Dry</span></div>
@@ -66,5 +67,10 @@
     <div>Date — Jun 15, 2026</div>
   </div>
 </div>
+<script>
+  // Stamp the live claim number passed by the adjuster view (?claim=CLM-2026-xxxx)
+  var c = new URLSearchParams(location.search).get('claim');
+  if (c) document.getElementById('claimRef').textContent = c;
+</script>
 </body>
 </html>

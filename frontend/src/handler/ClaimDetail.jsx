@@ -124,8 +124,8 @@ export default function ClaimDetail() {
                   </a>
                 );
               })}
-              {(claim.customer === 'Sarah Chen' ? POLICY_DOCS : []).map((doc) => (
-                <a key={doc.label} href={doc.href} target="_blank" rel="noreferrer" className="bg-slate-50 rounded-lg p-3 text-center block hover:ring-2 hover:ring-brand-300">
+              {POLICY_DOCS.map((doc) => (
+                <a key={doc.label} href={doc.label === 'Police report' ? `${doc.href}?claim=${encodeURIComponent(claim.id)}` : doc.href} target="_blank" rel="noreferrer" className="bg-slate-50 rounded-lg p-3 text-center block hover:ring-2 hover:ring-brand-300">
                   <div className="w-10 h-10 rounded-md bg-white mx-auto mb-2 flex items-center justify-center text-brand-500">
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><path d="M14 2v6h6" /></svg>
                   </div>
