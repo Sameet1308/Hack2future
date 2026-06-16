@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Auto Policy — POL-2026-0847 — Sarah Chen</title>
+<style>
+  :root{ --ink:#0f172a; --mut:#475569; --line:#e2e8f0; --brand:#2563eb; --accent:#6366f1; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#f1f5f9;color:var(--ink);padding:24px}
+  .page{max-width:820px;margin:0 auto;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.08);border-radius:6px;overflow:hidden}
+  .head{background:linear-gradient(135deg,var(--accent),var(--brand));color:#fff;padding:28px 36px;display:flex;justify-content:space-between;align-items:flex-start}
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo .mark{width:42px;height:42px;border-radius:9px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
+  .logo h1{font-size:20px;font-weight:800;letter-spacing:-.01em} .logo p{font-size:12px;opacity:.85}
+  .head .doc{text-align:right} .head .doc .t{font-size:12px;text-transform:uppercase;letter-spacing:.14em;opacity:.85} .head .doc .n{font-size:18px;font-weight:800;font-family:ui-monospace,monospace}
+  .body{padding:30px 36px}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);border-bottom:2px solid var(--line);padding-bottom:6px;margin:24px 0 12px}
+  h2:first-child{margin-top:0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px}
+  .row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--line);font-size:14px}
+  .row .k{color:var(--mut)} .row .v{font-weight:600;text-align:right}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);background:#f8fafc}
+  td.amt{text-align:right;font-weight:600;font-family:ui-monospace,monospace}
+  .total{display:flex;justify-content:flex-end;gap:24px;margin-top:14px;font-size:15px}
+  .total .lbl{color:var(--mut)} .total .val{font-weight:800;font-size:20px;color:var(--brand)}
+  .note{font-size:12px;color:var(--mut);line-height:1.6;margin-top:8px}
+  .foot{padding:18px 36px;background:#f8fafc;border-top:1px solid var(--line);font-size:11px;color:var(--mut);display:flex;justify-content:space-between}
+  .stamp{display:inline-block;margin-top:14px;border:2px solid #16a34a;color:#16a34a;border-radius:6px;padding:4px 12px;font-weight:800;font-size:12px;letter-spacing:.1em;transform:rotate(-3deg)}
+  @media print{body{background:#fff;padding:0}.page{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="head">
+    <div class="logo">
+      <div class="mark">AE</div>
+      <div><h1>AI Elites Insurance</h1><p>Personal Auto · Declarations Page</p></div>
+    </div>
+    <div class="doc"><div class="t">Policy Number</div><div class="n">POL-2026-0847</div></div>
+  </div>
+
+  <div class="body">
+    <h2>Named Insured & Policy Term</h2>
+    <div class="grid">
+      <div class="row"><span class="k">Named insured</span><span class="v">Sarah Chen</span></div>
+      <div class="row"><span class="k">Policy status</span><span class="v" style="color:#16a34a">Active</span></div>
+      <div class="row"><span class="k">Mailing address</span><span class="v">1240 Howard St, San Francisco, CA 94103</span></div>
+      <div class="row"><span class="k">Policy term</span><span class="v">Jan 1, 2026 – Dec 31, 2026</span></div>
+      <div class="row"><span class="k">Rating state</span><span class="v">California (CA)</span></div>
+      <div class="row"><span class="k">Issued</span><span class="v">Dec 18, 2025</span></div>
+    </div>
+
+    <h2>Insured Vehicle</h2>
+    <div class="grid">
+      <div class="row"><span class="k">Vehicle</span><span class="v">2022 Honda Civic LX</span></div>
+      <div class="row"><span class="k">Body style</span><span class="v">4-door sedan</span></div>
+      <div class="row"><span class="k">VIN</span><span class="v" style="font-family:ui-monospace,monospace">1HGBH41JXMN109186</span></div>
+      <div class="row"><span class="k">License plate</span><span class="v" style="font-family:ui-monospace,monospace">8XYZ456 (CA)</span></div>
+      <div class="row"><span class="k">Primary use</span><span class="v">Commute</span></div>
+      <div class="row"><span class="k">Garaging ZIP</span><span class="v">94103</span></div>
+    </div>
+
+    <h2>Coverages & Limits</h2>
+    <table>
+      <thead><tr><th>Coverage</th><th>Limit</th><th style="text-align:right">Deductible</th><th style="text-align:right">Premium</th></tr></thead>
+      <tbody>
+        <tr><td>Bodily Injury Liability</td><td>$100,000 / $300,000</td><td style="text-align:right">—</td><td class="amt">$612</td></tr>
+        <tr><td>Property Damage Liability</td><td>$50,000</td><td style="text-align:right">—</td><td class="amt">$284</td></tr>
+        <tr><td><b>Collision</b> <span style="color:#2563eb">(§4.2)</span></td><td>Actual cash value</td><td style="text-align:right">$500</td><td class="amt">$398</td></tr>
+        <tr><td>Comprehensive</td><td>Actual cash value</td><td style="text-align:right">$500</td><td class="amt">$176</td></tr>
+        <tr><td>Uninsured/Underinsured Motorist</td><td>$100,000 / $300,000</td><td style="text-align:right">—</td><td class="amt">$94</td></tr>
+        <tr><td>Medical Payments</td><td>$5,000</td><td style="text-align:right">—</td><td class="amt">$41</td></tr>
+        <tr><td>Rental Reimbursement</td><td>$40/day · $1,200 max</td><td style="text-align:right">—</td><td class="amt">$28</td></tr>
+      </tbody>
+    </table>
+    <div class="total"><span class="lbl">Total annual premium</span><span class="val">$1,633</span></div>
+    <div class="stamp">COVERAGE VERIFIED</div>
+
+    <h2>Policy Form References</h2>
+    <p class="note">
+      <b>§4.2 Collision Coverage.</b> We will pay for direct and accidental loss to your covered auto caused by collision,
+      less the applicable deductible shown above. "Collision" means the upset of, or impact with another vehicle or object.<br/>
+      <b>§5.1 Comprehensive Coverage.</b> We will pay for direct and accidental loss to your covered auto not caused by collision,
+      including weather, theft, fire, and glass, less the applicable deductible.<br/>
+      This Declarations Page replaces any previously issued for this policy period. Coverage is subject to all terms, conditions,
+      and exclusions of policy form AE-CA-PA-2026.
+    </p>
+  </div>
+
+  <div class="foot">
+    <span>AI Elites Insurance Company · CA DOI License #AE-2026 · Form AE-CA-PA-2026</span>
+    <span>Page 1 of 1 · Declarations</span>
+  </div>
+</div>
+</body>
+</html>

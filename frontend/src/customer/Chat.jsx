@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PhoneFrame from '../components/PhoneFrame.jsx';
 import { COPILOT_EMBED_URL } from '../config.js';
 
@@ -8,6 +8,7 @@ import { COPILOT_EMBED_URL } from '../config.js';
  * COPILOT_EMBED_URL is set; otherwise shows a setup hint so the demo never breaks.
  */
 export default function Chat() {
+  const navigate = useNavigate();
   return (
     <PhoneFrame time="9:41">
       <div className="flex flex-col h-full">
@@ -43,6 +44,17 @@ export default function Chat() {
             </p>
           </div>
         )}
+
+        {/* Move from the conversation to the damage photo step */}
+        <div className="px-4 py-3 border-t border-slate-100 bg-white">
+          <button
+            onClick={() => navigate('/customer/assess')}
+            className="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 rounded-2xl text-sm flex items-center justify-center gap-2 transition-colors"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" /><circle cx="12" cy="13" r="4" /></svg>
+            Add a photo of the damage
+          </button>
+        </div>
       </div>
     </PhoneFrame>
   );

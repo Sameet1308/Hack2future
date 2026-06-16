@@ -20,43 +20,43 @@ export default function HandlerLayout() {
 
   return (
     <div className="min-h-screen bg-slate-100">
-      <header className="bg-elite-deep text-white border-b border-white/10">
+      <header className="bg-white text-slate-900 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link to="/handler/queue" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-elite-accent flex items-center justify-center text-sm font-bold">AE</div>
+            <div className="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold">AE</div>
             <div>
               <p className="font-semibold text-sm leading-none">AI Elites</p>
-              <p className="text-[10px] text-slate-400">Adjuster Console</p>
+              <p className="text-[10px] text-slate-500">Adjuster Console</p>
             </div>
           </Link>
           <nav className="flex items-center gap-1 text-sm">
             <NavLink
               to="/handler/queue"
               className={({ isActive }) =>
-                `px-3 py-1.5 rounded-md transition-colors ${isActive ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/5'}`
+                `px-3 py-1.5 rounded-md transition-colors ${isActive ? 'bg-brand-50 text-brand-700 font-medium' : 'text-slate-500 hover:bg-slate-100'}`
               }
             >
               Queue
             </NavLink>
             <NavLink
               to="/handler/theater/CLM-2026-4520"
-              className="px-3 py-1.5 rounded-md text-elite-accent hover:bg-white/5 inline-flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-md text-brand-600 hover:bg-slate-100 inline-flex items-center gap-1.5 font-medium"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-elite-accent pulse-dot" />
-              Theater
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500 pulse-dot" />
+              Live Console
             </NavLink>
-            <a href="#" className="px-3 py-1.5 rounded-md text-slate-300 hover:bg-white/5">Reports</a>
-            <a href="#" className="px-3 py-1.5 rounded-md text-slate-300 hover:bg-white/5">Glass Box</a>
+            <a href="#" className="px-3 py-1.5 rounded-md text-slate-500 hover:bg-slate-100">Reports</a>
+            <a href="#" className="px-3 py-1.5 rounded-md text-slate-500 hover:bg-slate-100">Glass Box</a>
           </nav>
           <div className="flex items-center gap-3">
             <div className="text-right hidden sm:block">
               <p className="text-xs font-semibold leading-tight">{user.name}</p>
-              <p className="text-[10px] text-slate-400 leading-tight">{user.role}</p>
+              <p className="text-[10px] text-slate-500 leading-tight">{user.role}</p>
             </div>
-            <div className="w-8 h-8 rounded-full bg-elite-accent text-white flex items-center justify-center text-xs font-semibold">
+            <div className="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-semibold">
               {user.name.split(' ').map((n) => n[0]).join('')}
             </div>
-            <button onClick={signOut} className="text-xs text-slate-300 hover:text-white">
+            <button onClick={signOut} className="text-xs text-slate-500 hover:text-slate-900">
               Sign out
             </button>
           </div>

@@ -7,9 +7,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "notify": "node --env-file=.env server/notify.mjs"
   },
   "dependencies": {
+    "@azure/communication-email": "^1.1.0",
+    "nodemailer": "^9.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2"

@@ -4,8 +4,18 @@
 
 @layer base {
   html, body, #root { min-height: 100vh; }
-  body { font-family: theme(fontFamily.sans); color: #1f2937; }
+  body {
+    font-family: theme(fontFamily.sans);
+    color: #1e293b;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv02','cv03','cv04','cv11'; /* Inter's refined glyphs */
+    text-rendering: optimizeLegibility;
+  }
+  /* Crisp, slightly tightened headings — the enterprise SaaS look */
+  h1, h2, h3 { letter-spacing: -0.018em; }
   * { -webkit-tap-highlight-color: transparent; }
+  ::selection { background: #ffd9c9; }
 }
 
 @layer components {
@@ -19,6 +29,21 @@
   .typing-bubble span:nth-child(2) { animation-delay: .15s; }
   .typing-bubble span:nth-child(3) { animation-delay: .3s; }
   @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+  .settlement-toast { animation: toast-in .5s cubic-bezier(.16,1,.3,1) both; }
+  @keyframes toast-in { 0% { transform: translateY(-120%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+  /* Active agent — coral ring pulse + sliding "processing" bar */
+  .ring-run { animation: ringrun 1.6s ease-out infinite; }
+  @keyframes ringrun {
+    0%   { box-shadow: 0 0 0 0 rgba(244,80,28,.45); }
+    70%  { box-shadow: 0 0 0 9px rgba(244,80,28,0); }
+    100% { box-shadow: 0 0 0 0 rgba(244,80,28,0); }
+  }
+  .proc-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; overflow: hidden; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; background: rgba(244,80,28,.12); }
+  .proc-bar::after { content: ''; position: absolute; top: 0; left: -45%; width: 45%; height: 100%; background: linear-gradient(90deg, transparent, #f4501c, transparent); animation: proc 1.05s linear infinite; }
+  @keyframes proc { 0% { left: -45%; } 100% { left: 100%; } }
+  .spin { animation: spin 0.9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 }
 
 /* Hide scrollbar inside phone frame for cleaner look */

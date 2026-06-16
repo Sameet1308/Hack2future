@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Reference Architecture</title>
+<style>
+  :root {
+    --ink: #1a1a2e; --line: #64748b;
+    --blue: #0078D4; --purple: #742774; --teal: #038387; --green: #107C10;
+    --amber: #B45309; --gold: #B8860B; --slate: #475569;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+  body { background: #ffffff; width: 2240px; }
+  .canvas { position: relative; width: 2240px; height: 1240px; background: #ffffff; }
+
+  .titlebar { position: absolute; left: 40px; top: 16px; right: 40px; display: flex; justify-content: space-between; align-items: baseline; }
+  .titlebar h1 { font-size: 27px; color: var(--ink); font-weight: 700; }
+
+  .zone { position: absolute; border: 1.6px solid; border-radius: 14px; background: #fbfcfe; }
+  .zone .ztitle { position: absolute; top: -11px; left: 18px; background: #ffffff; padding: 0 10px;
+    font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; }
+
+  .card { position: absolute; background: #ffffff; border: 1px solid #d0d7de; border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(16,24,40,.07); padding: 10px 12px; display: flex; gap: 10px; align-items: flex-start; }
+  .card img { width: 38px; height: 38px; flex: 0 0 38px; }
+  .card .nm { font-size: 14.5px; font-weight: 700; color: var(--ink); line-height: 1.15; }
+  .card .ds { font-size: 11px; color: #5b6573; margin-top: 3px; line-height: 1.35; }
+
+  .tier { border-left: 5px solid; }
+  .t1 { border-left-color: #10b981; } .t2 { border-left-color: #f59e0b; } .t3 { border-left-color: #ef4444; }
+
+  .chiprow { position: absolute; display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { font-size: 10.5px; font-weight: 600; color: #334155; background: #eef2f7; border: 1px solid #d6dee8;
+    border-radius: 999px; padding: 3px 9px; }
+  .chip.live { color: #065f46; background: #d1fae5; border-color: #6ee7b7; }
+  .chip.sand { color: #7c2d12; background: #fff7ed; border-color: #fdba74; }
+  .chip.reg { color: #1e3a8a; background: #dbeafe; border-color: #93c5fd; font-weight: 700; }
+
+  .gold-card { border: 1.6px solid var(--gold); background: #fffbeb; }
+  .gold-card .nm { color: #92400e; }
+
+  .note { position: absolute; font-size: 10.5px; color: #64748b; font-style: italic; }
+
+  .step { position: absolute; font-size: 11.5px; color: #334155; line-height: 1.4; padding-left: 30px; }
+  .step b.n { position: absolute; left: 0; top: 0; width: 21px; height: 21px; border-radius: 50%;
+    background: #0f172a; color: #fff; font-size: 11.5px; display: flex; align-items: center; justify-content: center; }
+
+  svg.wires { position: absolute; left: 0; top: 0; width: 2240px; height: 1240px; pointer-events: none; }
+  .badge { position: absolute; width: 22px; height: 22px; border-radius: 50%; background: #0f172a; color: #fff;
+    font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 5; }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <div class="titlebar">
+    <h1>Glass Box AI &mdash; Reference Architecture <span style="font-weight:400;color:#64748b;font-size:18px">&middot; Microsoft Cloud, end to end</span></h1>
+    <div><span class="chip">&#9472;&#9472; data flow</span>&nbsp;<span class="chip" style="color:#92400e;border-color:#B8860B;background:#fffbeb;">&#9472;&#9472; Glass Box audit &mdash; log before acting</span></div>
+  </div>
+
+  <!-- ================= ROW A : ZONES ================= -->
+  <div class="zone" style="left:40px; top:84px; width:400px; height:540px; border-color:#7c3aed;">
+    <span class="ztitle" style="color:#7c3aed;">1 &middot; Experience</span></div>
+  <div class="zone" style="left:480px; top:84px; width:400px; height:290px; border-color:var(--teal);">
+    <span class="ztitle" style="color:var(--teal);">2 &middot; Conversational AI</span></div>
+  <div class="zone" style="left:480px; top:404px; width:400px; height:220px; border-color:var(--blue);">
+    <span class="ztitle" style="color:var(--blue);">3 &middot; Service Layer &mdash; no direct data access</span></div>
+  <div class="zone" style="left:920px; top:84px; width:400px; height:540px; border-color:var(--green);">
+    <span class="ztitle" style="color:var(--green);">4 &middot; Data &mdash; Dataverse</span></div>
+  <div class="zone" style="left:1360px; top:84px; width:400px; height:312px; border-color:var(--blue);">
+    <span class="ztitle" style="color:var(--blue);">5 &middot; Azure AI</span></div>
+  <div class="zone" style="left:1360px; top:430px; width:400px; height:194px; border-color:#c2410c;">
+    <span class="ztitle" style="color:#c2410c;">6 &middot; Glass Box MCP Server &mdash; External Validation</span></div>
+  <div class="zone" style="left:1800px; top:84px; width:400px; height:540px; border-color:#0f766e;">
+    <span class="ztitle" style="color:#0f766e;">7 &middot; Decision Routing &mdash; Human in the Loop</span></div>
+
+  <!-- EXPERIENCE -->
+  <div class="card" style="left:64px; top:130px; width:352px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/web/01007-icon-service-Static-Apps.svg">
+    <div><div class="nm">Customer App &mdash; React SPA</div>
+      <div class="ds">Azure Static Web Apps &middot; policy dashboard &middot; Sara web-chat embedded in-app &middot; document upload &middot; claim status</div></div>
+  </div>
+  <div class="chiprow" style="left:64px; top:212px; width:352px;">
+    <span class="chip">Mobile / Web</span><span class="chip">Microsoft Teams</span><span class="chip">SMS &middot; Email</span><span class="chip">Voice / WhatsApp &mdash; roadmap</span>
+  </div>
+  <div class="card" style="left:64px; top:268px; width:352px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/web/01007-icon-service-Static-Apps.svg">
+    <div><div class="nm">Adjuster Console</div>
+      <div class="ds">Tiered claims queue &middot; <b>Theater Mode</b>: live agent pipeline replay from real audit rows</div></div>
+  </div>
+  <div class="card" style="left:64px; top:356px; width:352px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/other/00968-icon-service-Azure-Communication-Services.svg">
+    <div><div class="nm">Azure Communication Services</div>
+      <div class="ds">Outcome notifications + document checklist (email/SMS) &middot; Missing-Docs chase cadence loops back into Sara</div></div>
+  </div>
+  <div class="note" style="left:64px; top:585px; width:352px;">Identity established at app sign-in &mdash; Sara never asks &ldquo;who are you?&rdquo;</div>
+
+  <!-- CONVERSATIONAL AI -->
+  <div class="card" style="left:504px; top:130px; width:352px;">
+    <img src="icons/powerplatform/CopilotStudio_scalable.svg">
+    <div><div class="nm">Microsoft Copilot Studio &mdash; &ldquo;Sara&rdquo;</div>
+      <div class="ds">Proactive policy-aware greeting &middot; 911 triage &middot; FNOL intake (4-question demo path; full spec = 11 loss-type topics + reusable sub-flows) &middot; injury empathy stop</div></div>
+  </div>
+  <div class="chiprow" style="left:504px; top:240px; width:352px;">
+    <span class="chip">10 pre-claim gate checks</span><span class="chip">Missing-Docs chase</span><span class="chip">Claim status</span><span class="chip">Human handoff</span>
+  </div>
+  <div class="chiprow" style="left:504px; top:300px; width:352px;">
+    <span class="chip">Web search OFF</span><span class="chip">General knowledge OFF</span><span class="chip">Scope-guarded instructions</span>
+  </div>
+
+  <!-- SERVICE LAYER -->
+  <div class="card" style="left:504px; top:450px; width:352px;">
+    <img src="icons/powerplatform/Power Platform/PowerAutomate_scalable.svg">
+    <div><div class="nm">Power Automate &mdash; Service Flows</div>
+      <div class="ds">GetPolicy &middot; CreateClaim &middot; LogDecision (the audit pen) &middot; GetClaimAudit (HTTP, feeds Theater) &middot; MasterOrchestration (row-added trigger &rarr; parallel agent fan-out)</div></div>
+  </div>
+  <div class="chiprow" style="left:504px; top:560px; width:352px;">
+    <span class="chip">Agents never touch data directly</span><span class="chip">Deterministic &rarr; $0 token cost</span>
+  </div>
+
+  <!-- DATA -->
+  <div class="card" style="left:944px; top:130px; width:352px;">
+    <img src="icons/powerplatform/Power Platform/Dataverse_scalable.svg">
+    <div><div class="nm">Microsoft Dataverse &mdash; 9 tables</div>
+      <div class="ds">Claim &middot; Policy &middot; Document (upload &rarr; row-added &rarr; Extraction) &middot; Communication &middot; Adjuster &middot; Vendor &middot; Assignment &middot; StateRule (51 jurisdictions)</div></div>
+  </div>
+  <div class="card gold-card" style="left:944px; top:240px; width:352px;">
+    <img src="icons/powerplatform/Power Platform/Dataverse_scalable.svg">
+    <div><div class="nm">Decision_Rationale &mdash; THE GLASS BOX</div>
+      <div class="ds">One row per agent decision: agent &middot; action &middot; plain-English explanation &middot; adapter status &middot; flag &middot; timestamp. Append-only. Written <b>before</b> the agent acts.</div></div>
+  </div>
+  <div class="card" style="left:944px; top:364px; width:352px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/databases/10130-icon-service-SQL-Database.svg">
+    <div><div class="nm">Policy Master @ scale</div>
+      <div class="ds">200M policies: Azure SQL + indexed lookup (alternate key, flat latency) &middot; Dataverse policy table is the demo stand-in &mdash; same service-layer interface</div></div>
+  </div>
+  <div class="note" style="left:944px; top:585px; width:352px;">Indexed seek &ne; generative scan &mdash; token cost bounded by the one returned row</div>
+
+  <!-- AZURE AI -->
+  <div class="card" style="left:1384px; top:126px; width:352px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/ai + machine learning/03438-icon-service-Azure-OpenAI.svg">
+    <div><div class="nm">Azure OpenAI &mdash; GPT-4.1</div>
+      <div class="ds">Adjudication (recommendation + confidence + amount) &middot; Vision for damage photos &middot; customer-facing explanations</div></div>
+  </div>
+  <div class="card" style="left:1384px; top:216px; width:352px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/ai + machine learning/10044-icon-service-Cognitive-Search.svg">
+    <div><div class="nm">Azure AI Search</div>
+      <div class="ds">Coverage / deductible / exclusions RAG with citations &mdash; index over policy PDFs in Blob Storage</div></div>
+  </div>
+  <div class="card" style="left:1384px; top:302px; width:352px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/ai + machine learning/00819-icon-service-Form-Recognizers.svg">
+    <div><div class="nm">Azure AI Document Intelligence</div>
+      <div class="ds">Invoice / receipt / ID / police-report models &middot; layout extraction for estimates</div></div>
+  </div>
+
+  <!-- EXTERNAL / MCP -->
+  <div class="chiprow" style="left:1384px; top:470px; width:352px;">
+    <span class="chip live">NOAA Weather &mdash; LIVE</span><span class="chip live">NHTSA Recalls &mdash; LIVE</span>
+  </div>
+  <div class="chiprow" style="left:1384px; top:508px; width:352px;">
+    <span class="chip sand">ISO ClaimSearch</span><span class="chip sand">NICB</span><span class="chip sand">CARFAX</span>
+    <span class="chip sand">DMV</span><span class="chip sand">KBB</span><span class="chip sand">Telematics</span>
+  </div>
+  <div class="note" style="left:1384px; top:556px; width:352px;"><b>Our MCP server</b> validates every external API call the agents make &mdash; live feeds + 6 sandboxed industry adapters with production-final interfaces; procurement swaps credentials, not code</div>
+
+  <!-- DECISION ROUTING -->
+  <div class="card tier t1" style="left:1824px; top:130px; width:352px;">
+    <div><div class="nm">Tier 1 &mdash; Auto-approve &middot; confidence &ge; 90%</div>
+      <div class="ds">Claim status updated &middot; settlement queued &middot; customer notified (ACS email/SMS) with the plain-English &ldquo;why&rdquo;. Clears the routine ~60% of volume in minutes.</div></div>
+  </div>
+  <div class="card tier t2" style="left:1824px; top:248px; width:352px;">
+    <div><div class="nm">Tier 2 &mdash; Microsoft Teams review &middot; 60&ndash;90%</div>
+      <div class="ds"><b>Adaptive Card</b> to the adjuster channel: evidence summary + one-click Approve / Adjust / Deny. The human decision is logged to the Glass Box like any agent&rsquo;s.</div></div>
+  </div>
+  <div class="card tier t3" style="left:1824px; top:372px; width:352px;">
+    <div><div class="nm">Tier 3 &mdash; Escalate &middot; &lt; 60% or any flag</div>
+      <div class="ds">Senior adjuster + CSR with full transcript and audit trail. Injury, fraud signal, coverage dispute, customer distress &rarr; straight to a human.</div></div>
+  </div>
+  <div class="card" style="left:1824px; top:492px; width:352px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/ai + machine learning/03438-icon-service-Azure-OpenAI.svg">
+    <div><div class="nm">Explanation Agent</div>
+      <div class="ds">Writes the customer-facing &ldquo;why&rdquo; for every outcome &mdash; approval, adjustment, or denial &mdash; from the Glass Box rows.</div></div>
+  </div>
+
+  <!-- ================= ROW B : AGENT SWARM ================= -->
+  <div class="zone" style="left:40px; top:676px; width:2160px; height:158px; border-color:#0f172a; background:#f8fafc;">
+    <span class="ztitle" style="color:#0f172a;">The Agentic Swarm &mdash; six specialized agents, one audit pen: every agent writes to the Glass Box before acting</span></div>
+  <div class="card" style="left:64px; top:706px; width:330px;">
+    <img src="icons/powerplatform/CopilotStudio_scalable.svg">
+    <div><div class="nm">1 &middot; Intake</div><div class="ds">Copilot Studio &mdash; FNOL conversation, gate checks, docs request</div></div>
+  </div>
+  <div class="card" style="left:418px; top:706px; width:330px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/ai + machine learning/00819-icon-service-Form-Recognizers.svg">
+    <div><div class="nm">2 &middot; Extraction</div><div class="ds">Document Intelligence + GPT-4.1 Vision &mdash; docs &amp; photos &rarr; structured data</div></div>
+  </div>
+  <div class="card" style="left:772px; top:706px; width:330px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/ai + machine learning/10044-icon-service-Cognitive-Search.svg">
+    <div><div class="nm">3 &middot; Policy</div><div class="ds">AI Search RAG &mdash; coverage, deductible, exclusions, with citations</div></div>
+  </div>
+  <div class="card" style="left:1126px; top:706px; width:330px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/ai + machine learning/10165-icon-service-Bot-Services.svg">
+    <div><div class="nm">4 &middot; Validation</div><div class="ds">7 external checks via MCP adapters &mdash; weather, recall, fraud, duplicate, estimate</div></div>
+  </div>
+  <div class="card" style="left:1480px; top:706px; width:330px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/ai + machine learning/03438-icon-service-Azure-OpenAI.svg">
+    <div><div class="nm">5 &middot; Adjudication</div><div class="ds">Azure OpenAI GPT-4.1 &mdash; recommendation + confidence + amount</div></div>
+  </div>
+  <div class="card" style="left:1834px; top:706px; width:330px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/ai + machine learning/03438-icon-service-Azure-OpenAI.svg">
+    <div><div class="nm">6 &middot; Explanation</div><div class="ds">GPT-4.1 &mdash; the plain-English &ldquo;why&rdquo; sent to the customer</div></div>
+  </div>
+
+  <!-- ================= ROW C : FLOW LEGEND ================= -->
+  <div class="zone" style="left:40px; top:876px; width:2160px; height:128px; border-color:#94a3b8; background:#fcfcfd;">
+    <span class="ztitle" style="color:#64748b;">End-to-end flow &mdash; the numbers on the wires</span></div>
+  <div class="step" style="left:70px; top:902px; width:380px;"><b class="n">1</b> Customer signs in (Entra ID / mock SSO) &mdash; app hands policy context to Sara, who greets first</div>
+  <div class="step" style="left:70px; top:952px; width:380px;"><b class="n">6</b> External MCP checks: NOAA weather, NHTSA recall, fraud / duplicate / estimate sandboxes</div>
+  <div class="step" style="left:500px; top:902px; width:380px;"><b class="n">2</b> FNOL conversation: 911 triage &rarr; 4 questions &rarr; injury stop &rarr; CreateClaim service flow</div>
+  <div class="step" style="left:500px; top:952px; width:380px;"><b class="n">7</b> Every agent logs WHY to Decision_Rationale before acting &mdash; the gold thread</div>
+  <div class="step" style="left:930px; top:902px; width:380px;"><b class="n">3</b> Claim + first Glass Box row written in ~30 s (measured) &mdash; claim number back in chat</div>
+  <div class="step" style="left:930px; top:952px; width:380px;"><b class="n">8</b> Theater Mode streams the audit feed live to the adjuster console (GetClaimAudit)</div>
+  <div class="step" style="left:1360px; top:902px; width:380px;"><b class="n">4</b> Row-added trigger fires MasterOrchestration &mdash; parallel fan-out to the swarm</div>
+  <div class="step" style="left:1360px; top:952px; width:380px;"><b class="n">9</b> Adjudication routes by confidence: &ge;90 auto &middot; 60&ndash;90 Teams card &middot; &lt;60 escalate</div>
+  <div class="step" style="left:1790px; top:902px; width:390px;"><b class="n">5</b> Extraction &middot; Policy &middot; Validation run concurrently on Azure AI services</div>
+  <div class="step" style="left:1790px; top:952px; width:390px;"><b class="n">10</b> Explanation Agent + ACS notify the customer; reopen / chase / status reuse the same audit thread</div>
+
+  <!-- ================= ROW D : SECURITY BAND ================= -->
+  <div class="zone" style="left:40px; top:1046px; width:2160px; height:158px; border-color:var(--amber); background:#fffdf7;">
+    <span class="ztitle" style="color:var(--amber);">Security &middot; Compliance &middot; Observability &mdash; cross-cutting</span></div>
+  <div class="card" style="left:64px; top:1078px; width:360px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/identity/10231-icon-service-Entra-ID-Protection.svg">
+    <div><div class="nm">Microsoft Entra ID</div>
+      <div class="ds">SSO (Static Web Apps built-in auth) &middot; roles: customer / adjuster / auditor &middot; Dataverse row-level security</div></div>
+  </div>
+  <div class="card" style="left:448px; top:1078px; width:310px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/security/10245-icon-service-Key-Vaults.svg">
+    <div><div class="nm">Azure Key Vault</div>
+      <div class="ds">API keys + connection secrets &middot; no credentials in code or flows</div></div>
+  </div>
+  <div class="card" style="left:782px; top:1078px; width:330px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/identity/00321-icon-service-Security.svg">
+    <div><div class="nm">Data Protection</div>
+      <div class="ds">TLS 1.2+ in transit &middot; AES-256 at rest &middot; no PII to external APIs &middot; two-tier transparency: customer / adjuster / auditor views</div></div>
+  </div>
+  <div class="card" style="left:1136px; top:1078px; width:310px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/monitor/00001-icon-service-Monitor.svg">
+    <div><div class="nm">Azure Monitor</div>
+      <div class="ds">Flow run history &middot; agent analytics &middot; cost guardrails + kill switch</div></div>
+  </div>
+  <div class="card gold-card" style="left:1470px; top:1078px; width:330px;">
+    <img src="icons/azure/Azure_Public_Service_Icons/Icons/management + governance/10316-icon-service-Policy.svg">
+    <div><div class="nm">Regulatory Mapping</div>
+      <div class="ds">Glass Box audit = the compliance artifact, generated at decision time &mdash; not reconstructed for the exam</div></div>
+  </div>
+  <div class="chiprow" style="left:1824px; top:1086px; width:356px;">
+    <span class="chip reg">Colorado SB21-169 &check;</span>
+    <span class="chip reg">NAIC AI Model Bulletin (20+ states) &check;</span>
+    <span class="chip reg">NY DFS Circular Letter 7 &check;</span>
+  </div>
+
+  <!-- ================= WIRES ================= -->
+  <svg class="wires">
+    <defs>
+      <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <path d="M0,0 L8,4.5 L0,9 z" fill="#475569"/>
+      </marker>
+      <marker id="arg" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <path d="M0,0 L8,4.5 L0,9 z" fill="#B8860B"/>
+      </marker>
+    </defs>
+    <path d="M 416 168 L 504 168" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+    <path d="M 680 292 L 680 450" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+    <path d="M 856 500 L 900 500 L 900 300 L 944 300" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+    <path d="M 944 330 L 890 330 L 890 530 L 856 530" stroke="#475569" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#ar)"/>
+    <path d="M 856 580 L 890 580 L 890 650 L 1340 650 L 1340 262 L 1384 262" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+    <path d="M 1340 540 L 1384 540" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+    <path d="M 1384 336 L 1330 336 L 1330 290 L 1296 290" stroke="#B8860B" stroke-width="2.4" stroke-dasharray="7 4" fill="none" marker-end="url(#arg)"/>
+    <path d="M 856 200 L 900 200 L 900 270 L 944 270" stroke="#B8860B" stroke-width="2.4" stroke-dasharray="7 4" fill="none" marker-end="url(#arg)"/>
+    <path d="M 1000 624 L 1000 658 L 460 658 L 460 296 L 416 296" stroke="#B8860B" stroke-width="2.4" fill="none" marker-end="url(#arg)"/>
+    <path d="M 1736 162 L 1824 162" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+  </svg>
+
+  <!-- FLOW BADGES -->
+  <div class="badge" style="left:448px; top:157px;">1</div>
+  <div class="badge" style="left:669px; top:360px;">2</div>
+  <div class="badge" style="left:889px; top:389px;">3</div>
+  <div class="badge" style="left:879px; top:519px;">4</div>
+  <div class="badge" style="left:1100px; top:639px;">5</div>
+  <div class="badge" style="left:1349px; top:529px;">6</div>
+  <div class="badge" style="left:910px; top:259px;">7</div>
+  <div class="badge" style="left:560px; top:647px;">8</div>
+  <div class="badge" style="left:1758px; top:151px;">9</div>
+
+</div>
+</body>
+</html>
+

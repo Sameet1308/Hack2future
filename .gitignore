@@ -9,6 +9,10 @@
 *.pem
 secrets/
 
+# Local runtime data (live claims store)
+claims.json
+frontend/server/claims.json
+
 # Claude Code local state + project instructions (internal)
 .claude/
 .claude-cache/
@@ -48,6 +52,13 @@ tmp/
 *.cmproj
 exports/
 solutions-export/
+
+# Azure Functions deploy artifact (regenerated from frontend/ on each deploy) — local only
+funcdeploy/
+funcdeploy.zip
+
+# Third-party Microsoft Azure icon pack (not ours; ~700 SVGs) — kept local for diagram editing
+docs/diagrams/icons/
 
 # =============================================================
 # Internal working docs - kept LOCAL but not pushed to GitHub

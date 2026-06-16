@@ -9,6 +9,11 @@ const SUBS = ['NOAA', 'NHTSA', 'ISO', 'NICB', 'DMV', 'Telematics', 'EstimateRule
  * @param timeline  Array of events from agentTimelines.js
  * @param opts      { speed: 1, autoStart: true, baseTimeISO?: string }
  */
+// Stretch every event's timing so the pipeline plays out deliberately instead
+// of in a couple of seconds (it was reading as "mocked" because it finished too
+// fast). 2.6× turns a ~7.6s run into a ~20s, real-feeling sequence.
+const PACE = 2.6;
+
 export default function useAgentTimeline(timeline, opts = {}) {
   const { speed: initialSpeed = 1, autoStart = true } = opts;
 
@@ -16,7 +21,8 @@ export default function useAgentTimeline(timeline, opts = {}) {
   const [playing, setPlaying] = useState(autoStart);
   const [speed, setSpeed] = useState(initialSpeed);
 
-  const totalDuration = timeline.length ? timeline[timeline.length - 1].at : 0;
+  const scaled = useMemo(() => timeline.map((e) => ({ ...e, at: Math.round(e.at * PACE) })), [timeline]);
+  const totalDuration = scaled.length ? scaled[scaled.length - 1].at : 0;
 
   useEffect(() => {
     if (!playing) return;
@@ -34,7 +40,7 @@ export default function useAgentTimeline(timeline, opts = {}) {
     return () => clearInterval(id);
   }, [playing, speed, totalDuration]);
 
-  const events = useMemo(() => timeline.filter((e) => e.at <= elapsed), [timeline, elapsed]);
+  const events = useMemo(() => scaled.filter((e) => e.at <= elapsed), [scaled, elapsed]);
 
   // Agent + sub states derived from events seen so far
   const { agents, subs, latencies, summaries, narrate } = useMemo(() => {

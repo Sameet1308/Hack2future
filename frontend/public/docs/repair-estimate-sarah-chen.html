@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Repair Estimate — CLM Sarah Chen</title>
+<style>
+  :root{ --ink:#0f172a; --mut:#475569; --line:#e2e8f0; --brand:#2563eb; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#f1f5f9;color:var(--ink);padding:24px}
+  .page{max-width:760px;margin:0 auto;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.08);border-radius:6px;overflow:hidden}
+  .head{padding:24px 32px;border-bottom:3px solid var(--brand);display:flex;justify-content:space-between;align-items:flex-start}
+  .head h1{font-size:18px;font-weight:800} .head p{font-size:12px;color:var(--mut);margin-top:2px}
+  .head .r{text-align:right;font-size:12px;color:var(--mut)}
+  .body{padding:24px 32px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 28px;margin-bottom:18px}
+  .row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed var(--line);font-size:13px}
+  .row .k{color:var(--mut)} .row .v{font-weight:600}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);background:#f8fafc}
+  td.amt{text-align:right;font-family:ui-monospace,monospace;font-weight:600}
+  .tot{display:flex;flex-direction:column;align-items:flex-end;gap:4px;margin-top:14px;font-size:13px}
+  .tot .line{display:flex;gap:24px} .tot .grand{font-size:18px;font-weight:800;color:var(--brand)}
+  .foot{padding:14px 32px;background:#f8fafc;border-top:1px solid var(--line);font-size:11px;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="head">
+    <div><h1>Bay Area Collision Center</h1><p>Licensed Auto Body Repair · BAR #ARD-00241784</p></div>
+    <div class="r">Estimate #EST-2026-5512<br/>Date: Jun 15, 2026</div>
+  </div>
+  <div class="body">
+    <div class="grid">
+      <div class="row"><span class="k">Customer</span><span class="v">Sarah Chen</span></div>
+      <div class="row"><span class="k">Policy</span><span class="v">POL-2026-0847</span></div>
+      <div class="row"><span class="k">Vehicle</span><span class="v">2022 Honda Civic LX</span></div>
+      <div class="row"><span class="k">VIN</span><span class="v" style="font-family:ui-monospace,monospace">1HGBH41JXMN109186</span></div>
+      <div class="row"><span class="k">Damage area</span><span class="v">Rear bumper / right quarter</span></div>
+      <div class="row"><span class="k">Cause</span><span class="v">Rear-end collision</span></div>
+    </div>
+    <table>
+      <thead><tr><th>Line</th><th>Operation</th><th style="text-align:right">Amount</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Rear bumper cover — replace &amp; refinish</td><td class="amt">$ 940</td></tr>
+        <tr><td>2</td><td>Right tail light assembly — replace</td><td class="amt">$ 410</td></tr>
+        <tr><td>3</td><td>Right rear quarter panel — repair &amp; blend</td><td class="amt">$ 880</td></tr>
+        <tr><td>4</td><td>Bumper reinforcement bar — replace</td><td class="amt">$ 265</td></tr>
+        <tr><td>5</td><td>Paint materials &amp; clear coat</td><td class="amt">$ 305</td></tr>
+        <tr><td>6</td><td>Labor — body &amp; refinish (14.0 hrs @ $58)</td><td class="amt">$ 812</td></tr>
+      </tbody>
+    </table>
+    <div class="tot">
+      <div class="line"><span style="color:var(--mut)">Subtotal</span><span>$ 3,612</span></div>
+      <div class="line"><span style="color:var(--mut)">Less deductible</span><span>– $ 500</span></div>
+      <div class="line grand"><span>Net payable</span><span>$ 3,112</span></div>
+    </div>
+  </div>
+  <div class="foot">Estimate valid 30 days. Supplements may apply upon teardown. AI Elites direct-repair network shop.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Agentic Claim Settlement — Team AI Elites</title>
+<style>
+  :root{
+    --deep:#0a0f1e; --card:#141f3a;
+    --blue:#3b82f6; --blue2:#60a5fa; --emerald:#34d399; --amber:#fbbf24;
+    --indigo:#818cf8; --rose:#fb7185;
+    --ink:#f1f5f9; --mut:#94a3b8; --mut2:#64748b; --line:rgba(255,255,255,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:radial-gradient(1200px 700px at 70% -10%,#16224a 0%,var(--deep) 55%);
+    color:var(--ink);overflow:hidden;
+  }
+  .stage{position:fixed;inset:0}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+    padding:6.5vh 8vw;opacity:0;transition:opacity .4s ease}
+  .slide.active{display:flex;opacity:1}
+  .eyebrow{font-size:clamp(11px,1.2vw,15px);letter-spacing:.22em;text-transform:uppercase;color:var(--blue2);font-weight:700;margin-bottom:2vh}
+  h1{font-size:clamp(32px,5.4vw,70px);line-height:1.03;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:clamp(26px,4.1vw,52px);line-height:1.07;font-weight:800;letter-spacing:-.02em}
+  .lead{font-size:clamp(16px,1.95vw,27px);color:var(--mut);margin-top:2.6vh;max-width:62ch;line-height:1.4}
+  .accent{color:var(--blue2)} .em{color:var(--emerald)} .am{color:var(--amber)} .ro{color:var(--rose)}
+  .pill{display:inline-flex;align-items:center;gap:.5em;background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:.5em 1em;font-size:clamp(11px,1.1vw,14px);color:var(--mut)}
+  .row{display:flex;gap:1vw;flex-wrap:wrap;margin-top:3.4vh}
+  .grid{display:grid;gap:2vh 2vw;margin-top:4vh}
+  .stat .n{font-size:clamp(26px,3.9vw,52px);font-weight:800;letter-spacing:-.02em;line-height:1}
+  .stat .l{font-size:clamp(12px,1.25vw,16px);color:var(--mut);margin-top:.8vh;line-height:1.3}
+  .src{font-size:clamp(9px,.85vw,11px);color:var(--mut2);margin-top:.6vh;font-style:italic}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:2.2vh 1.5vw}
+  .flow{display:flex;align-items:stretch;gap:.7vw;margin-top:4vh;flex-wrap:wrap}
+  .node{flex:1;min-width:115px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:1.8vh .9vw;text-align:center}
+  .node .t{font-weight:700;font-size:clamp(12px,1.2vw,16px)} .node .s{font-size:clamp(10px,.95vw,13px);color:var(--mut2);margin-top:.5vh}
+  .arrow{align-self:center;color:var(--mut2);font-size:1.5vw}
+  .glass{margin-top:2.6vh;background:linear-gradient(90deg,rgba(52,211,153,.12),transparent);
+    border:1px solid rgba(52,211,153,.3);border-radius:13px;padding:1.8vh 1.5vw;color:var(--emerald);
+    font-size:clamp(12px,1.3vw,18px);font-weight:600}
+  .bigcue{display:flex;align-items:center;gap:1.2vw;margin-top:4vh}
+  .bigcue .dot{width:14px;height:14px;border-radius:50%;background:var(--emerald);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}70%{box-shadow:0 0 0 14px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+  .ba2{display:grid;grid-template-columns:1fr auto 1fr;gap:2vw;align-items:center;margin-top:4vh}
+  .ba{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:2.6vh 1.8vw}
+  .ba.before{border-color:rgba(251,113,133,.3)} .ba.after{border-color:rgba(52,211,153,.35)}
+  .ba h3{font-size:clamp(12px,1.2vw,15px);text-transform:uppercase;letter-spacing:.14em;color:var(--mut);margin-bottom:1.2vh}
+  .ba ul{list-style:none} .ba li{font-size:clamp(14px,1.5vw,21px);padding:.7vh 0;display:flex;gap:.6em}
+  .ba.before li::before{content:"✕";color:var(--rose)} .ba.after li::before{content:"✓";color:var(--emerald)}
+  .ba-arrow{font-size:2.6vw;color:var(--blue2)}
+  .timeline{display:flex;gap:1vw;margin-top:4vh}
+  .ti{flex:1;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:2.2vh 1.3vw}
+  .ti .ph{font-size:clamp(11px,1.1vw,14px);color:var(--blue2);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+  .ti .d{font-size:clamp(13px,1.35vw,18px);margin-top:1vh}
+  .reflist{margin-top:3vh;columns:2;column-gap:3vw;font-size:clamp(11px,1.1vw,14px);color:var(--mut);line-height:1.7}
+  .footer{position:fixed;bottom:3vh;left:8vw;right:8vw;display:flex;justify-content:space-between;align-items:center;font-size:clamp(10px,1vw,13px);color:var(--mut2)}
+  .brand{display:flex;align-items:center;gap:.6em;font-weight:700;color:var(--mut)}
+  .logo{width:1.7em;height:1.7em;border-radius:7px;background:linear-gradient(135deg,var(--indigo),var(--blue));display:flex;align-items:center;justify-content:center;font-size:.8em;color:#fff;font-weight:800}
+  .dots{display:flex;gap:.5em} .dots i{width:8px;height:8px;border-radius:50%;background:var(--mut2);opacity:.4;cursor:pointer;transition:.2s}
+  .dots i.on{opacity:1;background:var(--blue2);width:22px;border-radius:5px}
+  .hint{position:fixed;bottom:3vh;left:50%;transform:translateX(-50%);color:var(--mut2);font-size:12px;opacity:.55}
+  kbd{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:11px}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- 1 · TITLE — lead with the value, not the product name -->
+  <section class="slide active">
+    <div class="eyebrow">Team AI Elites · Hack2Future · Agentic Claims Processing</div>
+    <h1>Auto claims that settle<br/>in <span class="em">minutes</span> — not weeks.</h1>
+    <p class="lead">A multi-agent AI system that takes an auto claim from first notice to payment
+      automatically — collapsing a ~3-week cycle into a conversation. Compliant by design.</p>
+    <div class="row"><span class="pill">Product: Glass Box AI</span><span class="pill">100% Microsoft Azure</span><span class="pill">Presented by Sameet · distributed team</span></div>
+  </section>
+
+  <!-- 2 · THE PROBLEM — cost + time + margin (people, then dollars) -->
+  <section class="slide">
+    <div class="eyebrow">The problem</div>
+    <h2>Settling an auto claim is <span class="am">slow</span>, <span class="am">costly</span>,<br/>and it's bleeding the industry.</h2>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+      <div class="stat"><div class="n am">22 days</div><div class="l">average repair turnaround on a claim</div><div class="src">J.D. Power, 2024 Auto Claims Study</div></div>
+      <div class="stat"><div class="n">$314.8B</div><div class="l">US auto premiums — the largest P&C line</div><div class="src">NAIC, 2023</div></div>
+      <div class="stat"><div class="n ro">104.9%</div><div class="l">combined ratio — an underwriting loss, 3rd straight year</div><div class="src">Triple-I, 2023</div></div>
+      <div class="stat"><div class="n ro">75–85¢</div><div class="l">of every premium $ goes to losses + settling them</div><div class="src">Triple-I</div></div>
+    </div>
+    <p class="lead">Carriers are losing money on every policy — and the slow, manual claim is where cost and customer trust both leak.</p>
+  </section>
+
+  <!-- 3 · THE OPPORTUNITY — why agentic AI, why now -->
+  <section class="slide">
+    <div class="eyebrow">The opportunity · why now</div>
+    <h2>AI can settle most claims<br/>with <span class="em">no human touch</span>.</h2>
+    <div class="row">
+      <div class="card" style="max-width:46ch"><div class="stat"><div class="n em">&gt;90%</div><div class="l">straight-through processing possible for personal-lines claims — "from days to hours or minutes"</div><div class="src">McKinsey, "Insurance 2030"</div></div></div>
+      <div class="card" style="max-width:40ch"><div class="stat"><div class="n em">25–30%</div><div class="l">cut in loss-adjustment expense — the cost of settling claims</div><div class="src">McKinsey, "Claims 2030"</div></div></div>
+    </div>
+    <p class="lead">The technology is finally ready — and because every decision is recorded in plain English,
+      it's <span class="accent">auditable from day one</span>.</p>
+  </section>
+
+  <!-- 4 · THE SOLUTION — the agentic settlement engine (the core theme) -->
+  <section class="slide">
+    <div class="eyebrow">Our solution</div>
+    <h2>Five specialist agents<br/>settle the claim, end to end.</h2>
+    <div class="flow">
+      <div class="node"><div class="t">Intake</div><div class="s">Copilot Studio · talks to the customer</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="t">Extraction</div><div class="s">Document Intelligence · reads evidence</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="t">Policy</div><div class="s">AI Search · confirms coverage</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="t">Validation</div><div class="s">7 checks · fraud + facts</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="t">Adjudication</div><div class="s">Azure OpenAI · decides + pays</div></div>
+    </div>
+    <div class="glass">Every step is logged in plain English to an auditable trail — our "Glass Box" — so the system is compliant the moment it ships.</div>
+  </section>
+
+  <!-- 5 · LIVE DEMO CUE -->
+  <section class="slide">
+    <div class="eyebrow">Live demo</div>
+    <h2>Watch one claim settle —<br/>in real time.</h2>
+    <div class="bigcue"><span class="dot"></span><span class="lead" style="margin-top:0">Switch to the live app: Sarah files by talking → the agents decide → the adjuster approves → a real email lands in her inbox, payment on the way.</span></div>
+  </section>
+
+  <!-- 6 · ARCHITECTURE -->
+  <section class="slide">
+    <div class="eyebrow">Architecture · 100% Microsoft Azure</div>
+    <h2>The engine under the agents.</h2>
+    <div class="flow">
+      <div class="node"><div class="t">Copilot Studio</div><div class="s">Conversational intake</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="t">Power Automate</div><div class="s">Agent orchestration</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="t">Azure AI</div><div class="s">Doc Intelligence · AI Search · OpenAI GPT-4.1</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="t">Dataverse</div><div class="s">Claims + audit trail</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="t">Comm. Services</div><div class="s">Email / SMS / Teams</div></div>
+    </div>
+    <div class="glass">All provisioned in one Azure tenant — the email you just saw was sent live from Azure Communication Services. (Show the rg-glassbox portal.)</div>
+  </section>
+
+  <!-- 7 · IMPACT A — the cost of the status quo (the $ we attack) -->
+  <section class="slide">
+    <div class="eyebrow">Business impact · the cost we attack</div>
+    <h2>What slow, opaque claims<br/>cost the industry.</h2>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat"><div class="n ro">$45B</div><div class="l">P&C insurance fraud per year — much of it auto</div><div class="src">Coalition Against Insurance Fraud, 2022</div></div>
+      <div class="stat"><div class="n ro">21%</div><div class="l">of auto injury claims show fraud or buildup</div><div class="src">Insurance Research Council</div></div>
+      <div class="stat"><div class="n ro">$170B</div><div class="l">global premiums at risk by 2027 from poor claims experiences — 30% of unhappy customers already switched</div><div class="src">Accenture, 2022</div></div>
+    </div>
+    <p class="lead">Slow settlement loses customers; weak validation loses money to fraud. Our agents attack both at once.</p>
+  </section>
+
+  <!-- 8 · IMPACT B — what our solution delivers (time, cost, resource, revenue) -->
+  <section class="slide">
+    <div class="eyebrow">Business impact · what our solution delivers</div>
+    <h2>Faster, cheaper, and it<br/><span class="em">keeps customers</span>.</h2>
+    <div class="grid" style="grid-template-columns:repeat(2,1fr) repeat(2,1fr)">
+      <div class="stat"><div class="n em">Days → min</div><div class="l"><b>Time:</b> straight-through settlement on clean claims</div><div class="src">McKinsey "Insurance 2030"</div></div>
+      <div class="stat"><div class="n em">25–30%</div><div class="l"><b>Cost:</b> lower loss-adjustment expense per claim</div><div class="src">McKinsey "Claims 2030"</div></div>
+      <div class="stat"><div class="n em">$80–160B</div><div class="l"><b>Fraud:</b> P&C savings from AI across the lifecycle by 2032</div><div class="src">Deloitte, 2025</div></div>
+      <div class="stat"><div class="n em">~$40M</div><div class="l"><b>Proven:</b> one US insurer's auto-claims rebuild — 3-day cycle cut, 92% satisfaction</div><div class="src">Deloitte case study</div></div>
+    </div>
+    <p class="lead"><b>Resource:</b> agents handle the routine; adjusters focus only on Tier-2/3 exceptions. Same team, far more throughput.</p>
+  </section>
+
+  <!-- 9 · ROADMAP + GTM -->
+  <section class="slide">
+    <div class="eyebrow">Roadmap & go-to-market</div>
+    <h2>From auto claims to<br/><span class="accent">any regulated decision</span>.</h2>
+    <div class="timeline">
+      <div class="ti"><div class="ph">Now</div><div class="d">Auto claims, full agentic pipeline, real Azure stack</div></div>
+      <div class="ti"><div class="ph">Next</div><div class="d">Live industry feeds (ISO, NICB, CARFAX…), voice intake, Teams adjuster</div></div>
+      <div class="ti"><div class="ph">Then</div><div class="d">Underwriting, lending, benefits — same agentic + audit layer</div></div>
+    </div>
+    <p class="lead">Ships on the carrier's <span class="accent">existing</span> Microsoft tenant — no new vendor risk, no rip-and-replace. We sell speed and compliance as one product.</p>
+  </section>
+
+  <!-- 10 · CLOSE / CTA -->
+  <section class="slide">
+    <div class="eyebrow">The ask</div>
+    <h1>Settlement in minutes.<br/>Trust that's <span class="em">auditable</span>.</h1>
+    <p class="lead">AI agents that settle the routine, escalate the rest, and prove every decision — on a 100% Microsoft stack.
+      <br/><span class="accent">Our ask: a pilot on synthetic claims through the full pipeline.</span></p>
+    <div class="row"><span class="pill">Glass Box AI · Team AI Elites</span></div>
+  </section>
+
+  <!-- 11 · SOURCES -->
+  <section class="slide">
+    <div class="eyebrow">Sources</div>
+    <h2 style="font-size:clamp(22px,3vw,38px)">Every number, attributed.</h2>
+    <div class="reflist">
+      <div>NAIC — 2023 Market Share Report (auto premiums)</div>
+      <div>Triple-I (Insurance Information Institute) — Auto underwriting, 2023–24</div>
+      <div>J.D. Power — 2024 & 2025 US Auto Claims Satisfaction Study</div>
+      <div>McKinsey — "Insurance 2030: The impact of AI" (2018)</div>
+      <div>McKinsey — "Claims 2030: Dream or reality?"</div>
+      <div>Deloitte — AI fraud-savings analysis, 2025 (via Insurance Journal)</div>
+      <div>Deloitte — US P&C auto-claims case study</div>
+      <div>Accenture — Claims experience research, 2022</div>
+      <div>Coalition Against Insurance Fraud — Impact of Fraud, 2022</div>
+      <div>Insurance Research Council — Auto injury fraud/buildup</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <div class="brand"><span class="logo">AE</span> AI Elites · Agentic Claim Settlement</div>
+  <div class="dots" id="dots"></div>
+</div>
+<div class="hint">Navigate with <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> · <kbd>F</kbd> fullscreen</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const dotsWrap=document.getElementById('dots');
+  let i=0;
+  slides.forEach((_,n)=>{const d=document.createElement('i');d.onclick=()=>go(n);dotsWrap.appendChild(d);});
+  const dots=[...dotsWrap.children];
+  function go(n){i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dots.forEach((d,k)=>d.classList.toggle('on',k===i));}
+  function next(){go(i+1)} function prev(){go(i-1)}
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();next();}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev();}
+    else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(slides.length-1);}
+    else if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+  });
+  document.addEventListener('click',e=>{ if(!e.target.closest('.dots')) next(); });
+  go(0);
+</script>
+</body>
+</html>

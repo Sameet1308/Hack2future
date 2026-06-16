@@ -1,17 +1,30 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { mockClaims } from '../data/mockClaims.js';
+import { listClaims } from '../api/claims.js';
 
 export default function Queue() {
-  const tier2 = mockClaims.filter((c) => c.tier === 2).length;
-  const tier3 = mockClaims.filter((c) => c.tier === 3).length;
-  const auto = mockClaims.filter((c) => c.tier === 1).length;
+  const [live, setLive] = useState([]);
+  useEffect(() => {
+    let on = true;
+    const refresh = () => listClaims().then((c) => { if (on) setLive(c); });
+    refresh();                                   // on mount
+    const iv = setInterval(refresh, 4000);       // poll so new claims appear
+    window.addEventListener('focus', refresh);   // refresh when switching to this tab
+    return () => { on = false; clearInterval(iv); window.removeEventListener('focus', refresh); };
+  }, []);
+  const allClaims = [...live, ...mockClaims];
+
+  const tier2 = allClaims.filter((c) => c.tier === 2).length;
+  const tier3 = allClaims.filter((c) => c.tier === 3).length;
+  const auto = allClaims.filter((c) => c.tier === 1).length;
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-8">
       <div className="flex items-end justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Claims queue</h1>
-          <p className="text-sm text-slate-500 mt-1">{mockClaims.length} claims · last refreshed just now</p>
+          <p className="text-sm text-slate-500 mt-1">{allClaims.length} claims · last refreshed just now</p>
         </div>
         <div className="flex items-center gap-2">
           <button className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:bg-slate-50">
@@ -45,10 +58,13 @@ export default function Queue() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {mockClaims.map((c) => (
-              <tr key={c.id} className="hover:bg-slate-50/60 transition-colors">
+            {allClaims.map((c) => (
+              <tr key={c.id} className={`hover:bg-slate-50/60 transition-colors ${c.live ? 'bg-brand-50/40' : ''}`}>
                 <td className="px-5 py-4">
-                  <p className="font-mono text-xs text-slate-500">{c.id}</p>
+                  <p className="font-mono text-xs text-slate-500 flex items-center gap-1.5">
+                    {c.id}
+                    {c.live && <span className="px-1.5 py-0.5 bg-brand-100 text-brand-700 text-[9px] font-bold rounded">NEW</span>}
+                  </p>
                   <p className="text-xs text-slate-400">{c.submittedAt}</p>
                 </td>
                 <td className="px-5 py-4">
@@ -75,10 +91,10 @@ export default function Queue() {
                   <Link
                     to={`/handler/theater/${c.id}`}
                     className="inline-flex items-center gap-1 text-elite-accent font-semibold hover:underline text-sm mr-3"
-                    title="Watch the AI agents work in real time"
+                    title="Open the Live Decision Console for this claim"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-elite-accent pulse-dot" />
-                    Watch live
+                    Live view
                   </Link>
                   <Link
                     to={`/handler/claim/${c.id}`}

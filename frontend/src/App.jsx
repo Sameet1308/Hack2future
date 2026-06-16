@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import TopProgress from './components/TopProgress.jsx';
 import Landing from './Landing.jsx';
 
 // Customer flow
@@ -11,6 +12,8 @@ import Documents from './customer/Documents.jsx';
 import Review from './customer/Review.jsx';
 import Processing from './customer/Processing.jsx';
 import Success from './customer/Success.jsx';
+import Settlement from './customer/Settlement.jsx';
+import DamageAssess from './customer/DamageAssess.jsx';
 import Chat from './customer/Chat.jsx';
 
 // Handler flow
@@ -22,6 +25,8 @@ import Theater from './handler/Theater.jsx';
 
 export default function App() {
   return (
+    <>
+    <TopProgress />
     <Routes>
       <Route path="/" element={<Landing />} />
 
@@ -38,6 +43,9 @@ export default function App() {
       <Route path="/customer/processing" element={<Processing />} />
       <Route path="/customer/processing/:id" element={<Processing />} />
       <Route path="/customer/success" element={<Success />} />
+      <Route path="/customer/settlement" element={<Settlement />} />
+      <Route path="/customer/settlement/:id" element={<Settlement />} />
+      <Route path="/customer/assess" element={<DamageAssess />} />
 
       {/* Handler routes */}
       <Route path="/handler" element={<Navigate to="/handler/signin" replace />} />
@@ -51,5 +59,6 @@ export default function App() {
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   );
 }
