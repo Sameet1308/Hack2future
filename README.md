@@ -3,6 +3,9 @@
 > Agentic insurance claims processing with an explainable audit trail.
 > Hack2Future — Business Challenge 2. Carrier brand in the demo: **AI Elites**.
 
+**Repository:** https://github.com/Sameet1308/Hack2future
+**Live app:** https://glassbox-fn-1003787.azurewebsites.net
+
 A working prototype of a multi-agent claims system. A policyholder files a First
 Notice of Loss through a conversational assistant, uploads a photo of the damage,
 and a pipeline of specialized AI agents extracts the facts, checks them against the
@@ -13,6 +16,31 @@ This repository contains a **runnable React app** (customer + claims-handler
 surfaces) backed by a small Node server that calls **real Azure AI services**.
 External insurance data feeds (ISO/NICB/CARFAX/DMV/KBB/telematics) are sandbox
 adapters; the AI services are live.
+
+---
+
+## 🔴 Live deployment
+
+The full system runs on Azure — nothing local required:
+
+| | |
+|---|---|
+| **Live app** | https://glassbox-fn-1003787.azurewebsites.net |
+| **Pitch deck** | https://glassbox-fn-1003787.azurewebsites.net/present.html |
+| **Health probe** | https://glassbox-fn-1003787.azurewebsites.net/api/health |
+| **Live claims (real Dataverse)** | https://glassbox-fn-1003787.azurewebsites.net/api/dv/claims |
+
+**How it's hosted:** a single **Azure Functions** app (Windows, **custom handler**)
+launches the Node server (`frontend/server/notify.mjs`), which serves *both* the
+React SPA and the `/api/*` endpoints. The Function authenticates to **Dataverse via
+its system-assigned Managed Identity** (no stored secrets). Real email goes out
+through **Azure Communication Services**; vision, RAG, and adjudication run on
+**Azure OpenAI GPT-4.1** + **Azure AI Search**. Resource group: **`rg-glassbox`**
+(East US 2).
+
+> The evaluation panel can independently verify every Azure / Power Platform
+> resource behind this system — see
+> [`docs/resource_verification_guide.md`](docs/resource_verification_guide.md).
 
 ---
 

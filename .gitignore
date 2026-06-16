@@ -70,12 +70,9 @@ docs/04_daily_tasks.md
 docs/jira_*.csv
 docs/jira_*.md
 
-# Internal ops runbook (infra names, deploy gotchas) — local reference only
-docs/setup/HOSTING_RUNBOOK.md
-
-# Presenter scripts (speaker notes / full speech) — local reference only
-docs/demo_runbook.md
-docs/demo_video_script.md
+# NOTE: demo docs (runbook, speech, hosting runbook, verification guide) are
+# intentionally TRACKED so they can be pulled onto the demo machine. They contain
+# no secrets — only internal notes + Azure resource identifiers (useless without auth).
 
 # Legacy / superseded
 docs/diagrams/architecture.html
