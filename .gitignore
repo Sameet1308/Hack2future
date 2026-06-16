@@ -73,6 +73,9 @@ docs/jira_*.md
 # Internal ops runbook (infra names, deploy gotchas) — local reference only
 docs/setup/HOSTING_RUNBOOK.md
 
+# Presenter cheat-sheet (speaker notes) — local reference only
+docs/demo_runbook.md
+
 # Legacy / superseded
 docs/diagrams/architecture.html
 
