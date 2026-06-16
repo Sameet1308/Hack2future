@@ -29,6 +29,20 @@
   .accent{color:var(--blue2)} .em{color:var(--emerald)} .am{color:var(--amber)} .ro{color:var(--rose)}
   .pill{display:inline-flex;align-items:center;gap:.5em;background:var(--card);border:1px solid var(--line);
     border-radius:999px;padding:.5em 1em;font-size:clamp(11px,1.1vw,14px);color:var(--mut)}
+  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw;margin-top:4vh}
+  .hstat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2vh 1.1vw;position:relative;overflow:hidden}
+  .hstat::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent-c,var(--blue2))}
+  .hstat .k{font-size:clamp(9px,.9vw,12px);text-transform:uppercase;letter-spacing:.14em;color:var(--mut2);font-weight:700;margin-bottom:1vh}
+  .hstat .n{font-size:clamp(21px,3vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1}
+  .hstat .l{font-size:clamp(11px,1.1vw,14px);color:var(--mut);margin-top:1vh;line-height:1.3}
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3vw;margin-top:3.6vh}
+  .pillar{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent-c,var(--blue2));border-radius:16px;padding:2.4vh 1.4vw}
+  .pillar .tag{font-size:clamp(10px,.95vw,13px);text-transform:uppercase;letter-spacing:.14em;color:var(--accent-c,var(--blue2));font-weight:700}
+  .pillar h3{font-size:clamp(15px,1.65vw,22px);font-weight:800;letter-spacing:-.01em;margin:.8vh 0 .4vh}
+  .pillar ul{list-style:none;margin-top:1vh}
+  .pillar li{font-size:clamp(12px,1.2vw,15px);color:var(--mut);line-height:1.35;padding:.7vh 0 .7vh 1.3em;position:relative}
+  .pillar li::before{content:"";position:absolute;left:0;top:1.45em;width:6px;height:6px;border-radius:50%;background:var(--accent-c,var(--blue2));transform:translateY(-50%)}
+  .pillar li b{color:var(--ink);font-weight:700}
   .row{display:flex;gap:1vw;flex-wrap:wrap;margin-top:3.4vh}
   .grid{display:grid;gap:2vh 2vw;margin-top:4vh}
   .stat .n{font-size:clamp(26px,3.9vw,52px);font-weight:800;letter-spacing:-.02em;line-height:1}
@@ -69,13 +83,32 @@
 <body>
 <div class="stage">
 
-  <!-- 1 · TITLE — lead with the value, not the product name -->
+  <!-- 1 · TITLE / IMPACT HERO — the opener carries the whole value story -->
   <section class="slide active">
-    <div class="eyebrow">Team AI Elites · Hack2Future · Agentic Claims Processing</div>
-    <h1>Auto claims that settle<br/>in <span class="em">minutes</span> — not weeks.</h1>
-    <p class="lead">A multi-agent AI system that takes an auto claim from first notice to payment
-      automatically — collapsing a ~3-week cycle into a conversation. Compliant by design.</p>
-    <div class="row"><span class="pill">Product: Glass Box AI</span><span class="pill">100% Microsoft Azure</span><span class="pill">Presented by Sameet · distributed team</span></div>
+    <div class="eyebrow">Team AI Elites · Hack2Future · First Notice of Loss — the moment that matters most</div>
+    <h1>You've just been rear-ended.<br/><span class="em">Minutes later</span>, your claim is settled.</h1>
+    <p class="lead">It's raining, you're shaken — you open the app and just talk. Filed, policy verified, adjuster assigned,
+      reference number in your inbox. <b style="color:var(--ink)">No hold music. No forms. No back-and-forth.</b>
+      That's <b style="color:var(--ink)">Glass Box AI</b> — five specialist agents settling an auto claim from first notice to payment, on 100% Microsoft Azure.</p>
+    <div class="hero-stats">
+      <div class="hstat" style="--accent-c:var(--emerald)">
+        <div class="k">Cycle time</div><div class="n em">~3 wks → min</div>
+        <div class="l">First notice to settlement on a clean claim</div>
+      </div>
+      <div class="hstat" style="--accent-c:var(--blue2)">
+        <div class="k">Cost to settle</div><div class="n accent">25–30% ↓</div>
+        <div class="l">Lower loss-adjustment expense per claim</div>
+      </div>
+      <div class="hstat" style="--accent-c:var(--indigo)">
+        <div class="k">Automation</div><div class="n" style="color:var(--indigo)">&gt;90%</div>
+        <div class="l">Of personal-lines claims can settle straight-through</div>
+      </div>
+      <div class="hstat" style="--accent-c:var(--amber)">
+        <div class="k">Compliance</div><div class="n am">100%</div>
+        <div class="l">Decisions auditable in plain English — compliant by design</div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:3vh"><span class="pill">Product: Glass Box AI</span><span class="pill">100% Microsoft Azure</span><span class="pill">Live, working demo</span><span class="pill">Presented by Sameet · distributed team</span></div>
   </section>
 
   <!-- 2 · THE PROBLEM — cost + time + margin (people, then dollars) -->
@@ -84,26 +117,14 @@
     <h2>Settling an auto claim is <span class="am">slow</span>, <span class="am">costly</span>,<br/>and it's bleeding the industry.</h2>
     <div class="grid" style="grid-template-columns:repeat(4,1fr)">
       <div class="stat"><div class="n am">22 days</div><div class="l">average repair turnaround on a claim</div><div class="src">J.D. Power, 2024 Auto Claims Study</div></div>
-      <div class="stat"><div class="n">$314.8B</div><div class="l">US auto premiums — the largest P&C line</div><div class="src">NAIC, 2023</div></div>
       <div class="stat"><div class="n ro">104.9%</div><div class="l">combined ratio — an underwriting loss, 3rd straight year</div><div class="src">Triple-I, 2023</div></div>
-      <div class="stat"><div class="n ro">75–85¢</div><div class="l">of every premium $ goes to losses + settling them</div><div class="src">Triple-I</div></div>
+      <div class="stat"><div class="n ro">$45B</div><div class="l">P&C insurance fraud a year — much of it auto</div><div class="src">Coalition Against Insurance Fraud</div></div>
+      <div class="stat"><div class="n ro">$170B</div><div class="l">premiums at risk by 2027 from poor claims experience — 30% already switched</div><div class="src">Accenture, 2022</div></div>
     </div>
-    <p class="lead">Carriers are losing money on every policy — and the slow, manual claim is where cost and customer trust both leak.</p>
+    <p class="lead">Carriers lose on the policy <b style="color:var(--ink)">and</b> at the claim: slow settlement bleeds customers, weak validation bleeds money to fraud. The manual FNOL is where both leaks start — <span class="accent">and where we attack</span>.</p>
   </section>
 
-  <!-- 3 · THE OPPORTUNITY — why agentic AI, why now -->
-  <section class="slide">
-    <div class="eyebrow">The opportunity · why now</div>
-    <h2>AI can settle most claims<br/>with <span class="em">no human touch</span>.</h2>
-    <div class="row">
-      <div class="card" style="max-width:46ch"><div class="stat"><div class="n em">&gt;90%</div><div class="l">straight-through processing possible for personal-lines claims — "from days to hours or minutes"</div><div class="src">McKinsey, "Insurance 2030"</div></div></div>
-      <div class="card" style="max-width:40ch"><div class="stat"><div class="n em">25–30%</div><div class="l">cut in loss-adjustment expense — the cost of settling claims</div><div class="src">McKinsey, "Claims 2030"</div></div></div>
-    </div>
-    <p class="lead">The technology is finally ready — and because every decision is recorded in plain English,
-      it's <span class="accent">auditable from day one</span>.</p>
-  </section>
-
-  <!-- 4 · THE SOLUTION — the agentic settlement engine (the core theme) -->
+  <!-- 3 · THE SOLUTION — the agentic settlement engine (the core theme) -->
   <section class="slide">
     <div class="eyebrow">Our solution</div>
     <h2>Five specialist agents<br/>settle the claim, end to end.</h2>
@@ -146,19 +167,66 @@
     <div class="glass">All provisioned in one Azure tenant — the email you just saw was sent live from Azure Communication Services. (Show the rg-glassbox portal.)</div>
   </section>
 
-  <!-- 7 · IMPACT A — the cost of the status quo (the $ we attack) -->
+  <!-- 7 · WHY WE WIN — USP · precision · scale -->
   <section class="slide">
-    <div class="eyebrow">Business impact · the cost we attack</div>
-    <h2>What slow, opaque claims<br/>cost the industry.</h2>
-    <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-      <div class="stat"><div class="n ro">$45B</div><div class="l">P&C insurance fraud per year — much of it auto</div><div class="src">Coalition Against Insurance Fraud, 2022</div></div>
-      <div class="stat"><div class="n ro">21%</div><div class="l">of auto injury claims show fraud or buildup</div><div class="src">Insurance Research Council</div></div>
-      <div class="stat"><div class="n ro">$170B</div><div class="l">global premiums at risk by 2027 from poor claims experiences — 30% of unhappy customers already switched</div><div class="src">Accenture, 2022</div></div>
+    <div class="eyebrow">Why Glass Box AI wins</div>
+    <h2>Different by design —<br/><span class="em">precise</span>, and <span class="accent">built to scale</span>.</h2>
+    <div class="pillars">
+      <div class="pillar" style="--accent-c:var(--emerald)">
+        <div class="tag">What makes us different</div>
+        <h3>The only Glass Box</h3>
+        <ul>
+          <li><b>Every</b> decision logged in plain English — auditable from day one, not bolted on. Built to Colorado SB21-169, NAIC &amp; NY DFS.</li>
+          <li><b>Plug-and-play — no front-end rebuild.</b> API-first: drops straight into the carrier's existing app, inside their own Microsoft tenant. No new vendor, no rip-and-replace.</li>
+          <li><b>Human-in-the-loop by design</b> — AI settles the routine, escalates the rest. Never an opaque autopilot.</li>
+        </ul>
+      </div>
+      <div class="pillar" style="--accent-c:var(--blue2)">
+        <div class="tag">How precise</div>
+        <h3>Grounded · scored · cross-checked</h3>
+        <ul>
+          <li><b>RAG with citations</b> — the Policy agent answers from the actual policy document, not a guess. No hallucination.</li>
+          <li><b>Confidence-scored every time</b> — ≥90% auto-settle, 60–90% to an adjuster, &lt;60% human escalation.</li>
+          <li><b>Five agents cross-validate</b> — extraction → coverage → fraud &amp; fact checks → adjudication, each traceable to evidence.</li>
+        </ul>
+      </div>
+      <div class="pillar" style="--accent-c:var(--indigo)">
+        <div class="tag">How scalable</div>
+        <h3>Flat cost at 100M+ policies</h3>
+        <ul>
+          <li><b>Indexed store + Azure AI Search</b> — indexed seeks, not generative scans: latency &amp; token cost stay flat as data grows.</li>
+          <li><b>Serverless + parallel agents</b> — elastic by default; thousands of claims process at once.</li>
+          <li><b>Enterprise Microsoft backbone</b> — Dataverse, Functions &amp; Power Automate scale to carrier volume.</li>
+        </ul>
+      </div>
     </div>
-    <p class="lead">Slow settlement loses customers; weak validation loses money to fraud. Our agents attack both at once.</p>
   </section>
 
-  <!-- 8 · IMPACT B — what our solution delivers (time, cost, resource, revenue) -->
+  <!-- 8 · OUR IP — what's proprietary / patent-pending / custom-built -->
+  <section class="slide">
+    <div class="eyebrow">Our IP · proprietary by design</div>
+    <h2>We engineered the hard parts —<br/><span class="accent">not</span> assembled off-the-shelf.</h2>
+    <div class="glass" style="margin-top:2.6vh">★ <b>Patent-pending — the Glass Box decision-rationale method:</b> a regulation-mapped, plain-English audit record written automatically on <b>every</b> agentic decision (input → reasoning → confidence → outcome), queryable as a compliance artifact. The audit layer is the product, not a log file.</div>
+    <div class="pillars" style="margin-top:2.6vh">
+      <div class="pillar" style="--accent-c:var(--blue2)">
+        <div class="tag">Custom engineering</div>
+        <h3>Confidence-tiered adjudication</h3>
+        <ul><li>Our calibrated scoring + deterministic routing — ≥90% auto-settle, 60–90% adjuster, &lt;60% escalate. The decision methodology is ours, not a stock template.</li></ul>
+      </div>
+      <div class="pillar" style="--accent-c:var(--indigo)">
+        <div class="tag">Custom engineering</div>
+        <h3>Multi-agent cross-validation</h3>
+        <ul><li>Five specialist agents that hand off and check each other — extraction × coverage × fraud &amp; fact — our orchestration graph and prompt design.</li></ul>
+      </div>
+      <div class="pillar" style="--accent-c:var(--emerald)">
+        <div class="tag">Custom engineering</div>
+        <h3>Flat-cost scale layer</h3>
+        <ul><li>A service layer + indexed policy store so agents never scan the system-of-record — flat latency and token cost at 100M+ policies.</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · IMPACT — what our solution delivers (time, cost, resource, revenue) -->
   <section class="slide">
     <div class="eyebrow">Business impact · what our solution delivers</div>
     <h2>Faster, cheaper, and it<br/><span class="em">keeps customers</span>.</h2>
@@ -180,7 +248,7 @@
       <div class="ti"><div class="ph">Next</div><div class="d">Live industry feeds (ISO, NICB, CARFAX…), voice intake, Teams adjuster</div></div>
       <div class="ti"><div class="ph">Then</div><div class="d">Underwriting, lending, benefits — same agentic + audit layer</div></div>
     </div>
-    <p class="lead">Ships on the carrier's <span class="accent">existing</span> Microsoft tenant — no new vendor risk, no rip-and-replace. We sell speed and compliance as one product.</p>
+    <p class="lead">Plug-and-play: ships on the carrier's <span class="accent">existing</span> Microsoft tenant and integrates into their current app — <span class="accent">no front-end rebuild</span>, no new vendor risk, no rip-and-replace. We sell speed and compliance as one product.</p>
   </section>
 
   <!-- 10 · CLOSE / CTA -->
